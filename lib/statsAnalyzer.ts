@@ -415,7 +415,7 @@ export function generatePredictions(
     const intAvg = stats.interceptions?.average || 0;
     if (intAvg < 1.5) {
       const likelihood = calculateLikelihood(
-        stats.interceptions.values.map(v => (v === 0 ? 1 : 0)),
+        stats.interceptions.values.map((v: number) => (v === 0 ? 1 : 0)),
         1
       );
       predictions.push({

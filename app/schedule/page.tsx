@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { sportsdataApi } from '@/lib/sportsdataio';
-import { Calendar, MapPin, Tv } from 'lucide-react';
+import { Calendar, Tv } from 'lucide-react';
 import { format, parseISO, startOfWeek, addWeeks, subWeeks } from 'date-fns';
 
 // Game interface for schedule
@@ -15,6 +15,7 @@ interface Game {
     id: string;
     competitors: Array<{
       id: string;
+      homeAway: 'home' | 'away';
       team: {
         id: string;
         displayName: string;
@@ -22,6 +23,12 @@ interface Game {
       };
       score?: string;
     }>;
+    status: {
+      type: {
+        state: string;
+        completed: boolean;
+      };
+    };
     broadcasts?: Array<{
       names: string[];
     }>;
@@ -52,6 +59,7 @@ export default function SchedulePage() {
             competitors: [
               {
                 id: game.AwayTeam,
+                homeAway: 'away' as const,
                 team: {
                   id: game.AwayTeam,
                   displayName: game.AwayTeam,
@@ -61,6 +69,7 @@ export default function SchedulePage() {
               },
               {
                 id: game.HomeTeam,
+                homeAway: 'home' as const,
                 team: {
                   id: game.HomeTeam,
                   displayName: game.HomeTeam,
@@ -69,6 +78,12 @@ export default function SchedulePage() {
                 score: game.HomeScore?.toString()
               }
             ],
+            status: {
+              type: {
+                state: game.IsClosed ? 'post' : 'pre',
+                completed: game.IsClosed || false
+              }
+            },
             broadcasts: game.Channel ? [{ names: [game.Channel] }] : []
           }]
         }));
@@ -213,11 +228,6 @@ export default function SchedulePage() {
                                     >
                                       {awayTeam.team.displayName}
                                     </Link>
-                                    {awayTeam.records?.[0] && (
-                                      <span className="text-sm text-gray-500">
-                                        ({awayTeam.records[0].summary})
-                                      </span>
-                                    )}
                                   </div>
                                   {awayTeam.score && (
                                     <span className="text-2xl font-bold text-gray-900 ml-4">
@@ -247,11 +257,6 @@ export default function SchedulePage() {
                                     >
                                       {homeTeam.team.displayName}
                                     </Link>
-                                    {homeTeam.records?.[0] && (
-                                      <span className="text-sm text-gray-500">
-                                        ({homeTeam.records[0].summary})
-                                      </span>
-                                    )}
                                   </div>
                                   {homeTeam.score && (
                                     <span className="text-2xl font-bold text-gray-900 ml-4">
@@ -263,19 +268,8 @@ export default function SchedulePage() {
                             </div>
                           </div>
 
-                          {/* Venue and Broadcast Info */}
+                          {/* Broadcast Info */}
                           <div className="md:ml-8 space-y-2 text-sm text-gray-600">
-                            {competition.venue && (
-                              <div className="flex items-start">
-                                <MapPin className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
-                                <div>
-                                  <div className="font-medium">{competition.venue.fullName}</div>
-                                  <div className="text-xs">
-                                    {competition.venue.address.city}, {competition.venue.address.state}
-                                  </div>
-                                </div>
-                              </div>
-                            )}
                             {competition.broadcasts?.[0] && (
                               <div className="flex items-center">
                                 <Tv className="h-4 w-4 mr-2 flex-shrink-0" />

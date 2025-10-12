@@ -4,7 +4,13 @@
  */
 
 import type { SDPlayerGame } from './sportsdataio';
-import type { TopPlayer, Prediction } from './statsAnalyzer';
+import type { TopPlayer } from './statsAnalyzer';
+
+interface Prediction {
+  stat: string;
+  likelihood: number;
+  basis: string;
+}
 
 interface GameLogStats {
   games: number;

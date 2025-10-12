@@ -98,6 +98,25 @@ export interface SDInjury {
   InjuryBodyPart?: string;
 }
 
+export interface SDPlayerSeason {
+  PlayerID: number;
+  Name: string;
+  Team: string;
+  Position: string;
+  Played: number;
+  Started: number;
+  PassingYards?: number;
+  PassingTouchdowns?: number;
+  PassingInterceptions?: number;
+  RushingYards?: number;
+  RushingTouchdowns?: number;
+  RushingAttempts?: number;
+  ReceivingYards?: number;
+  ReceivingTouchdowns?: number;
+  Receptions?: number;
+  ReceivingTargets?: number;
+}
+
 export interface SDStanding {
   Team: string;
   Name: string;
@@ -170,7 +189,7 @@ export const sportsdataApi = {
   /**
    * Get player season stats
    */
-  async getPlayerSeasonStats(season: string): Promise<any[]> {
+  async getPlayerSeasonStats(season: string): Promise<SDPlayerSeason[]> {
     try {
       const response = await axios.get(
         `${STATS_BASE}/PlayerSeasonStats/${season}?key=${API_KEY}`
@@ -266,7 +285,7 @@ export const sportsdataApi = {
   /**
    * Get top performers from current season stats
    */
-  async getTopPerformers(): Promise<SDPlayer[]> {
+  async getTopPerformers(): Promise<SDPlayerSeason[]> {
     try {
       const currentSeason = CURRENT_SEASON;
       

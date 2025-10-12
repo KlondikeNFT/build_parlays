@@ -184,7 +184,7 @@ function PlayerContent() {
                 </div>
               </div>
               <p className="text-xs text-gray-600 mb-4">
-                Drag the sliders to see real-time probability calculations based on {playerData.player.FirstName}'s season performance.
+                Drag the sliders to see real-time probability calculations based on {playerData.player.FirstName}&apos;s season performance.
                 {gameLog.length < 4 && ' (More games = more accurate predictions)'}
               </p>
               

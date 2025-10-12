@@ -59,7 +59,7 @@ export async function getRealTopPlayersFromSportsData(): Promise<TopPlayer[]> {
     console.log(`✅ Found ${seasonStats.length} players with season stats`);
     
     // Step 2: Get injury data
-    const injuries = await sportsdataApi.getInjuries(CURRENT_SEASON);
+    const injuries = await sportsdataApi.getInjuries();
     const injuryMap = buildInjuryMap(injuries);
     console.log(`📋 Loaded ${injuries.length} injury reports`);
     
@@ -126,7 +126,7 @@ export async function getRealTopPlayersFromSportsData(): Promise<TopPlayer[]> {
     
     // Step 8: Sort by consistency and limit
     const sorted = topPlayers
-      .sort((a, b) => b.consistencyScore - a.consistencyScore)
+      .sort((a, b) => b.overallConsistency - a.overallConsistency)
       .slice(0, MAX_TOP_PLAYERS);
     
     console.log(`🎉 Returning ${sorted.length} top players`);
