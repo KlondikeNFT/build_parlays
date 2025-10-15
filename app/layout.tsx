@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Script from 'next/script'
 import './globals.css'
 import Navbar from '@/components/Navbar'
+import OttoPixel from '@/components/OttoPixel'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -103,29 +103,11 @@ export default function RootLayout({
             })
           }}
         />
-        
       </head>
       <body className={inter.className}>
+        <OttoPixel />
         <Navbar />
         {children}
-        
-        {/* SearchAtlas OTTO Pixel - SEO Optimization */}
-        <Script
-          id="searchatlas-otto-pixel"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              var script = document.createElement('script');
-              script.setAttribute('nowprocket', '');
-              script.setAttribute('nitro-exclude', '');
-              script.type = 'text/javascript';
-              script.id = 'sa-dynamic-optimization';
-              script.setAttribute('data-uuid', 'dbb69606-524e-4692-9374-e1d7a2f1ad16');
-              script.src = 'data:text/javascript;base64,dmFyIHNjcmlwdCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpO3NjcmlwdC5zZXRBdHRyaWJ1dGUoIm5vd3Byb2NrZXQiLCAiIik7c2NyaXB0LnNldEF0dHJpYnV0ZSgibml0cm8tZXhjbHVkZSIsICIiKTtzY3JpcHQuc3JjID0gImh0dHBzOi8vZGFzaGJvYXJkLnNlYXJjaGF0bGFzLmNvbS9zY3JpcHRzL2R5bmFtaWNfb3B0aW1pemF0aW9uLmpzIjtzY3JpcHQuZGF0YXNldC51dWlkID0gImRiYjY5NjA2LTUyNGUtNDY5Mi05Mzc0LWUxZDdhMmYxYWQxNiI7c2NyaXB0LmlkID0gInNhLWR5bmFtaWMtb3B0aW1pemF0aW9uLWxvYWRlciI7ZG9jdW1lbnQuaGVhZC5hcHBlbmRDaGlsZChzY3JpcHQpOw==';
-              document.head.appendChild(script);
-            `
-          }}
-        />
       </body>
     </html>
   )
