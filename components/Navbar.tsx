@@ -43,6 +43,12 @@ export default function Navbar() {
             >
               Schedule
             </Link>
+            <Link 
+              href="/about" 
+              className="hover:text-blue-200 transition-colors font-medium"
+            >
+              About
+            </Link>
             
             {/* Search Bar */}
             <form onSubmit={handleSearch} className="relative">
@@ -84,6 +90,13 @@ export default function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               Schedule
+            </Link>
+            <Link
+              href="/about"
+              className="block py-2 hover:text-blue-200 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
             </Link>
             
             {/* Mobile Search */}
