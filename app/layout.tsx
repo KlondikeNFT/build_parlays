@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 
@@ -102,10 +103,28 @@ export default function RootLayout({
             })
           }}
         />
+        
       </head>
       <body className={inter.className}>
         <Navbar />
         {children}
+        
+        {/* SearchAtlas OTTO Pixel - SEO Optimization */}
+        <Script
+          id="sa-dynamic-optimization"
+          strategy="afterInteractive"
+          data-uuid="dbb69606-524e-4692-9374-e1d7a2f1ad16"
+        >
+          {`
+            var script = document.createElement('script');
+            script.setAttribute('nowprocket', '');
+            script.setAttribute('nitro-exclude', '');
+            script.src = 'https://dashboard.searchatlas.com/scripts/dynamic_optimization.js';
+            script.dataset.uuid = 'dbb69606-524e-4692-9374-e1d7a2f1ad16';
+            script.id = 'sa-dynamic-optimization-loader';
+            document.head.appendChild(script);
+          `}
+        </Script>
       </body>
     </html>
   )
