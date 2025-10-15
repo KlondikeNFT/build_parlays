@@ -164,7 +164,7 @@ export default function AboutPage() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Betting Tools</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Whether you're building a simple 2-leg parlay or a complex 8-leg combination, our tools have you covered.
+            Whether you&apos;re building a simple 2-leg parlay or a complex 8-leg combination, our tools have you covered.
           </p>
         </div>
 
@@ -257,7 +257,7 @@ export default function AboutPage() {
             <p className="text-gray-600 mb-6">
               BuildParlays is the premier destination for NFL parlay betting enthusiasts. Our advanced <strong>parlay calculator</strong> 
               combines cutting-edge artificial intelligence with comprehensive NFL data to deliver the most accurate predictions available. 
-              Whether you're a seasoned bettor or new to <strong>parlay betting</strong>, our platform provides all the tools you need to succeed.
+              Whether you&apos;re a seasoned bettor or new to <strong>parlay betting</strong>, our platform provides all the tools you need to succeed.
             </p>
 
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">Why Our Parlay Calculator Stands Out</h3>
@@ -271,14 +271,14 @@ export default function AboutPage() {
             <p className="text-gray-600 mb-6">
               Our <strong>parlay builder</strong> makes it easy to create custom betting combinations. Simply select your desired <strong>parlay legs</strong>, 
               and our calculator will instantly compute the total odds, potential payout, and probability of success. 
-              Whether you're building a simple 2-leg parlay or a complex 8-leg combination, our tools adapt to your betting strategy.
+              Whether you&apos;re building a simple 2-leg parlay or a complex 8-leg combination, our tools adapt to your betting strategy.
             </p>
 
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">NFL Betting Made Simple</h3>
             <p className="text-gray-600 mb-6">
               From <strong>NFL parlays</strong> to individual game bets, our platform covers all aspects of football betting. 
               Our <strong>sports betting calculator</strong> helps you understand odds, calculate payouts, and make informed decisions. 
-              With real-time updates and comprehensive NFL statistics, you'll always have the latest information at your fingertips.
+              With real-time updates and comprehensive NFL statistics, you&apos;ll always have the latest information at your fingertips.
             </p>
 
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">Free Tools, Professional Results</h3>
