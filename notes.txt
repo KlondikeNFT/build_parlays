@@ -152,6 +152,18 @@ Can you help me optimize my site for SEO and to help increase results for people
 
 
 
+I am doing a trial for searchatlas.com to help with seo stuff. It says to install OTTO on your site? is it safe and are we able to?
+
+Their site says this.
+
+To completely automate your SEO with OTTO, you’re going to need to take this final step and add the code below to your site. Trust us, it’s worth it!
+
+The OTTO Pixel is a unique code that is added to your Website CMS. Installing the pixel enables OTTO to perform page modifications and optimizations on your site.
+
+
+OTTO Pixel installation script
+
+<script nowprocket nitro-exclude type="text/javascript" id="sa-dynamic-optimization" data-uuid="dbb69606-524e-4692-9374-e1d7a2f1ad16" src="data:text/javascript;base64,dmFyIHNjcmlwdCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpO3NjcmlwdC5zZXRBdHRyaWJ1dGUoIm5vd3Byb2NrZXQiLCAiIik7c2NyaXB0LnNldEF0dHJpYnV0ZSgibml0cm8tZXhjbHVkZSIsICIiKTtzY3JpcHQuc3JjID0gImh0dHBzOi8vZGFzaGJvYXJkLnNlYXJjaGF0bGFzLmNvbS9zY3JpcHRzL2R5bmFtaWNfb3B0aW1pemF0aW9uLmpzIjtzY3JpcHQuZGF0YXNldC51dWlkID0gImRiYjY5NjA2LTUyNGUtNDY5Mi05Mzc0LWUxZDdhMmYxYWQxNiI7c2NyaXB0LmlkID0gInNhLWR5bmFtaWMtb3B0aW1pemF0aW9uLWxvYWRlciI7ZG9jdW1lbnQuaGVhZC5hcHBlbmRDaGlsZChzY3JpcHQpOw=="></script>
 
 
 

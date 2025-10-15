@@ -12,9 +12,9 @@ import { getStatCategories } from '@/lib/probabilityCalculator';
 function PlayerContent() {
   const params = useParams();
   const searchParams = useSearchParams();
-  const playerId = params.id as string;
-  const team = searchParams.get('team') || '';
-  const playerName = searchParams.get('name') || '';
+  const playerId = params?.id as string;
+  const team = searchParams?.get('team') || '';
+  const playerName = searchParams?.get('name') || '';
   
   const [playerData, setPlayerData] = useState<any>(null);
   const [loading, setLoading] = useState(true);

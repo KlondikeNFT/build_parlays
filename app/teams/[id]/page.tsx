@@ -10,7 +10,7 @@ import { ArrowLeft, Users, AlertCircle, Shield, Zap } from 'lucide-react';
 
 export default function TeamDetailPage() {
   const params = useParams();
-  const teamAbbr = params.id as string;
+  const teamAbbr = params?.id as string;
   const [team, setTeam] = useState<SDTeam | null>(null);
   const [roster, setRoster] = useState<SDPlayer[]>([]);
   const [loading, setLoading] = useState(true);

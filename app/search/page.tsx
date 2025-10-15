@@ -8,7 +8,7 @@ import { searchPlayersAndTeams, getFullTeamName } from '@/lib/playerService';
 
 function SearchContent() {
   const searchParams = useSearchParams();
-  const query = searchParams.get('q') || '';
+  const query = searchParams?.get('q') || '';
   const [searchResults, setSearchResults] = useState<{
     players: any[];
     teams: any[];
