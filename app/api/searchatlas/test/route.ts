@@ -5,32 +5,36 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    // Test the SearchAtlas API connection
-    const isConnected = await verifySearchAtlasConnection();
+    // Test basic API connection first
+    const connectionTest = await searchAtlasAPI.testConnection();
     
-    if (!isConnected) {
+    if (!connectionTest.success) {
       return NextResponse.json({
         success: false,
-        error: 'Failed to connect to SearchAtlas API'
+        error: 'Failed to connect to SearchAtlas API',
+        details: connectionTest.error,
+        timestamp: new Date().toISOString()
       }, { status: 500 });
     }
 
-    // Get account information
+    // Try to get account information
     const accountInfo = await searchAtlasAPI.getAccountInfo();
     
-    // Get projects
+    // Try to get projects
     const projects = await searchAtlasAPI.getProjects();
-    
-    // Get SEO insights for your site
-    const seoInsights = await searchAtlasAPI.getSEOInsights('https://buildparlays.com');
 
     return NextResponse.json({
       success: true,
       data: {
         connection: 'Connected successfully',
+        connectionTest,
         accountInfo,
         projects,
-        seoInsights,
+        config: {
+          apiKey: '647158ea5a2d902fcfeeab62e5022c8f',
+          accountId: '160-817',
+          baseUrl: 'https://dashboard.searchatlas.com/api'
+        },
         timestamp: new Date().toISOString()
       }
     });

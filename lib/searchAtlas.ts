@@ -11,7 +11,7 @@ export interface SearchAtlasConfig {
 export const searchAtlasConfig: SearchAtlasConfig = {
   apiKey: '647158ea5a2d902fcfeeab62e5022c8f',
   accountId: '160-817',
-  baseUrl: 'https://api.searchatlas.com'
+  baseUrl: 'https://dashboard.searchatlas.com/api'
 };
 
 export interface SearchAtlasResponse {
@@ -55,39 +55,44 @@ export class SearchAtlasAPI {
     }
   }
 
+  // Test API connection with a simple endpoint
+  async testConnection(): Promise<SearchAtlasResponse> {
+    return this.makeRequest('/test');
+  }
+
   // Get account information
   async getAccountInfo(): Promise<SearchAtlasResponse> {
-    return this.makeRequest(`/accounts/${this.config.accountId}`);
+    return this.makeRequest(`/v1/account`);
   }
 
   // Get projects for the account
   async getProjects(): Promise<SearchAtlasResponse> {
-    return this.makeRequest(`/accounts/${this.config.accountId}/projects`);
+    return this.makeRequest(`/v1/projects`);
   }
 
   // Get SEO insights for a URL
   async getSEOInsights(url: string): Promise<SearchAtlasResponse> {
-    return this.makeRequest(`/seo/insights?url=${encodeURIComponent(url)}`);
+    return this.makeRequest(`/v1/seo/analyze?url=${encodeURIComponent(url)}`);
   }
 
   // Get keyword data
   async getKeywordData(keyword: string): Promise<SearchAtlasResponse> {
-    return this.makeRequest(`/keywords/search?keyword=${encodeURIComponent(keyword)}`);
+    return this.makeRequest(`/v1/keywords?keyword=${encodeURIComponent(keyword)}`);
   }
 
   // Get competitor analysis
   async getCompetitorAnalysis(domain: string): Promise<SearchAtlasResponse> {
-    return this.makeRequest(`/competitors/analysis?domain=${encodeURIComponent(domain)}`);
+    return this.makeRequest(`/v1/competitors?domain=${encodeURIComponent(domain)}`);
   }
 
   // Get backlink data
   async getBacklinks(domain: string): Promise<SearchAtlasResponse> {
-    return this.makeRequest(`/backlinks/overview?domain=${encodeURIComponent(domain)}`);
+    return this.makeRequest(`/v1/backlinks?domain=${encodeURIComponent(domain)}`);
   }
 
   // Get site audit data
   async getSiteAudit(domain: string): Promise<SearchAtlasResponse> {
-    return this.makeRequest(`/audits/site?domain=${encodeURIComponent(domain)}`);
+    return this.makeRequest(`/v1/audit?domain=${encodeURIComponent(domain)}`);
   }
 }
 
