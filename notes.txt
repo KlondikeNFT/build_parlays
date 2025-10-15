@@ -119,6 +119,36 @@ then below the bars we can have their season stats displayed. I think this would
 
 
 
+So I notice every time we use the site we are making api calls. I would like to create a mock db with a player called mock and give themmock stats so that while I build and work on the site in local host I can just search the player mock and v iew them so I can work on functions and see everything and test everything without making calls etc. So I would like you to do this and also for this to work we will need to make our search bar functional so that it can actually search things such as players.
+
+
+
+
+
+
+Perfect thank you. Now I was thinking about the volatility score. What if we removed that. Then instead added a volitility banner or caption for each of the stats available for that player with the silding bars. So it could do the volatility identification and scoring for each individual stat type rather than one total score which says less. so for example it could do it for passing yards accross all games played this season.
+
+
+
+
+
+I'd like to do some SEO work to start making my site appear at the top of search results. So of course my main domain is BuildParlays.com here are my other domains I own that I have redirrected directly to my site.
+
+1parlay.com
+1parlays.com
+buildparlay.com
+buildparlays.com
+cashparlay.com
+collegeparlays.com
+makeparalys.com
+parlaylegs.com
+parlayodd.com
+textparlay.com
+textparlays.com
+
+Can you help me optimize my site for SEO and to help increase results for people searching parlays and etc. on the internet? Of course naturally I would love to make it so that it always is a top result for almost all searches related to sports betting and parlays hahaha
+
+
 
 
 

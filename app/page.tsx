@@ -203,34 +203,31 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white py-20">
+      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <Sparkles className="h-8 w-8 text-yellow-300 mr-3" />
-              <span className="text-sm font-semibold uppercase tracking-wider text-yellow-300 bg-yellow-400/10 px-4 py-2 rounded-full">
+            <div className="flex items-center justify-center mb-3">
+              <Sparkles className="h-6 w-6 text-yellow-300 mr-2" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-yellow-300 bg-yellow-400/10 px-3 py-1.5 rounded-full">
                 AI-Powered Analytics
               </span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
               BuildParlays
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100">
-              AI Sports Calculator for Smart NFL Betting
+            <p className="text-lg md:text-xl mb-6 text-blue-100">
+              Free AI Parlay Calculator for Smart NFL Betting
             </p>
-            <p className="text-lg text-blue-200 max-w-3xl mx-auto mb-10">
-              Harness the power of artificial intelligence to analyze NFL player stats, predict outcomes, and build winning parlays with data-driven insights.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/teams"
-                className="bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors shadow-lg"
+                className="bg-white text-blue-900 px-6 py-2.5 rounded-full font-semibold hover:bg-blue-50 transition-colors shadow-lg text-sm"
               >
                 Explore Teams
               </Link>
               <Link
                 href="/schedule"
-                className="bg-blue-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-600 transition-colors shadow-lg"
+                className="bg-blue-700 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-blue-600 transition-colors shadow-lg text-sm"
               >
                 View Schedule
               </Link>
@@ -240,11 +237,10 @@ export default function Home() {
       </section>
 
       {/* Disclaimer Section */}
-      <section className="bg-yellow-50 border-y border-yellow-200 py-4">
+      <section className="bg-yellow-50 border-y border-yellow-200 py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm md:text-base text-gray-700">
-            <span className="font-semibold">Disclaimer:</span> BuildParlays has no affiliation with any casino or sportsbook organizations. 
-            All predictions are for informational and entertainment purposes only.
+          <p className="text-center text-xs sm:text-sm md:text-sm lg:text-base text-gray-700">
+            <span className="font-semibold">Disclaimer:</span> BuildParlays has no affiliation with any casino or sportsbook organizations. All predictions are for informational and entertainment purposes only.
           </p>
         </div>
       </section>
@@ -256,9 +252,9 @@ export default function Home() {
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
                 <Sparkles className="h-7 w-7 text-yellow-500 mr-3" />
-                This Week&apos;s Top Players
+                This Week&apos;s Top Parlay Players
               </h2>
-              <p className="text-gray-600">AI-calculated predictions based on consistent performance and low volatility</p>
+              <p className="text-gray-600">AI-calculated parlay predictions based on consistent performance and low volatility</p>
             </div>
             <div className="hidden md:flex gap-2">
               <button 
@@ -293,9 +289,9 @@ export default function Home() {
         ) : topPlayers.length === 0 ? (
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-8 text-center">
             <Sparkles className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-            <p className="text-gray-700 mb-2 font-semibold">Featured Players Coming Soon</p>
+            <p className="text-gray-700 mb-2 font-semibold">Featured Parlay Players Coming Soon</p>
             <p className="text-gray-600 text-sm">
-              Check out Teams and Schedule pages to explore NFL data!
+              Check out Teams and Schedule pages to explore NFL parlay data!
             </p>
           </div>
         ) : (
@@ -611,7 +607,7 @@ export default function Home() {
             Ready to Build Better Parlays?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Start exploring comprehensive NFL data and make informed decisions today.
+            Start exploring comprehensive NFL parlay data and make informed betting decisions today.
           </p>
           <Link
             href="/teams"

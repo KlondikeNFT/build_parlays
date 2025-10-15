@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { getPlayerWithStats, getFullTeamName } from '@/lib/playerService';
 import { ArrowLeft, TrendingUp, Target, Activity, Zap } from 'lucide-react';
 import ProbabilitySlider from '@/components/ProbabilitySlider';
-import VolatilityChart from '@/components/VolatilityChart';
 import { getStatCategories } from '@/lib/probabilityCalculator';
 
 function PlayerContent() {
@@ -109,51 +108,67 @@ function PlayerContent() {
 
         {/* Player Header */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+          {/* Gradient Background */}
           <div 
-            className="h-32"
+            className="h-24"
             style={{
               background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)'
             }}
           ></div>
-          <div className="px-8 pb-8">
-            <div className="flex flex-col md:flex-row items-center md:items-start -mt-16 md:-mt-16 space-y-4 md:space-y-0 md:space-x-6">
-              <div className="relative w-32 h-32 rounded-full border-4 border-white shadow-xl bg-gray-100 overflow-hidden">
+          
+          {/* Content */}
+          <div className="px-6 pb-6">
+            <div className="flex flex-col md:flex-row items-center md:items-start -mt-12 md:-mt-12 space-y-4 md:space-y-0 md:space-x-6">
+              {/* Player Image */}
+              <div className="relative w-24 h-24 rounded-full border-4 border-white shadow-xl bg-gray-100 overflow-hidden flex-shrink-0">
                 <Image
                   src={`https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/${player.PlayerID}.png`}
                   alt={`${player.FirstName} ${player.LastName}`}
                   fill
                   className="object-cover rounded-full"
+                  onError={(e) => {
+                    // Fallback for broken images
+                    (e.target as HTMLImageElement).src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23e5e7eb"/><text x="50" y="50" font-family="Arial" font-size="24" text-anchor="middle" dy=".3em" fill="%236b7280">${player.Number || '?'}</text></svg>`;
+                  }}
                 />
               </div>
-              <div className="text-center md:text-left mt-4 md:mt-12">
-                <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              
+              {/* Player Info */}
+              <div className="text-center md:text-left flex-1 min-w-0">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 break-words">
                   {player.FirstName} {player.LastName}
                 </h1>
-                <div className="flex flex-col md:flex-row md:items-center md:space-x-4 text-gray-600">
-                  <span className="text-lg font-semibold">
+                
+                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-gray-600 mb-3">
+                  <span className="text-base font-semibold">
                     #{player.Number || '?'} • {player.Position}
                   </span>
-                  <span className="hidden md:inline text-gray-400">•</span>
+                  <span className="hidden sm:inline text-gray-400">•</span>
                   <Link 
                     href={`/teams/${player.Team}`}
-                    className="text-blue-600 hover:text-blue-700"
+                    className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
                   >
                     {fullTeamName}
                   </Link>
                 </div>
-                {player.InjuryStatus && player.InjuryStatus.toLowerCase() !== 'healthy' && player.InjuryStatus.toLowerCase() !== 'active' && player.InjuryStatus.toLowerCase() !== 'scrambled' && (
-                  <div className={`mt-3 inline-flex items-center px-4 py-2 rounded-lg text-sm font-bold ${
+                
+                {/* Injury Status */}
+                {player.InjuryStatus && 
+                 player.InjuryStatus.toLowerCase() !== 'healthy' && 
+                 player.InjuryStatus.toLowerCase() !== 'active' && 
+                 player.InjuryStatus.toLowerCase() !== 'scrambled' && (
+                  <div className={`inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium ${
                     player.InjuryStatus.toLowerCase().includes('out') || player.InjuryStatus.toLowerCase().includes('ir')
-                      ? 'bg-red-600 text-white shadow-lg'
+                      ? 'bg-red-100 text-red-800 border border-red-200'
                       : player.InjuryStatus.toLowerCase() === 'doubtful'
-                      ? 'bg-orange-500 text-white shadow-lg'
-                      : 'bg-yellow-500 text-white shadow-lg'
+                      ? 'bg-orange-100 text-orange-800 border border-orange-200'
+                      : 'bg-yellow-100 text-yellow-800 border border-yellow-200'
                   }`}>
-                    <Activity className="h-5 w-5 mr-2" />
-                    <div>
-                      <div>{player.InjuryStatus}</div>
+                    <Activity className="h-4 w-4 mr-2 flex-shrink-0" />
+                    <div className="text-left">
+                      <div className="font-semibold">{player.InjuryStatus}</div>
                       {player.InjuryBodyPart && (
-                        <div className="text-xs opacity-90 mt-0.5">{player.InjuryBodyPart}</div>
+                        <div className="text-xs opacity-80 mt-0.5">{player.InjuryBodyPart}</div>
                       )}
                     </div>
                   </div>
@@ -200,14 +215,6 @@ function PlayerContent() {
               </div>
             </div>
             
-            {/* Volatility Chart - Separate Box */}
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-8 border border-gray-200">
-              <VolatilityChart 
-                gameStats={gameLog}
-                position={player.Position}
-                playerName={`${player.FirstName} ${player.LastName}`}
-              />
-            </div>
           </>
         )}
 

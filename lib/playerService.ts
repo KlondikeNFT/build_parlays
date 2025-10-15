@@ -1,9 +1,11 @@
 /**
  * Player Service using SportsDataIO
  * Fetches real player stats and performance data
+ * Falls back to mock data in development
  */
 
 import { sportsdataApi, CURRENT_SEASON } from './sportsdataio';
+import { mockDataService, MOCK_PLAYER } from './mockData';
 
 export interface PlayerWithStats {
   player: any;
@@ -17,6 +19,13 @@ export interface PlayerWithStats {
 export async function getPlayerWithStats(playerName: string, team: string): Promise<PlayerWithStats | null> {
   try {
     console.log(`📡 Fetching data for ${playerName} (${team})...`);
+    
+    // Check if we should use mock data for "Mock Player"
+    if (mockDataService.shouldUseMockData() && 
+        (playerName.toLowerCase().includes('mock') || playerName.toLowerCase() === 'mock player')) {
+      console.log('🎭 Using mock data for development...');
+      return await mockDataService.getMockPlayerWithStats();
+    }
     
     // Get roster to find player
     const roster = await sportsdataApi.getTeamPlayers(team);
@@ -55,6 +64,32 @@ export async function getPlayerWithStats(playerName: string, team: string): Prom
   } catch (error) {
     console.error(`❌ Error fetching player ${playerName}:`, error);
     return null;
+  }
+}
+
+/**
+ * Search for players and teams
+ */
+export async function searchPlayersAndTeams(query: string): Promise<{
+  players: any[];
+  teams: any[];
+}> {
+  try {
+    console.log(`🔍 Searching for: "${query}"`);
+    
+    // Check if we should use mock data
+    if (mockDataService.shouldUseMockData()) {
+      console.log('🎭 Using mock search data...');
+      return await mockDataService.search(query);
+    }
+    
+    // For now, return empty results for real API search
+    // This could be expanded to search through real data
+    console.log('⚠️ Real search not implemented yet, using mock data');
+    return await mockDataService.search(query);
+  } catch (error) {
+    console.error('❌ Error searching:', error);
+    return { players: [], teams: [] };
   }
 }
 

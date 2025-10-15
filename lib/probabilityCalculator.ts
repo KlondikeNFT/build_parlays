@@ -310,6 +310,73 @@ function analyzeStatVolatility(values: number[]): {
 }
 
 /**
+ * Calculate individual stat volatility for display in sliders
+ * Returns volatility information for a specific stat
+ */
+export function calculateIndividualStatVolatility(
+  gameStats: GameStats[],
+  stat: string
+): {
+  score: number;
+  rating: 'Low' | 'Medium' | 'High';
+  description: string;
+  weekToWeekChange: number;
+  offGames: number;
+  coefficientOfVariation: number;
+} {
+  const values = gameStats
+    .map(game => {
+      const key = stat as keyof GameStats;
+      return game[key] || 0;
+    })
+    .filter(val => val !== undefined) as number[];
+  
+  if (values.length < 2) {
+    return {
+      score: 50,
+      rating: 'Medium',
+      description: 'Limited data available',
+      weekToWeekChange: 0,
+      offGames: 0,
+      coefficientOfVariation: 0,
+    };
+  }
+  
+  const avg = mean(values);
+  const stdDev = standardDeviation(values, avg);
+  const analysis = analyzeStatVolatility(values);
+  
+  // Calculate coefficient of variation (CV) - standard deviation as percentage of mean
+  const cv = avg > 0 ? (stdDev / avg) * 100 : 0;
+  
+  // Convert consistency to volatility score (invert: high consistency = low volatility)
+  const volatilityScore = Math.round(100 - analysis.consistency);
+  
+  let rating: 'Low' | 'Medium' | 'High' = 'Medium';
+  let description = '';
+  
+  if (volatilityScore < 30) {
+    rating = 'Low';
+    description = 'Very consistent performance';
+  } else if (volatilityScore < 60) {
+    rating = 'Medium';
+    description = 'Moderate variance in performance';
+  } else {
+    rating = 'High';
+    description = 'High variance - unpredictable';
+  }
+  
+  return {
+    score: volatilityScore,
+    rating,
+    description,
+    weekToWeekChange: Math.round(analysis.weekToWeekAvgChange * 10) / 10,
+    offGames: analysis.offGameData.offGameCount,
+    coefficientOfVariation: Math.round(cv * 10) / 10,
+  };
+}
+
+/**
  * Calculate overall volatility score for a player across multiple stats
  * Returns a score from 0-100 where:
  * - 0-30: Low volatility (very consistent)
