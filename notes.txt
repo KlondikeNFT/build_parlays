@@ -169,6 +169,480 @@ OTTO Pixel installation script
 
 
 
+Issues found with the site.
+
+Canonical Link
+Pages affected: 5 (100% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+URL not matching canonical
+Page's canonical URL should match its URL.
+39
+5
+Canonical URL present
+Page should have a canonical tag, which represents the Page's master URL, to avoid duplicate content issues.
+-
+-
+Page has one canonical link
+Page should not have more than one canonical link.
+
+
+
+Page Title
+Pages affected: 5 (100% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Title doesn't meet length requirements
+Page title should have between 30 and 60 characters.
+21
+5
+Page has one title tag
+Pages should not have more than one title tag.
+-
+-
+Title tag present
+Page should have a <title> tag.
+-
+-
+Links
+Pages affected: 5 (100% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Links pointing to pages that don't have self-referential canonical
+All internal links should be pointing to the canonical version of each page, meaning a pair with a self-referencing canonical tag.
+10
+5
+Too few internal links
+Page should include more internal links. Internal Links help search engines discover content on your website and improve search rankings of linked-to pages.
+5
+5
+Page has only one dofollow incoming internal link
+The number of internal links pointing to a page is a signal to search engines about the relative importance of that page.
+2
+1
+All outlinks are allowed by robots.txt file
+Page contains outlinks which are disallowed by your robots.txt file.
+-
+-
+No broken external links
+Broken external links lower your site's quality score in the eyes of search engines and users.
+-
+-
+No broken internal links
+Broken internal links lower your site's quality score in the eyes of search engines and users.
+-
+-
+No redirecting internal links
+Internal links that redirect slow down your website and may decrease the amount of PageRank passed to the linked-to pages.
+-
+-
+Valid rel attribute.
+Links should contain supported values in rel attributes.
+-
+-
+Page has less than 20 external links
+Avoid having more than 20 external links on a page.
+-
+-
+Page has less than 500 outlinks
+Having over 500 outlinks on a page is discouraged by search engines. Excessive linking reduces the amount of PageRank sent by each link. Crawlers may also ignore some links if there are too many.
+-
+-
+Content
+Pages affected: 5 (100% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Content too short
+Page's content should contain more than 150 words.
+11
+4
+Inline style attribute
+HTML elements should use a .css file for styling, making your HTML cleaner and more maintainable.
+3
+5
+All CSS files are smaller than 300 KB
+Avoid using large .css files which slow down page load time and hurt performance. CSS files should be smaller than 300 KB.
+-
+-
+No .doc files linked on page
+Instead of linking to a .doc or .docx file, try to use a .pdf instead. PDFs are compatible across all operating systems.
+-
+-
+No empty href attributes in links found
+All links on a page should have an explicit "href" attribute defined to avoid cross-browser compatibility issues and ensure search engines can discover the linked-to pages.
+-
+-
+No meta refresh redirect
+Use of the meta refresh tag is no longer considered best practice by search engines.
+-
+-
+HTML lang attribute present
+Having a lang tag can help search engines better classify your webpages in regional search results.
+-
+-
+All JS files are smaller than 300 KB
+Avoid using large javascript files, which slow down page load time and hurt performance. Files should be smaller than 300 KB.
+-
+-
+Page DOM size is smaller than 1000 elements
+Large DOM sizes hurt performance by making it harder for browsers to render a webpage. Your Page should have a DOM size of less than 1000 elements.
+-
+-
+Meta keywords present
+Page can implement <meta> keywords tag. This is optional.
+-
+-
+No bgsound tag detected
+The bgsound tag is no longer considered best practice and may hurt your page's ability to rank in search engine results.
+-
+-
+Meta Description
+Pages affected: 5 (100% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Meta description doesn't meet length requirements
+Meta description should have between 50 and 160 characters.
+10
+5
+Meta description present
+Page should have a <meta> description for search engines to display in search results. Keyword-rich meta descriptions can increase CTR.
+-
+-
+Page has one meta description
+Page should not have more than one meta description.
+-
+-
+Page Headers
+Pages affected: 5 (100% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+H1 tag doesn't meet length requirements
+H1 headers should be between 20 and 70 characters.
+7
+5
+H2 tag missing or empty
+Page should have one or more <h2> tags.
+2
+3
+H2 tag doesn't meet length requirements
+H2 headers should be between 20 and 70 characters.
+1
+2
+H1 tag present
+Page should have a <h1> tag.
+-
+-
+Heading levels are ordered sequentially
+Heading levels on indexable pages should follow an ordered sequence.
+-
+-
+Page has one h1 heading
+Pages should not have more than one H1 heading.
+-
+-
+Robots TXT
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+crawl-delay directive present
+Your robots.txt file should not contain any crawl-delay directives.
+2
+Robots.txt blocking LLM crawlers
+Your robots.txt file contains rules that block LLM-related crawlers, which may prevent AI systems from accessing your content.
+2
+LLM blocking rules details
+Detailed information about LLM crawler blocking rules in robots.txt.
+0
+No assets blocked through robots.txt
+Your robots.txt file contains * directives blocking access to assets.
+-
+Robots.txt content is not barebone
+Your robots.txt content is too simple, consider adding more directives.
+-
+All Robots.txt directives are valid
+Your robots.txt file should not contain invalid directives.
+-
+Robots.txt file has correct syntax
+Your robots.txt file should not contain any invalid syntax.
+-
+Robots.txt present
+A Robots.txt file prevents crawlers from indexing certain pages and allows you to specify a sitemap.xml for search engines.
+-
+Robots.txt available on canonical domain only
+There is a robots.txt file available on * non-canonical domain variant. Only the canonical domain should have a robots.txt file.
+-
+All referenced sitemaps are accessible
+Your robots.txt file should reference an accessible XML sitemap.
+-
+Sitemap referenced in robots.txt
+Your robots.txt file should reference an XML sitemap.
+-
+All referenced sitemaps have absolute URLs
+Your robots.txt file should reference an XML sitemap using an absolute URL.
+-
+OG Meta
+Pages affected: 5 (100% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Open Graph Description too long
+Open Graph Description shouldn't be more than 65 characters.
+3
+5
+Open Graph Description tag present
+Page should have an og:description to improve CTR from Facebook and Twitter posts.
+-
+-
+Open Graph Image Tag present
+Page should have an og:image tag to improve CTR from Facebook and Twitter posts.
+-
+-
+Open Graph Title tag present
+Page should have a og:title tag to improve CTR when Page is shared in Facebook and Twitter posts.
+-
+-
+Open Graph Title meets length requirements
+Open Graph Title shouldn't exceed 60 characters.
+-
+-
+Open Graph URL tag present
+Page should have an og:url tag to improve CTR from Facebook and Twitter posts.
+-
+-
+Domain
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+Content Security Policy is missing
+Content-Security-Policy protects your website from cross-site scripting attacks.
+2
+Soft 404's not present
+Non-existant pages should return a 4xx status code in order to follow search engine best practices.
+-
+HTTP redirects to HTTPS protocol
+HTTP pages should automatically redirect to HTTPS to provide users a safer browsing experience.
+-
+Protocol/WWW variants redirect to the same place
+HTTP, HTTPS, the www subdomain, and your root domain should always redirect to the same page.
+-
+Server compression enabled
+Enabling server compression improves the load time of your web pages.
+-
+Favicons present
+Having a Favicon for your website improves brand visibility and is a quality indicator for search engines.
+-
+SSL certificate valid
+Your website needs to have a valid SSL certificate to show search engines and users that your website is secure and well-trusted.
+-
+Schema
+Pages affected: 1 (20% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Missing recommended schema markup types
+Your page is missing recommended schema markup types that could help search engines better understand your content. Common schema types include Article, Product, Organization, LocalBusiness, or WebPage depending on your content type.
+2
+1
+All schema elements have valid JSON-LD object
+All schema script elements implemented using JSON-LD need to have a parsable JSON object.
+-
+-
+Schema present
+Page should have schema markup to help search engines better understand the information on the page.
+-
+-
+Twitter Meta
+Pages affected: 5 (100% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Twitter Cards Siteproperty tag missing or empty.
+Page should have a site property in twitter cards.
+2
+5
+Twitter Cards Type Tag present
+Page should have a twitter:cards type.
+-
+-
+Twitter type is valid
+The Twitter Cards type value should be either "summary", "summary_large_image", "app", or "player".
+-
+-
+Twitter Cards Description Tag present
+Page should have a twitter:description.
+-
+-
+Twitter Cards Description meets length requirements
+Twitter Cards Description shouldn't be more than 125 characters.
+-
+-
+Twitter Cards Image tag present
+Page should have an twitter:image.
+-
+-
+Twitter Cards Title Tag present
+Page should have a twitter:title.
+-
+-
+Twitter Cards Title meets length requirements
+Twitter Cards Title shouldn't be more than 55 characters.
+-
+-
+Sitemap XML
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+All sitemaps are accessible
+XML sitemaps need to be accessible.
+-
+Sitemap present
+An XML sitemap helps search engines discover and index the most important pages on your website.
+-
+All sitemaps are readable
+XML sitemaps should conform to the structure and syntax defined in the XML sitemap protocol.
+-
+All sitemaps meet size requirement
+An Individual XML sitemap should have an uncompressed file size of less than 50MB.
+-
+All sitemaps meet URL number requirement
+An Individual XML sitemap should contain no more than 50,000 URLs.
+-
+Robots
+Pages affected: 0 (0% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Meta robots directives are not contradictory
+Meta robots directives must not be contradictory to provide clear instructions for search engines.
+-
+-
+Page can be indexed through robots.txt file
+Pages cannot be indexed if they are disallowed by your robots.txt file.
+-
+-
+All meta robots directives are valid
+All meta robots directives must be valid.
+-
+-
+Page has dofollow meta robots tag
+Pages that have a "nofollow" meta robots tag will have their links ignored by search engines.
+-
+-
+Page can be indexed through meta robots tag
+Pages that have a "noindex" meta robots tag will not be indexed by search engines.
+-
+-
+All meta robots directives are supported
+All meta robots directives should be supported by their search engine.
+-
+-
+Images
+Pages affected: 0 (0% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+All images are in standard format
+Search engines support common image formats like jpeg, jpg, png, gif, svg, ico and webp. Avoid using non-standard image formats.
+-
+-
+All Images files are smaller than 100 KB
+Avoid using large images, which increase page load time and hurt performance. Images should be smaller than 100 KB.
+-
+-
+All images are in modern format
+AVIF and WebP are image formats that have superior compression and quality characteristics compared to their older JPEG and PNG counterparts. Encoding your images in these formats means that they will load faster and consume less cellular data.
+-
+-
+All image alt attributes present
+Image alt tags help search engines understand the contents of images and can improve their ability to rank in Image search results.
+-
+-
+All images served through HTTPS
+All images on an HTTPS page should also be served through HTTPS.
+-
+-
+Page URL
+Pages affected: 0 (0% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Page is not orphaned
+Orphan pages have no links pointing to them and cannot be found or indexed by search engine crawlers.
+-
+-
+HTML file size is less than 1 MB
+Large pages take longer to load, slow down your websites' performance, and decrease rankings. Your Page's HTML content should be less than 1 MB.
+-
+-
+Page's response is a 200 status code
+Page's response should be a "200" status code.
+-
+-
+Single slash in url
+Pages with double slashes in their URL can cause search engines to index incorrect URLs and cause duplicate content issues.
+-
+-
+Sitemap
+Pages affected: 0 (0% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Non-indexable page not in sitemap
+Non-indexable pages should not be included in your sitemap.
+-
+-
+Analytics
+Pages affected: 0 (0% of the segment)
+  Ignore all
+ISSUE	
+HEALTH
+GAIN
+AFFECTED PAGES
+Analytics is present
+Every page should contain analytics tracking (like Google Analytics or Adobe Analytics).
+-
+-
+Visual analytics is present
+Every page should contain visual analytics tracking (like HotJar or Mouseflow).
+
+
+
+
 
 
 
@@ -7949,3 +8423,700 @@ Return Type:
 Headshot[]
 Included Data Tables:
 Headshot
+
+
+
+
+
+
+
+
+
+
+
+their site says this.
+
+Step 1 : Copy Your Pixel Script.
+Copy your unique OTTO Pixel script provided.
+
+<script nowprocket nitro-exclude type="text/javascript" id="sa-dynamic-optimization" data-uuid="dbb69606-524e-4692-9374-e1d7a2f1ad16" src="data:text/javascript;base64,dmFyIHNjcmlwdCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpO3NjcmlwdC5zZXRBdHRyaWJ1dGUoIm5vd3Byb2NrZXQiLCAiIik7c2NyaXB0LnNldEF0dHJpYnV0ZSgibml0cm8tZXhjbHVkZSIsICIiKTtzY3JpcHQuc3JjID0gImh0dHBzOi8vZGFzaGJvYXJkLnNlYXJjaGF0bGFzLmNvbS9zY3JpcHRzL2R5bmFtaWNfb3B0aW1pemF0aW9uLmpzIjtzY3JpcHQuZGF0YXNldC51dWlkID0gImRiYjY5NjA2LTUyNGUtNDY5Mi05Mzc0LWUxZDdhMmYxYWQxNiI7c2NyaXB0LmlkID0gInNhLWR5bmFtaWMtb3B0aW1pemF0aW9uLWxvYWRlciI7ZG9jdW1lbnQuaGVhZC5hcHBlbmRDaGlsZChzY3JpcHQpOw=="></script>
+
+Step 2: Add Script to Your Website
+Paste the script you copied into the section of your website. This should be placed inside the <head> tag.
+
+
+
+do we have the right info?
+
+api key = 647158ea5a2d902fcfeeab62e5022c8f
+Account ID: 160-817
+
+Let's verify a few key points:
+Check your API key:
+- Confirm you're using the correct API key from Search Atlas Settings
+- Ensure you have a Pro or Enterprise subscription for API access
+- Verify the X-API-Key header is properly formatted
+Verify the endpoint URL:
+- Confirm you're hitting the correct Search Atlas API endpoint
+- Check that the UUID in your request matches your project UUID exactly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Step 1: Get Your OTTO Pixel Script
+Go to Search Atlas Dashboard → OTTO & Audit → All Sites
+Select your project and click Copy Code to get your unique script
+
+
+That is this...
+
+<script nowprocket nitro-exclude type="text/javascript" id="sa-dynamic-optimization" data-uuid="dbb69606-524e-4692-9374-e1d7a2f1ad16" src="data:text/javascript;base64,dmFyIHNjcmlwdCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpO3NjcmlwdC5zZXRBdHRyaWJ1dGUoIm5vd3Byb2NrZXQiLCAiIik7c2NyaXB0LnNldEF0dHJpYnV0ZSgibml0cm8tZXhjbHVkZSIsICIiKTtzY3JpcHQuc3JjID0gImh0dHBzOi8vZGFzaGJvYXJkLnNlYXJjaGF0bGFzLmNvbS9zY3JpcHRzL2R5bmFtaWNfb3B0aW1pemF0aW9uLmpzIjtzY3JpcHQuZGF0YXNldC51dWlkID0gImRiYjY5NjA2LTUyNGUtNDY5Mi05Mzc0LWUxZDdhMmYxYWQxNiI7c2NyaXB0LmlkID0gInNhLWR5bmFtaWMtb3B0aW1pemF0aW9uLWxvYWRlciI7ZG9jdW1lbnQuaGVhZC5hcHBlbmRDaGlsZChzY3JpcHQpOw=="></script>
+
+
+
+Step 2: Create OTTO Component:
+
+// components/OTTOPixel.tsx
+'use client';
+import { useEffect } from 'react';
+
+export default function OTTOPixel() {
+  useEffect(() => {
+    // Paste your OTTO script here (replace with actual script from dashboard)
+    const script = document.createElement('script');
+    script.innerHTML = `
+      (function(w, d, s, o, f, js, fjs) {
+        w['OTTOObject'] = o; w[o] = w[o] || function() {
+          (w[o].q = w[o].q || []).push(arguments)
+        }, w[o].l = 1 * new Date();
+        js = d.createElement(s), fjs = d.getElementsByTagName(s)[0];
+        js.async = 1; js.src = f;
+        fjs.parentNode.insertBefore(js, fjs);
+      })(window, document, 'script', 'OTTO', 'YOUR_SCRIPT_URL');
+      OTTO('init', 'YOUR_UUID_HERE');
+    `;
+    document.head.appendChild(script);
+  }, []);
+
+  return null;
+}
+
+
+
+Step 3: Add to Root Layout:
+
+// app/layout.tsx
+import OTTOPixel from '@/components/OTTOPixel';
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <head>
+        <OTTOPixel />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+
+
+
+Step 4: Deploy and Verify
+Commit changes to GitHub
+Vercel auto-deploys
+Go to OTTO dashboard → click Run Diagnostic Scan
+Confirm "OTTO Pixel was Installed Correctly" message
+Replace YOUR_SCRIPT_URL and YOUR_UUID_HERE with actual values from your copied script.
+
+
+
+
+
+
+
+
+
+
+Getting three things when inspecting.
+
+
+Request URL
+https://dashboard.searchatlas.com/scripts/dynamic_optimization.js
+Request Method
+GET
+Status Code
+302 Found
+Remote Address
+[2606:4700:20::681a:692]:443
+Referrer Policy
+strict-origin-when-cross-origin
+cf-cache-status
+BYPASS
+cf-ray
+98f38fdbf8b5c46d-EWR
+content-length
+5
+date
+Thu, 16 Oct 2025 00:50:25 GMT
+location
+//storage.googleapis.com/searchatlas-static-assets-prod/public/scripts/dynamic_optimization.js
+nel
+{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+report-to
+{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=AXv8%2Fn4u6XTYa%2F4d3QLl6qtg9xPC%2FA3esMTVRO%2F2Spx5mbACeRebARG3v8%2FEvsiACRGHRwRn6i6VjBPyYRSta5EREy5qXEa3kFnJaCeHTPy4MWBh%2Fou584tVa49TFxEXAUqamg%3D%3D"}]}
+server
+cloudflare
+vary
+accept-encoding
+:authority
+dashboard.searchatlas.com
+:method
+GET
+:path
+/scripts/dynamic_optimization.js
+:scheme
+https
+accept
+*/*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+cookie
+_hjSessionUser_5134528=eyJpZCI6ImQzMTJmNDVkLTYzMzctNTA3OS1iOTA3LWM2MWQ4MzMzYTk2ZCIsImNyZWF0ZWQiOjE3NjA1NTUyMzkxMTMsImV4aXN0aW5nIjp0cnVlfQ==; _hjSession_5134528=eyJpZCI6IjJmODgwNzMyLTFiNDAtNGVmMC05N2YyLTg5MzJmMTA1YzczYyIsImMiOjE3NjA1Njk2Mzk2MjQsInMiOjAsInIiOjAsInNiIjowLCJzciI6MCwic2UiOjAsImZzIjowLCJzcCI6MH0=
+priority
+u=1
+referer
+https://www.buildparlays.com/
+sec-ch-ua
+"Google Chrome";v="141", "Not?A_Brand";v="8", "Chromium";v="141"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"macOS"
+sec-fetch-dest
+script
+sec-fetch-mode
+no-cors
+sec-fetch-site
+cross-site
+sec-fetch-storage-access
+active
+user-agent
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+
+
+Request URL
+https://storage.googleapis.com/searchatlas-static-assets-prod/public/scripts/dynamic_optimization.js
+Request Method
+GET
+Status Code
+200 OK (from disk cache)
+Remote Address
+[2607:f8b0:4006:80d::201b]:443
+Referrer Policy
+strict-origin-when-cross-origin
+accept-ranges
+bytes
+age
+1070
+alt-svc
+h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+cache-control
+public, max-age=31536000
+content-length
+25456
+content-type
+text/javascript
+date
+Wed, 15 Oct 2025 19:28:35 GMT
+etag
+"d77763d4f9fa8cb91351a4a060e01382"
+expires
+Thu, 15 Oct 2026 19:28:35 GMT
+last-modified
+Wed, 15 Oct 2025 08:47:48 GMT
+server
+UploadServer
+x-goog-generation
+1760518068211563
+x-goog-hash
+crc32c=3xgYDQ==, md5=13dj1Pn6jLkTUaSgYOATgg==
+x-goog-metageneration
+1
+x-goog-storage-class
+STANDARD
+x-goog-stored-content-encoding
+identity
+x-goog-stored-content-length
+25456
+x-guploader-uploadid
+AAwnv3LwmPJfzm4hIU_-IAVkooZ93hyXWUOOX680r5Vlyo8JDtcMbuyma8oUbd_GfbW_mzcEs5SZ4fw
+referer
+https://www.buildparlays.com/
+user-agent
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+
+
+
+
+Request URL
+https://sa.searchatlas.com/api/v2/otto-url-details/?url=https%3A%2F%2Fwww.buildparlays.com%2Fabout
+Request Method
+GET
+Status Code
+404 Not Found (from disk cache)
+Remote Address
+[2606:4700:20::ac43:485a]:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-origin
+https://www.buildparlays.com
+age
+0
+allow
+GET, HEAD, OPTIONS
+cache-control
+public, max-age=300, s-maxage=300
+cf-cache-status
+DYNAMIC
+cf-ray
+98f38fbd9fd6de95-EWR
+content-length
+0
+date
+Thu, 16 Oct 2025 00:50:20 GMT
+nel
+{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+referrer-policy
+same-origin
+report-to
+{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=nXTn8syy2VnzvRqfy8p8buBd1zK5i9Zi7M3IUavL0%2BFxoxucPuVHTbQYmd65BjC4K%2BWV44YPatFC8UCfTEub7iY6961i%2F4n8khQIS3tqU7tJ4BfBwr4nyQ%2BDT3Eo"}]}
+server
+cloudflare
+vary
+Origin
+via
+1.1 varnish-varnish-12 (Varnish/8.0)
+x-content-type-options
+nosniff
+x-frame-options
+DENY
+x-robots-tag
+noindex, nofollow, noarchive
+x-varnish
+8621983
+referer
+https://www.buildparlays.com/
+sec-ch-ua
+"Google Chrome";v="141", "Not?A_Brand";v="8", "Chromium";v="141"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"macOS"
+user-agent
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Otto's suggested Changes to make:
+
+Title Tags Issues
+
+/
+ORIGINAL
+Length: 82
+BuildParlays - #1 AI Parlay Calculator for NFL Betting | Free Sports Betting Tools
+OTTO SUGGESTED FIX
+Length: 50
+BuildParlays: AI Parlay Calculator for NFL Betting
+
+/schedule
+ORIGINAL
+Length: 82
+BuildParlays - #1 AI Parlay Calculator for NFL Betting | Free Sports Betting Tools
+OTTO SUGGESTED FIX
+Length: 53
+BuildParlays: NFL Schedule & AI Parlay Tools for 2025
+
+/schedule
+ORIGINAL
+Length: 82
+BuildParlays - #1 AI Parlay Calculator for NFL Betting | Free Sports Betting Tools
+OTTO SUGGESTED FIX
+Length: 53
+BuildParlays: NFL Schedule & AI Parlay Tools for 2025
+
+/teams
+ORIGINAL
+Length: 82
+BuildParlays - #1 AI Parlay Calculator for NFL Betting | Free Sports Betting Tools
+OTTO SUGGESTED FIX
+Length: 56
+NFL Team Rosters & Parlay Calculator | BuildParlays 2025
+
+/about
+ORIGINAL
+Length: 82
+BuildParlays - #1 AI Parlay Calculator for NFL Betting | Free Sports Betting Tools
+OTTO SUGGESTED FIX
+Length: 57
+BuildParlays: AI Parlay Calculator for NFL Betting (2025)
+
+/search
+ORIGINAL
+Length: 82
+BuildParlays - #1 AI Parlay Calculator for NFL Betting | Free Sports Betting Tools
+OTTO SUGGESTED FIX
+Length: 53
+BuildParlays: NFL Player & Team Search for AI Parlays
+
+
+Meta Descriptions Issues
+
+/
+ORIGINAL
+Length: 178
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools. Get expert NFL predictions and build smarter bets today.
+OTTO SUGGESTED FIX
+Length: 134
+Build winning NFL parlays with BuildParlays' AI calculator. Get expert predictions and free sports betting tools for smarter bets now.
+
+/schedule
+ORIGINAL
+Length: 178
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools. Get expert NFL predictions and build smarter bets today.
+OTTO SUGGESTED FIX
+Length: 155
+Build winning NFL parlays with BuildParlays' AI-powered calculator. Get expert NFL predictions and use our free parlay builder to build smarter bets today.
+
+/teams
+ORIGINAL
+Length: 178
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools. Get expert NFL predictions and build smarter bets today.
+OTTO SUGGESTED FIX
+Length: 160
+Explore NFL teams and rosters on BuildParlays. Use our AI-powered tools to build smarter bets and gain expert insights for the 2025 season. Start winning today!
+
+/about
+ORIGINAL
+Length: 178
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools. Get expert NFL predictions and build smarter bets today.
+OTTO SUGGESTED FIX
+Length: 141
+BuildParlays: Win with our AI-powered NFL parlay builder. Get expert predictions, use our free odds calculator, and build smarter bets today.
+
+/search
+ORIGINAL
+Length: 178
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools. Get expert NFL predictions and build smarter bets today.
+OTTO SUGGESTED FIX
+Length: 130
+Build winning NFL parlays with BuildParlays. Use our AI-powered calculator, find expert predictions, and build smarter bets today.
+
+
+Headings Length Issues
+
+H1 Length
+
+/
+ORIGINAL
+Length: 12
+BuildParlays
+OTTO SUGGESTED FIX
+Length: 67
+BuildParlays: AI-Powered NFL Parlay Calculator & Expert Predictions
+
+/schedule
+ORIGINAL
+Length: 12
+NFL Schedule
+OTTO SUGGESTED FIX
+Length: 50
+BuildParlays NFL Schedule: Upcoming and Past Games
+
+/teams
+ORIGINAL
+Length: 9
+NFL Teams
+OTTO SUGGESTED FIX
+Length: 48
+BuildParlays: Explore All 32 NFL Teams & Rosters
+
+/about
+ORIGINAL
+Length: 18
+About BuildParlays
+OTTO SUGGESTED FIX
+Length: 66
+BuildParlays: AI-Powered NFL Parlay Calculator & Betting Analytics
+
+/search
+ORIGINAL
+Length: 6
+Search
+OTTO SUGGESTED FIX
+Length: 62
+Search NFL Players & Teams | BuildParlays AI Parlay Calculator
+
+H2 Length
+
+/
+ORIGINAL
+Length: 14
+Featured Teams
+OTTO SUGGESTED FIX
+Length: 46
+Top NFL Teams to Target in This Week’s Parlays
+
+/about
+ORIGINAL
+Length: 10
+What We Do
+OTTO SUGGESTED FIX
+Length: 64
+Explore BuildParlays’ AI Parlay Calculator & Smart Betting Tools
+
+
+Heading Optimizations Issues
+
+STATUS
+PAGE URL
+OTTO SUGGESTED FIX
+Enable
+/
+Understanding NFL Betting Basics
+NFL betting can seem complex, but understanding the basics is crucial for making informed decisions. Key concepts include point spreads, moneylines, and over/under totals, which form the foundation of most betting strategies.
+
+For instance, a point spread indicates the margin by which a team must win for a bet to pay out. Familiarizing yourself with these terms will help you navigate the betting landscape more effectively and increase your chances of success.
+
+How to Use the AI-Powered Parlay Calculator
+The AI-powered parlay calculator is designed to simplify the process of creating winning parlays. By inputting your selections and desired outcomes, the calculator analyzes historical data and current statistics to offer optimal betting suggestions.
+
+This tool not only saves time but also enhances your betting strategy by leveraging advanced analytics. Users can experiment with various combinations to see potential payouts, making it an invaluable resource for both novice and experienced bettors.
+
+Expert Predictions for NFL Games
+Expert predictions are a vital resource for bettors looking to gain an edge in NFL wagering. These insights are typically based on in-depth analysis of team performance, player statistics, and other relevant factors that influence game outcomes.
+
+For example, expert analysts may provide forecasts for upcoming matchups, highlighting key players to watch and potential game-changing events. Utilizing these predictions can help bettors make more informed choices and enhance their overall betting strategy.
+
+Exploring Team Statistics and Trends
+Understanding team statistics and trends is essential for successful NFL betting. Analyzing data such as win-loss records, scoring averages, and defensive rankings can provide valuable insights into team performance.
+
+For example, a team that consistently performs well against the spread may be a strong candidate for your betting slip. Keeping track of these metrics can help you identify patterns and inform your betting decisions, ultimately leading to more successful outcomes.
+
+
+/schedule
+Upcoming NFL Games
+Stay informed about the upcoming NFL games scheduled for this season. Our platform provides a detailed schedule that allows you to view game dates, times, and matchups, ensuring you never miss a moment of the action.
+
+For the current week, you can easily access information about the teams playing, their records, and previous matchups. This helps you make informed decisions when placing your bets, as understanding team performance is crucial for successful betting strategies.
+
+Past NFL Games
+Explore the results of past NFL games to analyze team performance and trends. Reviewing past matchups can provide valuable insights that inform your betting strategies for future games.
+
+Our platform archives game results, including scores, player statistics, and highlights. This wealth of information allows you to evaluate how teams have performed historically, giving you an edge in your betting decisions.
+
+NFL Team Information
+Get comprehensive information about each NFL team, including rosters, player statistics, and team history. Knowing the strengths and weaknesses of each team is essential for making informed betting choices.
+
+Additionally, our team pages feature updates on injuries, trades, and other critical news that can impact game outcomes. Staying updated on team dynamics is vital for predicting how games will unfold and enhancing your betting strategy.
+
+Betting Tools and Resources
+Utilize our AI-powered calculator and expert predictions to enhance your betting experience. These tools are designed to help you build effective NFL parlays tailored to your preferences and risk tolerance.
+
+Our resources include betting guides, tips from seasoned experts, and analysis of betting trends. Whether you're a novice or a seasoned bettor, these tools can significantly improve your chances of making successful wagers.
+
+/teams
+Explore NFL Team Rosters
+Each NFL team has a unique roster that showcases the talent and skills of its players. Understanding the composition of these rosters is essential for making informed betting decisions. Users can delve into detailed information about each player, including their positions, statistics, and career highlights.
+
+For instance, by analyzing a team's roster, users can identify key players who may influence the outcome of games. This includes quarterbacks known for their passing accuracy or running backs with exceptional speed. Such insights can significantly enhance the betting strategy for NFL games.
+
+Understanding NFL Conferences
+The NFL is divided into two main conferences: the American Football Conference (AFC) and the National Football Conference (NFC). Each conference consists of multiple divisions, which adds a layer of competition and strategy to the league. Familiarity with these conferences helps users navigate team performance and historical rivalries.
+
+For example, teams within the same division often have a deep-rooted rivalry, which can affect their performance in crucial matchups. Knowing the dynamics of these conferences allows bettors to make more accurate predictions based on team strengths and weaknesses.
+
+Utilizing the AI-Powered Parlay Calculator
+BuildParlays offers an innovative AI-powered parlay calculator that helps users create winning bets by analyzing various betting scenarios. This tool simplifies the betting process by providing users with personalized recommendations based on their selected teams and betting preferences.
+
+By using the parlay calculator, users can experiment with different betting combinations and see potential payouts. This feature is particularly useful for those looking to maximize their earnings while minimizing risk, as it leverages data-driven insights to inform betting choices.
+
+Expert NFL Predictions and Insights
+To further assist users in their betting endeavors, BuildParlays provides expert NFL predictions and insights. These predictions are based on extensive analysis of team performance, player statistics, and historical data, giving users a competitive edge in their betting strategies.
+
+For example, expert insights may highlight trends such as a team's performance in home games versus away games or the impact of injuries on game outcomes. By incorporating these expert analyses into their betting decisions, users can enhance their chances of success in the NFL betting landscape.
+
+/search
+Understanding NFL Betting Basics
+NFL betting can be an exciting way to engage with the sport, but it's essential to understand the fundamentals. This includes the different types of bets available, such as point spreads, moneylines, and over/under bets. Each type offers unique opportunities and risks, catering to various betting strategies and preferences.
+
+For instance, a point spread bet requires you to predict not just the winner of a game, but by how much they will win. This adds a layer of complexity, making it crucial for bettors to analyze team performance, injuries, and matchups before placing a wager. Understanding these concepts can significantly enhance your betting experience and increase your chances of success.
+
+How to Use the AI-Powered Parlay Calculator
+The AI-powered parlay calculator on BuildParlays is designed to simplify the betting process by providing users with data-driven insights. By inputting your selections, the calculator analyzes historical data and current trends to generate optimal betting combinations, enhancing your chances of winning.
+
+For example, if you select multiple games to bet on, the calculator will evaluate the odds and suggest the best possible parlay combinations. This tool not only saves time but also helps bettors make informed decisions based on statistical analysis, ultimately leading to a more strategic approach to NFL betting.
+
+Exploring Player and Team Statistics
+Accessing detailed player and team statistics is crucial for informed betting decisions. BuildParlays offers a comprehensive database where users can find relevant performance metrics, injury reports, and historical data that can influence betting outcomes. Understanding these statistics helps bettors identify trends and make predictions about future performances.
+
+For instance, analyzing a quarterback's passing yards against a specific defense can provide insights into potential game outcomes. Similarly, knowing a team's win-loss record in particular weather conditions can be vital. By leveraging this information, bettors can gain a competitive edge when constructing their parlays.
+
+Expert Predictions and Betting Strategies
+In addition to tools and statistics, expert predictions play a significant role in shaping successful betting strategies. BuildParlays provides access to insights from seasoned analysts who evaluate matchups and offer their forecasts based on extensive research and experience.
+
+These expert opinions can guide users in making more strategic betting choices, especially in complex matchups. For example, an expert may highlight a key player injury or a team's recent performance trends that could impact the game outcome. Integrating these insights with your analysis can lead to more informed betting decisions and potentially higher returns.
+
+
+Schema Markup
+
+Schema preview
+{
+    "url": "https://www.buildparlays.com",
+    "logo": "https://www.google.com/s2/favicons?sz=256&domain_url=https://www.buildparlays.com",
+    "@type": "Organization",
+    "@context": "https://schema.org"
+}
+
+
+
+
+Internal Linking Opportunities Issues
+
+/search
+Deployed: 0 of 3
+Deploy all
+Undeploy all
+Search NFL Players and Teams - https://www.buildparlays.com/about
+Search NFL Players and Teams - https://www.buildparlays.com/teams
+Search NFL Players and Teams - https://www.buildparlays.com/schedule
+
+
+
+/schedule
+Deployed: 0 of 3
+Deploy all
+Undeploy all
+NFL Game Schedule and Tools - https://www.buildparlays.com/about
+NFL Game Schedule and Results - https://www.buildparlays.com/teams
+NFL Game Schedule and Tools - https://www.buildparlays.com/search
+
+
+/teams
+Deployed: 0 of 3
+Deploy all
+Undeploy all
+Explore NFL Teams and Rosters - https://www.buildparlays.com/about
+Explore NFL Teams and Rosters - https://www.buildparlays.com/schedule
+Explore NFL Teams and Rosters - https://www.buildparlays.com/search
+
+
+/about
+Deployed: 0 of 1
+Deploy all
+Undeploy all
+Build Winning NFL Parlays - https://www.buildparlays.com/schedule
+
+
+Canonical Link Issues
+
+/STATUS
+PAGE URL
+ORIGINAL
+OTTO SUGGESTED FIX
+Enable
+/
+https://buildparlays.com
+https://www.buildparlays.com/
+Enable
+/schedule
+https://buildparlays.com
+https://www.buildparlays.com/schedule
+Enable
+/teams
+https://buildparlays.com
+https://www.buildparlays.com/teams
+Enable
+/about
+https://buildparlays.com
+https://www.buildparlays.com/about
+Enable
+/search
+https://buildparlays.com
+https://www.buildparlays.com/search
+
+
+
+
+Open Graph Issues
+
+OG Description
+
+/
+ORIGINAL
+Length: 121
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools.
+OTTO SUGGESTED FIX
+Length: 54
+Boost NFL parlays with our free AI calculator & tools.
+
+/schedule
+ORIGINAL
+Length: 121
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools.
+OTTO SUGGESTED FIX
+Length: 62
+Boost NFL parlays with our free AI-powered calculator & tools.
+
+/teams
+ORIGINAL
+Length: 121
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools.
+OTTO SUGGESTED FIX
+Length: 46
+Boost NFL parlays with our free AI calculator.
+
+/about
+ORIGINAL
+Length: 121
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools.
+OTTO SUGGESTED FIX
+Length: 59
+Boost your NFL parlays with our free AI calculator & tools.
+
+/search
+ORIGINAL
+Length: 121
+Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools.
+OTTO SUGGESTED FIX
+Length: 58
+Boost NFL parlay wins with our AI calculator & free tools.

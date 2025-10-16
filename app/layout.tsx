@@ -7,8 +7,8 @@ import Navbar from '@/components/Navbar'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BuildParlays - #1 AI Parlay Calculator for NFL Betting | Free Sports Betting Tools',
-  description: 'Build winning NFL parlays with our AI-powered calculator. Free parlay builder, odds calculator, and sports betting tools. Get expert NFL predictions and build smarter bets today.',
+  title: 'BuildParlays: AI Parlay Calculator for NFL Betting',
+  description: 'Build winning NFL parlays with BuildParlays\' AI calculator. Get expert predictions and free sports betting tools for smarter bets now.',
   keywords: 'parlay calculator, NFL parlays, sports betting, AI predictions, parlay builder, betting odds, NFL betting, sports calculator, parlay legs, betting tools, free parlay calculator, NFL picks, sports analytics',
   authors: [{ name: 'BuildParlays' }],
   creator: 'BuildParlays',
@@ -43,11 +43,11 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'BuildParlays - AI Parlay Calculator for NFL Betting',
-    description: 'Build winning NFL parlays with our AI-powered calculator. Free parlay builder and sports betting tools.',
+    description: 'Boost NFL parlays with our free AI calculator & tools.',
     images: ['https://buildparlays.com/og-image.png'],
   },
   alternates: {
-    canonical: 'https://buildparlays.com',
+    canonical: 'https://www.buildparlays.com/',
   },
   icons: {
     icon: [

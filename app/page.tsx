@@ -213,7 +213,7 @@ export default function Home() {
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
-              BuildParlays
+              BuildParlays: AI-Powered NFL Parlay Calculator &amp; Expert Predictions
             </h1>
             <p className="text-lg md:text-xl mb-6 text-blue-100">
               Free AI Parlay Calculator for Smart NFL Betting
@@ -480,10 +480,59 @@ export default function Home() {
         )}
       </section>
 
+      {/* SEO Content Sections */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Understanding NFL Betting Basics</h2>
+            <p className="text-gray-700 mb-4">
+              NFL betting can seem complex, but understanding the basics is crucial for making informed decisions. Key concepts include point spreads, moneylines, and over/under totals, which form the foundation of most betting strategies.
+            </p>
+            <p className="text-gray-700">
+              For instance, a point spread indicates the margin by which a team must win for a bet to pay out. Familiarizing yourself with these terms will help you navigate the betting landscape more effectively and increase your chances of success.
+            </p>
+          </div>
+          
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">How to Use the AI-Powered Parlay Calculator</h2>
+            <p className="text-gray-700 mb-4">
+              The AI-powered parlay calculator is designed to simplify the process of creating winning parlays. By inputting your selections and desired outcomes, the calculator analyzes historical data and current statistics to offer optimal betting suggestions.
+            </p>
+            <p className="text-gray-700">
+              This tool not only saves time but also enhances your betting strategy by leveraging advanced analytics. Users can experiment with various combinations to see potential payouts, making it an invaluable resource for both novice and experienced bettors.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-50">
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Expert Predictions for NFL Games</h2>
+            <p className="text-gray-700 mb-4">
+              Expert predictions are a vital resource for bettors looking to gain an edge in NFL wagering. These insights are typically based on in-depth analysis of team performance, player statistics, and other relevant factors that influence game outcomes.
+            </p>
+            <p className="text-gray-700">
+              For example, expert analysts may provide forecasts for upcoming matchups, highlighting key players to watch and potential game-changing events. Utilizing these predictions can help bettors make more informed choices and enhance their overall betting strategy.
+            </p>
+          </div>
+          
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Exploring Team Statistics and Trends</h2>
+            <p className="text-gray-700 mb-4">
+              Understanding team statistics and trends is essential for successful NFL betting. Analyzing data such as win-loss records, scoring averages, and defensive rankings can provide valuable insights into team performance.
+            </p>
+            <p className="text-gray-700">
+              For example, a team that consistently performs well against the spread may be a strong candidate for your betting slip. Keeping track of these metrics can help you identify patterns and inform your betting decisions, ultimately leading to more successful outcomes.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Teams Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-50">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Featured Teams</h2>
+          <h2 className="text-3xl font-bold text-gray-900">Top NFL Teams to Target in This Week&apos;s Parlays</h2>
           <Link href="/teams" className="text-blue-600 hover:text-blue-700 font-semibold">
             View All →
           </Link>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Head from 'next/head';
 import { sportsdataApi } from '@/lib/sportsdataio';
 import { Calendar, Tv } from 'lucide-react';
 import { format, parseISO, startOfWeek, addWeeks, subWeeks } from 'date-fns';
@@ -112,11 +113,22 @@ export default function SchedulePage() {
   const sortedDates = Object.keys(gamesByDate).sort();
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <>
+      <Head>
+        <title>BuildParlays: NFL Schedule & AI Parlay Tools for 2025</title>
+        <meta name="description" content="Build winning NFL parlays with BuildParlays' AI-powered calculator. Get expert NFL predictions and use our free parlay builder to build smarter bets today." />
+        <link rel="canonical" href="https://www.buildparlays.com/schedule" />
+        <meta property="og:title" content="BuildParlays: NFL Schedule & AI Parlay Tools for 2025" />
+        <meta property="og:description" content="Boost NFL parlays with our free AI-powered calculator & tools." />
+        <meta property="og:url" content="https://www.buildparlays.com/schedule" />
+        <meta name="twitter:title" content="BuildParlays: NFL Schedule & AI Parlay Tools for 2025" />
+        <meta name="twitter:description" content="Boost NFL parlays with our free AI-powered calculator & tools." />
+      </Head>
+      <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">NFL Schedule</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">BuildParlays NFL Schedule: Upcoming and Past Games</h1>
           <p className="text-gray-600">View upcoming and past NFL games</p>
         </div>
 
@@ -141,6 +153,51 @@ export default function SchedulePage() {
             >
               Next Week
             </button>
+          </div>
+        </div>
+
+        {/* SEO Content Sections */}
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Upcoming NFL Games</h2>
+            <p className="text-gray-700 mb-4">
+              Stay informed about the upcoming NFL games scheduled for this season. Our platform provides a detailed schedule that allows you to view game dates, times, and matchups, ensuring you never miss a moment of the action.
+            </p>
+            <p className="text-gray-700">
+              For the current week, you can easily access information about the teams playing, their records, and previous matchups. This helps you make informed decisions when placing your bets, as understanding team performance is crucial for successful betting strategies.
+            </p>
+          </div>
+          
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Past NFL Games</h2>
+            <p className="text-gray-700 mb-4">
+              Explore the results of past NFL games to analyze team performance and trends. Reviewing past matchups can provide valuable insights that inform your betting strategies for future games.
+            </p>
+            <p className="text-gray-700">
+              Our platform archives game results, including scores, player statistics, and highlights. This wealth of information allows you to evaluate how teams have performed historically, giving you an edge in your betting decisions.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">NFL Team Information</h2>
+            <p className="text-gray-700 mb-4">
+              Get comprehensive information about each NFL team, including rosters, player statistics, and team history. Knowing the strengths and weaknesses of each team is essential for making informed betting choices.
+            </p>
+            <p className="text-gray-700">
+              Additionally, our team pages feature updates on injuries, trades, and other critical news that can impact game outcomes. Staying updated on team dynamics is vital for predicting how games will unfold and enhancing your betting strategy.
+            </p>
+          </div>
+          
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Betting Tools and Resources</h2>
+            <p className="text-gray-700 mb-4">
+              Utilize our AI-powered calculator and expert predictions to enhance your betting experience. These tools are designed to help you build effective NFL parlays tailored to your preferences and risk tolerance.
+            </p>
+            <p className="text-gray-700">
+              Our resources include betting guides, tips from seasoned experts, and analysis of betting trends. Whether you&apos;re a novice or a seasoned bettor, these tools can significantly improve your chances of making successful wagers.
+            </p>
           </div>
         </div>
 
@@ -288,6 +345,7 @@ export default function SchedulePage() {
         )}
       </div>
     </div>
+    </>
   );
 }
 
