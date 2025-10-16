@@ -20,10 +20,9 @@ export async function getPlayerWithStats(playerName: string, team: string): Prom
   try {
     console.log(`📡 Fetching data for ${playerName} (${team})...`);
     
-    // Check if we should use mock data for "Mock Player"
-    if (mockDataService.shouldUseMockData() && 
-        (playerName.toLowerCase().includes('mock') || playerName.toLowerCase() === 'mock player')) {
-      console.log('🎭 Using mock data for development...');
+    // Check if this is a mock player (works in production too)
+    if (mockDataService.isMockPlayer(playerName)) {
+      console.log('🎭 Using mock data for mock player...');
       return await mockDataService.getMockPlayerWithStats();
     }
     
@@ -77,8 +76,8 @@ export async function searchPlayersAndTeams(query: string): Promise<{
   try {
     console.log(`🔍 Searching for: "${query}"`);
     
-    // Check if we should use mock data
-    if (mockDataService.shouldUseMockData()) {
+    // Check if searching for mock players or if in development
+    if (mockDataService.shouldUseMockData() || mockDataService.isMockPlayer(query)) {
       console.log('🎭 Using mock search data...');
       return await mockDataService.search(query);
     }

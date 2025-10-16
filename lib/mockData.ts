@@ -409,9 +409,20 @@ export const mockDataService = {
   },
 
   /**
-   * Check if we should use mock data (development mode)
+   * Check if we should use mock data (development mode or for mock players)
    */
   shouldUseMockData(): boolean {
     return process.env.NODE_ENV === 'development' || process.env.USE_MOCK_DATA === 'true';
+  },
+
+  /**
+   * Check if this is a mock player that should use mock data (works in production)
+   */
+  isMockPlayer(playerName: string): boolean {
+    const lowerName = playerName.toLowerCase();
+    return lowerName.includes('mock') || 
+           lowerName === 'mock player' ||
+           lowerName === 'mock receiver' ||
+           lowerName === 'mock runner';
   }
 };
