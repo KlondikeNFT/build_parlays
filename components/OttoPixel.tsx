@@ -17,8 +17,13 @@ export default function OTTOPixel() {
     script.setAttribute('data-uuid', 'dbb69606-524e-4692-9374-e1d7a2f1ad16');
     script.async = true;
     
-    // Add to head
-    document.head.appendChild(script);
+    // Insert at the beginning of head to ensure it loads first
+    const firstScript = document.head.querySelector('script');
+    if (firstScript) {
+      document.head.insertBefore(script, firstScript);
+    } else {
+      document.head.appendChild(script);
+    }
 
     // Cleanup function
     return () => {

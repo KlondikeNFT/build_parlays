@@ -103,9 +103,9 @@ export default function RootLayout({
             })
           }}
         />
+        <OttoPixel />
       </head>
       <body className={inter.className}>
-        <OttoPixel />
         <Navbar />
         {children}
       </body>
