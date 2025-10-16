@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Navbar from '@/components/Navbar'
-import OttoPixel from '@/components/OttoPixel'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -103,7 +103,14 @@ export default function RootLayout({
             })
           }}
         />
-        <OttoPixel />
+        
+        {/* SearchAtlas OTTO Pixel */}
+        <Script
+          id="sa-dynamic-optimization-loader"
+          src="https://dashboard.searchatlas.com/scripts/dynamic_optimization.js"
+          data-uuid="dbb69606-524e-4692-9374-e1d7a2f1ad16"
+          strategy="beforeInteractive"
+        />
       </head>
       <body className={inter.className}>
         <Navbar />
