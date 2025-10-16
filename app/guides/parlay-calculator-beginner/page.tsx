@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Beginner\'s Guide to Using a Parlay Calculator | BuildParlays',
+  title: 'Beginner&apos;s Guide to Using a Parlay Calculator | BuildParlays',
   description: 'Complete beginner\'s guide to using parlay calculators. Learn the basics of parlay betting, how to input odds, and master your first parlay calculations.',
   keywords: 'parlay calculator beginner, how to use parlay calculator, parlay betting basics, parlay calculator tutorial',
   robots: {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'Beginner\'s Guide to Using a Parlay Calculator | BuildParlays',
+    title: 'Beginner&apos;s Guide to Using a Parlay Calculator | BuildParlays',
     description: 'Complete beginner\'s guide to using parlay calculators and parlay betting basics.',
     url: 'https://www.buildparlays.com/guides/parlay-calculator-beginner',
   },
@@ -24,11 +24,11 @@ export default function ParlayCalculatorBeginnerPage() {
           <nav className="text-sm text-gray-600 mb-4">
             <Link href="/guides" className="hover:text-blue-600">Guides</Link> / 
             <Link href="/guides/parlay-calculator-category" className="hover:text-blue-600 ml-2">Parlay Calculator Category</Link> / 
-            <span className="ml-2">Beginner\'s Guide</span>
+            <span className="ml-2">Beginner&apos;s Guide</span>
           </nav>
           
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Beginner\'s Guide to Using a Parlay Calculator
+            Beginner&apos;s Guide to Using a Parlay Calculator
           </h1>
           <p className="text-xl text-gray-600">
             New to parlay betting? This comprehensive guide will teach you everything you need to know about using parlay calculators effectively.
@@ -55,7 +55,7 @@ export default function ParlayCalculatorBeginnerPage() {
               <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
               <div>
                 <h4 className="font-semibold text-gray-900">Stake</h4>
-                <p className="text-gray-700">The amount of money you\'re willing to risk on the parlay</p>
+                <p className="text-gray-700">The amount of money you&apos;re willing to risk on the parlay</p>
               </div>
             </div>
             <div className="flex items-start space-x-3">
@@ -99,7 +99,7 @@ export default function ParlayCalculatorBeginnerPage() {
           
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-green-50 p-6 rounded-lg">
-              <h4 className="text-lg font-bold text-green-800 mb-3">Do\'s</h4>
+              <h4 className="text-lg font-bold text-green-800 mb-3">Do&apos;s</h4>
               <ul className="text-green-700 space-y-2">
                 <li>• Start with 2-3 leg parlays</li>
                 <li>• Use small stakes initially</li>
@@ -109,13 +109,13 @@ export default function ParlayCalculatorBeginnerPage() {
               </ul>
             </div>
             <div className="bg-red-50 p-6 rounded-lg">
-              <h4 className="text-lg font-bold text-red-800 mb-3">Don\'ts</h4>
+              <h4 className="text-lg font-bold text-red-800 mb-3">Don&apos;ts</h4>
               <ul className="text-red-700 space-y-2">
-                <li>• Don\'t chase losses with bigger bets</li>
-                <li>• Don\'t bet more than you can afford</li>
-                <li>• Don\'t include too many legs</li>
-                <li>• Don\'t ignore the odds</li>
-                <li>• Don\'t bet on impulse</li>
+                <li>• Don&apos;t chase losses with bigger bets</li>
+                <li>• Don&apos;t bet more than you can afford</li>
+                <li>• Don&apos;t include too many legs</li>
+                <li>• Don&apos;t ignore the odds</li>
+                <li>• Don&apos;t bet on impulse</li>
               </ul>
             </div>
           </div>
