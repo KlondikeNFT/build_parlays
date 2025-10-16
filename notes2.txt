@@ -3,3 +3,36 @@ This is kind of cool, they have a Domain knowledge Network where they do this.
 "We generate topical maps based on your business info to build authority.
 
 Each node becomes a suggested page with titles, categories, and keywords. You can edit details, then generate articles directly in Content Genius. The SEO benefits come from interconnected pages that strengthen your sites topical relevance."
+
+So does this mean we should add a sort of hidden blog page with different categories? I am confused.
+
+Like are they saying to create pages of blog posts just to increase SEO word searches ?
+
+
+
+
+
+
+
+
+
+lets do it,maybe we can hide all the pages in a footer? I will start generating stuff with their tool.
+
+
+Here is first page : 
+
+Parlay Calculator Category
+The article is the html file.
+
+This will also have 10 sub pages.
+- How Accurate is the Parlay Calculator?
+- Beginner's Guide to Using a Parlay Calculator
+- Using a Parlay Calculator with Odds Boosts
+- Parlay Calculator for Other Sports
+- Using a Parlay Calculator for Live NFL Betting
+- Using a Parlay Calculator with Teaser Bets
+- Using a Parlay Calculator with Round Robin Bets
+- Using a Parlay Calculator with Same Game Parlays
+- Using a Parlay Calculator with Alternate Lines
+- Using a Parlay Calculator with Futures Bets
+
