@@ -170,7 +170,64 @@ export async function getTeamWithRoster(teamAbbr: string): Promise<TeamWithRoste
   try {
     console.log(`📡 Loading roster for ${teamAbbr}...`);
     
-    // For now, return mock data until we implement the API route
+    // Try to fetch team data from API
+    const teamResponse = await fetch(`/api/database/teams`);
+    if (teamResponse.ok) {
+      const teams = await teamResponse.json();
+      const team = teams.find((t: any) => t.team_abbr === teamAbbr);
+      
+      if (team) {
+        // Convert database team to SDTeam format
+        const sdTeam: SDTeam = {
+          TeamID: parseInt(team.team_id) || 0,
+          Key: team.team_abbr,
+          City: team.team_name.split(' ')[0] || team.team_name,
+          Name: team.team_name.split(' ').slice(1).join(' ') || team.team_name,
+          FullName: team.team_name,
+          StadiumID: 0,
+          ByeWeek: 0,
+          Conference: team.team_conference,
+          Division: team.team_division,
+          PrimaryColor: team.team_color_primary || '#000000',
+          SecondaryColor: team.team_color_secondary || '#FFFFFF',
+          WikipediaLogoUrl: team.team_logo_url || '',
+          WikipediaWordMarkUrl: '',
+        };
+        
+        // Try to fetch roster data
+        const rosterResponse = await fetch(`/api/database/players?team=${teamAbbr}`);
+        let roster: SDPlayer[] = [];
+        
+        if (rosterResponse.ok) {
+          const rosterData = await rosterResponse.json();
+          roster = rosterData.map((player: any) => ({
+            PlayerID: parseInt(player.player_id) || 0,
+            Team: player.team || teamAbbr,
+            Number: player.jersey_number || 0,
+            FirstName: player.first_name || '',
+            LastName: player.last_name || '',
+            Position: player.position || '',
+            Status: player.status || 'Active',
+            Height: player.height || '',
+            Weight: player.weight || 0,
+            BirthDate: player.birth_date || '',
+            College: player.college || '',
+            Experience: player.experience || 0,
+            PhotoUrl: player.headshot_url || '',
+            DepthOrder: 1,
+            InjuryStatus: 'Active',
+            InjuryBodyPart: '',
+            Started: 0,
+          }));
+        }
+        
+        console.log(`✅ Loaded ${sdTeam.FullName} with ${roster.length} players from database`);
+        return { team: sdTeam, roster };
+      }
+    }
+    
+    // Fallback to mock data if team not found
+    console.log(`⚠️ Team ${teamAbbr} not found in database, using mock data`);
     const mockTeam: SDTeam = {
       TeamID: 1,
       Key: teamAbbr,
@@ -209,7 +266,7 @@ export async function getTeamWithRoster(teamAbbr: string): Promise<TeamWithRoste
       },
     ];
     
-    console.log(`✅ Loaded ${mockTeam.FullName} with ${mockRoster.length} players`);
+    console.log(`✅ Loaded ${mockTeam.FullName} with ${mockRoster.length} players (mock data)`);
     return { team: mockTeam, roster: mockRoster };
   } catch (error) {
     console.error(`❌ Error loading team ${teamAbbr}:`, error);

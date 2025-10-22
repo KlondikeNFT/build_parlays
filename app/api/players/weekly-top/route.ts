@@ -163,6 +163,7 @@ async function getTopPassingPerformers(week: number) {
       p.player_id,
       p.first_name,
       p.last_name,
+      p.first_name || ' ' || p.last_name as player_name,
       p.position,
       COALESCE(p.team, pgs.team, (
         SELECT team FROM player_game_stats pgs2 
@@ -188,6 +189,7 @@ async function getTopRushingPerformers(week: number) {
       p.player_id,
       p.first_name,
       p.last_name,
+      p.first_name || ' ' || p.last_name as player_name,
       p.position,
       COALESCE(p.team, pgs.team, (
         SELECT team FROM player_game_stats pgs2 
@@ -212,6 +214,7 @@ async function getTopReceivingPerformers(week: number) {
       p.player_id,
       p.first_name,
       p.last_name,
+      p.first_name || ' ' || p.last_name as player_name,
       p.position,
       COALESCE(p.team, pgs.team, (
         SELECT team FROM player_game_stats pgs2 
@@ -236,6 +239,7 @@ async function getTopTouchdownPerformers(week: number) {
       p.player_id,
       p.first_name,
       p.last_name,
+      p.first_name || ' ' || p.last_name as player_name,
       p.position,
       COALESCE(p.team, pgs.team, (
         SELECT team FROM player_game_stats pgs2 
@@ -262,6 +266,7 @@ async function getTopReceptionPerformers(week: number) {
       p.player_id,
       p.first_name,
       p.last_name,
+      p.first_name || ' ' || p.last_name as player_name,
       p.position,
       COALESCE(p.team, pgs.team, (
         SELECT team FROM player_game_stats pgs2 
