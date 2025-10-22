@@ -209,3 +209,15 @@ we are still having errors. Are you able to install or access vercel in terminal
 
 
 Awesome now i would like to work in local host. But I want it to work with our server so That I know the changes we are making will function it's just not deployed. is that possible or do we need to keep using a local db setup?
+
+
+
+
+okay yes you got the local host to be the same as the live site. now I am currently seeing the following issues.
+
+
+- When click on this weeks top parlay players, they all direct to patrick mahomes.
+
+- the back button on pages all direct back to mock data chiefs team page. not back to prior page.
+
+- when click on a top nfl team it doesnt bring me to their teams page it brings to chiefs team mock data page as well. so a lot of pages are being brought to or back to mock data pages and not the actual pages.

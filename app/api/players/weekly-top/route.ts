@@ -4,7 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { getDatabase, getRows, getRow } from '@/lib/database/hybrid-connection';
+import { getRows, getRow } from '@/lib/database/hybrid-connection';
 
 export async function GET(request: Request) {
   try {
@@ -13,15 +13,13 @@ export async function GET(request: Request) {
     
     console.log(`🏈 Analyzing Week ${week} stats for top performers...`);
     
-    const db = getDatabase();
-    
     // Get top performers by category for the specified week
     const topPerformers = {
-      passing: await getTopPassingPerformers(db, parseInt(week)),
-      rushing: await getTopRushingPerformers(db, parseInt(week)),
-      receiving: await getTopReceivingPerformers(db, parseInt(week)),
-      touchdowns: await getTopTouchdownPerformers(db, parseInt(week)),
-      receptions: await getTopReceptionPerformers(db, parseInt(week))
+      passing: await getTopPassingPerformers(parseInt(week)),
+      rushing: await getTopRushingPerformers(parseInt(week)),
+      receiving: await getTopReceivingPerformers(parseInt(week)),
+      touchdowns: await getTopTouchdownPerformers(parseInt(week)),
+      receptions: await getTopReceptionPerformers(parseInt(week))
     };
     
     // Combine and rank all top performers
@@ -159,8 +157,8 @@ export async function GET(request: Request) {
   }
 }
 
-async function getTopPassingPerformers(db: Database.Database, week: number) {
-  const stmt = db.prepare(`
+async function getTopPassingPerformers(week: number) {
+  return await getRows(`
     SELECT 
       p.player_id,
       p.first_name,
@@ -181,13 +179,11 @@ async function getTopPassingPerformers(db: Database.Database, week: number) {
     WHERE pgs.season = 2025 AND pgs.week = ? AND pgs.passing_yards > 0
     ORDER BY pgs.passing_yards DESC
     LIMIT 5
-  `);
-  
-  return stmt.all(week);
+  `, [week]);
 }
 
-async function getTopRushingPerformers(db: Database.Database, week: number) {
-  const stmt = db.prepare(`
+async function getTopRushingPerformers(week: number) {
+  return await getRows(`
     SELECT 
       p.player_id,
       p.first_name,
@@ -207,13 +203,11 @@ async function getTopRushingPerformers(db: Database.Database, week: number) {
     WHERE pgs.season = 2025 AND pgs.week = ? AND pgs.rushing_yards > 0
     ORDER BY pgs.rushing_yards DESC
     LIMIT 5
-  `);
-  
-  return stmt.all(week);
+  `, [week]);
 }
 
-async function getTopReceivingPerformers(db: Database.Database, week: number) {
-  const stmt = db.prepare(`
+async function getTopReceivingPerformers(week: number) {
+  return await getRows(`
     SELECT 
       p.player_id,
       p.first_name,
@@ -233,13 +227,11 @@ async function getTopReceivingPerformers(db: Database.Database, week: number) {
     WHERE pgs.season = 2025 AND pgs.week = ? AND pgs.receiving_yards > 0
     ORDER BY pgs.receiving_yards DESC
     LIMIT 5
-  `);
-  
-  return stmt.all(week);
+  `, [week]);
 }
 
-async function getTopTouchdownPerformers(db: Database.Database, week: number) {
-  const stmt = db.prepare(`
+async function getTopTouchdownPerformers(week: number) {
+  return await getRows(`
     SELECT 
       p.player_id,
       p.first_name,
@@ -261,13 +253,11 @@ async function getTopTouchdownPerformers(db: Database.Database, week: number) {
       AND (pgs.passing_touchdowns + pgs.rushing_touchdowns + pgs.receiving_touchdowns) > 0
     ORDER BY total_touchdowns DESC
     LIMIT 5
-  `);
-  
-  return stmt.all(week);
+  `, [week]);
 }
 
-async function getTopReceptionPerformers(db: Database.Database, week: number) {
-  const stmt = db.prepare(`
+async function getTopReceptionPerformers(week: number) {
+  return await getRows(`
     SELECT 
       p.player_id,
       p.first_name,
@@ -286,9 +276,7 @@ async function getTopReceptionPerformers(db: Database.Database, week: number) {
     WHERE pgs.season = 2025 AND pgs.week = ? AND pgs.receptions > 0
     ORDER BY pgs.receptions DESC
     LIMIT 5
-  `);
-  
-  return stmt.all(week);
+  `, [week]);
 }
 
 function generateParlayPredictions(player: any) {
