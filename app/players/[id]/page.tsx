@@ -152,6 +152,18 @@ function SmartDraggableSlider({ statAnalysis, gameStats, index, player }: {
   const handleMouseUp = () => {
     setIsDragging(false);
   };
+
+  // Touch event handlers for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+    handleTouchMove(e);
+  };
+  
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
   
   const handleMove = (e: MouseEvent | React.MouseEvent) => {
     const slider = document.getElementById(`smart-slider-${index}`);
@@ -163,17 +175,33 @@ function SmartDraggableSlider({ statAnalysis, gameStats, index, player }: {
     const newValue = Math.round(min + (percentage / 100) * (max - min));
     setValue(newValue);
   };
+
+  const handleTouchMove = (e: TouchEvent | React.TouchEvent) => {
+    const slider = document.getElementById(`smart-slider-${index}`);
+    if (!slider) return;
+    
+    const rect = slider.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    const newValue = Math.round(min + (percentage / 100) * (max - min));
+    setValue(newValue);
+  };
   
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('touchmove', handleTouchMove, { passive: false });
+      document.addEventListener('touchend', handleTouchEnd);
       return () => {
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener('touchmove', handleTouchMove);
+        document.removeEventListener('touchend', handleTouchEnd);
       };
     }
-  }, [isDragging, handleMouseMove, handleMouseUp]);
+  }, [isDragging, handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
 
   // Determine volatility level based on consistency
   const volatilityLevel = statAnalysis.consistency > 70 ? 'Low' : statAnalysis.consistency > 50 ? 'Medium' : 'High';
@@ -236,11 +264,12 @@ function SmartDraggableSlider({ statAnalysis, gameStats, index, player }: {
       </div>
 
       {/* Custom Slider */}
-      <div className="relative group">
+      <div className="relative group" style={{ touchAction: 'none' }}>
         <div 
           id={`smart-slider-${index}`}
           className="h-2 bg-gray-200 rounded-full lg:h-3 cursor-pointer"
           onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
         >
           <div 
             className={`h-2 rounded-full lg:h-3 bg-gradient-to-r ${getGradientColor(confidence)}`}
@@ -255,6 +284,7 @@ function SmartDraggableSlider({ statAnalysis, gameStats, index, player }: {
           }`}
           style={{ left: `calc(${fillPercentage}% - 24px)` }}
           onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
         >
           <div className="absolute inset-1 bg-gray-400 rounded-full opacity-30"></div>
           <div className="absolute inset-2 bg-white rounded-full"></div>
@@ -437,6 +467,7 @@ function DraggableSlider({ statThreshold, gameStats, index }: {
           id={`slider-${index}`}
           className="h-2 bg-gray-200 rounded-full lg:h-3 cursor-pointer"
           onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
         >
           <div 
             className={`h-2 rounded-full lg:h-3 ${
@@ -453,6 +484,7 @@ function DraggableSlider({ statThreshold, gameStats, index }: {
           }`}
           style={{ left: `calc(${fillPercentage}% - 24px)` }}
           onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
         >
           <div className="absolute inset-1 bg-gray-400 rounded-full opacity-30"></div>
           <div className="absolute inset-2 bg-white rounded-full"></div>
@@ -500,8 +532,8 @@ function PlayerContent() {
         if (response.ok) {
           const data = await response.json();
           if (data.player) {
-            console.log(`✅ Loaded stats for ${data.player.FirstName} ${data.player.LastName}`);
-            setPlayerData(data);
+        console.log(`✅ Loaded stats for ${data.player.FirstName} ${data.player.LastName}`);
+        setPlayerData(data);
             
             // Analyze player performance for statistical insights
             if (data.gameLog && data.gameLog.length > 0) {
@@ -687,12 +719,12 @@ function PlayerContent() {
             ) : (
               // Fallback to original sliders
               getStatCategories(player.Position).slice(0, 4).map((statThreshold, index) => (
-                <DraggableSlider
-                  key={statThreshold.stat}
-                  statThreshold={statThreshold}
-                  gameStats={gameLog}
-                  index={index}
-                />
+              <DraggableSlider
+                key={statThreshold.stat}
+                statThreshold={statThreshold}
+                gameStats={gameLog}
+                index={index}
+              />
               ))
             )}
           </div>
