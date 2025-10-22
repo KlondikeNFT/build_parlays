@@ -8,22 +8,26 @@ import { getTursoDatabase, getDatabaseStats as getTursoStats, executeQuery as tu
 
 // Check if we're in production (Vercel) or local development
 const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
-const hasTursoCredentials = process.env.TURSO_URL && process.env.TURSO_AUTH_TOKEN;
+// Always use Turso in production, regardless of env vars (they're hardcoded in turso-connection.ts)
+const shouldUseTurso = isProduction;
 
 /**
  * Get the appropriate database connection
  */
 export function getDatabase(): any {
-  // Use Turso in production or if credentials are available
-  if (isProduction || hasTursoCredentials) {
+  // Use Turso in production
+  if (shouldUseTurso) {
     try {
+      console.log('📊 Using Turso database in production');
       return getTursoDatabase();
     } catch (error) {
-      console.warn('⚠️  Turso connection failed, falling back to SQLite:', error);
+      console.error('❌ Turso connection failed:', error);
+      throw error; // Don't fall back to SQLite in production
     }
   }
 
-  // Fall back to SQLite for local development
+  // Use SQLite for local development
+  console.log('📊 Using SQLite database locally');
   return getSQLiteDatabase();
 }
 
@@ -31,15 +35,16 @@ export function getDatabase(): any {
  * Execute a query (works with both SQLite and Turso)
  */
 export async function executeQuery(sql: string, params: any[] = []): Promise<any> {
-  if (isProduction || hasTursoCredentials) {
+  if (shouldUseTurso) {
     try {
       return await tursoExecuteQuery(sql, params);
     } catch (error) {
-      console.warn('⚠️  Turso query failed, falling back to SQLite:', error);
+      console.error('❌ Turso query failed:', error);
+      throw error; // Don't fall back to SQLite in production
     }
   }
 
-  // SQLite fallback
+  // SQLite for local development
   const db = getSQLiteDatabase();
   if (params.length === 0) {
     return db.exec(sql);
@@ -52,15 +57,16 @@ export async function executeQuery(sql: string, params: any[] = []): Promise<any
  * Get a single row
  */
 export async function getRow(sql: string, params: any[] = []): Promise<any> {
-  if (isProduction || hasTursoCredentials) {
+  if (shouldUseTurso) {
     try {
       return await tursoGetRow(sql, params);
     } catch (error) {
-      console.warn('⚠️  Turso query failed, falling back to SQLite:', error);
+      console.error('❌ Turso query failed:', error);
+      throw error; // Don't fall back to SQLite in production
     }
   }
 
-  // SQLite fallback
+  // SQLite for local development
   const db = getSQLiteDatabase();
   if (params.length === 0) {
     return db.prepare(sql).get();
@@ -73,15 +79,16 @@ export async function getRow(sql: string, params: any[] = []): Promise<any> {
  * Get multiple rows
  */
 export async function getRows(sql: string, params: any[] = []): Promise<any[]> {
-  if (isProduction || hasTursoCredentials) {
+  if (shouldUseTurso) {
     try {
       return await tursoGetRows(sql, params);
     } catch (error) {
-      console.warn('⚠️  Turso query failed, falling back to SQLite:', error);
+      console.error('❌ Turso query failed:', error);
+      throw error; // Don't fall back to SQLite in production
     }
   }
 
-  // SQLite fallback
+  // SQLite for local development
   const db = getSQLiteDatabase();
   if (params.length === 0) {
     return db.prepare(sql).all();
@@ -101,15 +108,16 @@ export async function getDatabaseStats(): Promise<{
   playerSeasonStats: number;
   injuries: number;
 }> {
-  if (isProduction || hasTursoCredentials) {
+  if (shouldUseTurso) {
     try {
       return await getTursoStats();
     } catch (error) {
-      console.warn('⚠️  Turso stats failed, falling back to SQLite:', error);
+      console.error('❌ Turso stats failed:', error);
+      throw error; // Don't fall back to SQLite in production
     }
   }
 
-  // SQLite fallback
+  // SQLite for local development
   return getSQLiteStats();
 }
 
@@ -117,7 +125,7 @@ export async function getDatabaseStats(): Promise<{
  * Close database connection
  */
 export function closeDatabase(): void {
-  if (isProduction || hasTursoCredentials) {
+  if (shouldUseTurso) {
     // Turso connections are stateless
     console.log('📊 Turso connection closed (stateless)');
   } else {
