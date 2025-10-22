@@ -599,11 +599,11 @@ function PlayerContent() {
       {/* Back Navigation */}
       <div className="bg-gray-100 px-4 py-3 flex items-center lg:px-8">
         <Link
-          href={`/teams/${player.Team}`}
+          href="/"
           className="flex items-center text-gray-600 hover:text-gray-800"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">Back to Home</span>
         </Link>
       </div>
 
