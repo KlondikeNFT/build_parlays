@@ -4,10 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import Database from 'better-sqlite3';
-import path from 'path';
-
-const DB_PATH = path.join(process.cwd(), 'data', 'nfl.db');
+import { getDatabase, getRows } from '@/lib/database/hybrid-connection';
 
 export async function GET(request: Request) {
   try {
@@ -16,10 +13,10 @@ export async function GET(request: Request) {
     
     console.log(`📅 Fetching schedule for week ${week}...`);
     
-    const db = new Database(DB_PATH);
+    const db = getDatabase();
     
     // Get games for the specified week
-    const gamesStmt = db.prepare(`
+    const games = await getRows(`
       SELECT 
         g.game_id,
         g.week,
@@ -36,10 +33,7 @@ export async function GET(request: Request) {
       LEFT JOIN teams at ON g.away_team = at.team_id
       WHERE g.season = 2025 AND g.week = ?
       ORDER BY g.game_id
-    `);
-    
-    const games = gamesStmt.all(parseInt(week));
-    db.close();
+    `, [parseInt(week)]);
     
     // Format games for the frontend
     const formattedGames = games.map((game: any, index) => {

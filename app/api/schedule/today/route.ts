@@ -4,16 +4,13 @@
  */
 
 import { NextResponse } from 'next/server';
-import Database from 'better-sqlite3';
-import path from 'path';
-
-const DB_PATH = path.join(process.cwd(), 'data', 'nfl.db');
+import { getDatabase, getRows } from '@/lib/database/hybrid-connection';
 
 export async function GET(request: Request) {
   try {
     console.log('📅 Fetching today\'s games...');
     
-    const db = new Database(DB_PATH);
+    const db = getDatabase();
     
     // Get today's date
     const today = new Date();
@@ -22,7 +19,7 @@ export async function GET(request: Request) {
     console.log(`📅 Looking for games on: ${todayString}`);
     
     // Get games scheduled for today's actual date
-    const gamesStmt = db.prepare(`
+    const games = await getRows(`
       SELECT 
         g.game_id,
         g.week,
@@ -52,12 +49,7 @@ export async function GET(request: Request) {
       LEFT JOIN team_records atr ON g.away_team = atr.team_id AND atr.season = 2025
       WHERE g.season = 2025 AND g.game_date = ?
       ORDER BY g.game_id
-    `);
-    
-    const games = gamesStmt.all(todayString);
-    db.close();
-    
-    // Format games for the frontend
+    `, [todayString]);// Format games for the frontend
     const formattedGames = games.map((game: any) => {
       // Use the actual game date from the database
       const gameDate = new Date(game.game_date);

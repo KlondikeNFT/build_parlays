@@ -4,10 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import Database from 'better-sqlite3';
-import path from 'path';
-
-const DB_PATH = path.join(process.cwd(), 'data', 'nfl.db');
+import { getDatabase, getRows, getRow } from '@/lib/database/hybrid-connection';
 
 export async function GET(
   request: Request,
@@ -17,7 +14,7 @@ export async function GET(
     const gameId = params.gameId;
     console.log(`🏈 Fetching matchup data for game: ${gameId}`);
     
-    const db = new Database(DB_PATH);
+    const db = getDatabase();
     
     // Get detailed game information
     const gameStmt = db.prepare(`
@@ -59,13 +56,11 @@ export async function GET(
     
     const game = gameStmt.get(gameId) as any;
     
-    if (!game) {
-      db.close();
-      return NextResponse.json({ error: 'Game not found' }, { status: 404 });
+    if (!game) {return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }
     
     // Get recent games for both teams (last 3 games)
-    const recentGamesStmt = db.prepare(`
+    const homeRecentGames = await getRows(`
       SELECT 
         game_id,
         week,
@@ -87,13 +82,11 @@ export async function GET(
       WHERE (home_team = ? OR away_team = ?) AND season = 2025
       ORDER BY week DESC
       LIMIT 3
-    `);
-    
-    const homeRecentGames = recentGamesStmt.all(game.home_team, game.home_team, game.home_team, game.home_team, game.home_team);
+    `, [game.home_team, game.home_team, game.home_team, game.home_team, game.home_team]);
     const awayRecentGames = recentGamesStmt.all(game.away_team, game.away_team, game.away_team, game.away_team, game.away_team);
     
     // Get top players for each team
-    const topPlayersStmt = db.prepare(`
+    const homeTopPlayers = await getRows(`
       SELECT 
         p.player_id,
         p.first_name,
@@ -119,14 +112,8 @@ export async function GET(
           ELSE 0
         END DESC
       LIMIT 5
-    `);
-    
-    const homeTopPlayers = topPlayersStmt.all(game.home_team);
-    const awayTopPlayers = topPlayersStmt.all(game.away_team);
-    
-    db.close();
-    
-    // Format the response
+    `, [game.home_team]);
+    const awayTopPlayers = topPlayersStmt.all(game.away_team);// Format the response
     const matchupData = {
       game: {
         id: game.game_id,

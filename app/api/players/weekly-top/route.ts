@@ -4,10 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import Database from 'better-sqlite3';
-import path from 'path';
-
-const DB_PATH = path.join(process.cwd(), 'data', 'nfl.db');
+import { getDatabase, getRows, getRow } from '@/lib/database/hybrid-connection';
 
 export async function GET(request: Request) {
   try {
@@ -16,7 +13,7 @@ export async function GET(request: Request) {
     
     console.log(`🏈 Analyzing Week ${week} stats for top performers...`);
     
-    const db = new Database(DB_PATH);
+    const db = getDatabase();
     
     // Get top performers by category for the specified week
     const topPerformers = {
@@ -148,11 +145,7 @@ export async function GET(request: Request) {
         consistencyScore: calculateConsistencyScore(player),
         // Get team colors
         teamColors: getTeamColors(player.team)
-      }));
-    
-    db.close();
-    
-    console.log(`✅ Found ${topPlayers.length} top performers for Week ${week}`);
+      }));console.log(`✅ Found ${topPlayers.length} top performers for Week ${week}`);
     
     return NextResponse.json({
       week: parseInt(week),

@@ -4,10 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import Database from 'better-sqlite3';
-import path from 'path';
-
-const DB_PATH = path.join(process.cwd(), 'data', 'nfl.db');
+import { getDatabase, getRows } from '@/lib/database/hybrid-connection';
 
 export async function GET(request: Request) {
   try {
@@ -26,14 +23,14 @@ export async function GET(request: Request) {
     console.log(`🔍 Searching for: "${query}" (type: ${type || 'all'})`);
 
     // Connect to database
-    const db = new Database(DB_PATH);
+    const db = getDatabase();
     
     const searchQuery = `%${query.trim().toLowerCase()}%`;
     const results: { players: any[], teams: any[] } = { players: [], teams: [] };
 
     // Search players if not teams-only
     if (type !== 'teams') {
-      const playerStmt = db.prepare(`
+      const players = await getRows(`
         SELECT DISTINCT
           p.player_id,
           p.first_name,
@@ -63,11 +60,7 @@ export async function GET(request: Request) {
           CASE WHEN LOWER(p.first_name || ' ' || p.last_name) LIKE ? THEN 1 ELSE 2 END,
           p.last_name, p.first_name
         LIMIT 20
-      `);
-      
-      const players = playerStmt.all(
-        searchQuery, searchQuery, searchQuery, searchQuery, searchQuery, searchQuery
-      );
+      `, [searchQuery, searchQuery, searchQuery, searchQuery, searchQuery, searchQuery]);
       
       // Group by player_id to avoid duplicates
       const playerMap = new Map();
@@ -98,7 +91,7 @@ export async function GET(request: Request) {
 
     // Search teams if not players-only
     if (type !== 'players') {
-      const teamStmt = db.prepare(`
+      const teams = await getRows(`
         SELECT 
           team_id,
           team_abbr,
@@ -115,9 +108,7 @@ export async function GET(request: Request) {
           LOWER(team_division) LIKE ?
         ORDER BY team_name
         LIMIT 10
-      `);
-      
-      const teams = teamStmt.all(searchQuery, searchQuery, searchQuery, searchQuery);
+      `, [searchQuery, searchQuery, searchQuery, searchQuery]);
       
       results.teams = teams.map((team: any) => ({
         TeamID: team.team_id,
