@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getTeamWithRoster, groupRosterByPosition, getPositionName, getDepthLabel, getDepthBadgeColor } from '@/lib/teamService';
-import type { SDTeam, SDPlayer } from '@/lib/sportsdataio';
+import { getTeamWithRoster, groupRosterByPosition, getPositionName, getDepthLabel, getDepthBadgeColor, type SDTeam, type SDPlayer } from '@/lib/teamService';
 import { ArrowLeft, Users, AlertCircle, Shield, Zap } from 'lucide-react';
 
 export default function TeamDetailPage() {

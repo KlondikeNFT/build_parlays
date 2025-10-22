@@ -1,10 +1,9 @@
 /**
- * Player Service using SportsDataIO
- * Fetches real player stats and performance data
- * Falls back to mock data in development
+ * Player Service
+ * Uses local NFL database from NFLverse data
  */
 
-import { sportsdataApi, CURRENT_SEASON } from './sportsdataio';
+// Database queries will be called via API routes to avoid client-side issues
 import { mockDataService, MOCK_PLAYER } from './mockData';
 
 export interface PlayerWithStats {
@@ -26,40 +25,35 @@ export async function getPlayerWithStats(playerName: string, team: string): Prom
       return await mockDataService.getMockPlayerWithStats();
     }
     
-    // Get roster to find player
-    const roster = await sportsdataApi.getTeamPlayers(team);
-    const player = roster.find(p => 
-      `${p.FirstName} ${p.LastName}`.toLowerCase().includes(playerName.toLowerCase()) ||
-      playerName.toLowerCase().includes(p.LastName.toLowerCase())
-    );
-    
-    if (!player) {
-      console.warn(`Player ${playerName} not found on ${team} roster`);
-      return null;
+    // Try to fetch from database API using player ID if available
+    try {
+      // First, try to find the player by name to get their ID
+      const searchResponse = await fetch(`/api/database/players?name=${encodeURIComponent(playerName)}`);
+      if (searchResponse.ok) {
+        const searchData = await searchResponse.json();
+        if (searchData.length > 0) {
+          // Use the first matching player
+          const playerId = searchData[0].PlayerID;
+          console.log(`Found player ID: ${playerId} for ${playerName}`);
+          
+          // Now get the full player data
+          const playerResponse = await fetch(`/api/database/players?id=${playerId}`);
+          if (playerResponse.ok) {
+            const playerData = await playerResponse.json();
+            if (playerData.player) {
+              console.log('✅ Retrieved player from database');
+              return playerData;
+            }
+          }
+        }
+      }
+    } catch (dbError) {
+      console.warn('⚠️ Database API failed, falling back to mock data:', dbError);
     }
     
-    // Get their stats for CURRENT SEASON (2025)
-    const [allSeasonStats, gameLog] = await Promise.all([
-      sportsdataApi.getPlayerSeasonStats(CURRENT_SEASON),
-      sportsdataApi.getPlayerGameLogs(CURRENT_SEASON, [player.PlayerID]),
-    ]);
-    
-    const seasonStats = allSeasonStats.find(s => s.PlayerID === player.PlayerID);
-    
-    // Filter to just this player's games and sort by week (most recent first)
-    const sortedGameLog = gameLog
-      .filter(g => g.PlayerID === player.PlayerID && g.Played === 1) // Only include games where player actually played
-      .sort((a, b) => b.Week - a.Week);
-    
-    console.log(`✅ Loaded data for ${player.FirstName} ${player.LastName} (${sortedGameLog.length} games)`);
-    console.log('📊 SEASON STATS:', JSON.stringify(seasonStats, null, 2));
-    console.log('📊 GAME LOG (first 3 games):', JSON.stringify(sortedGameLog.slice(0, 3), null, 2));
-    
-    return {
-      player,
-      seasonStats: seasonStats || {},
-      gameLog: sortedGameLog,
-    };
+    // Fallback to mock data
+    console.log('🎭 Using mock data as fallback...');
+    return await mockDataService.getMockPlayerWithStats();
   } catch (error) {
     console.error(`❌ Error fetching player ${playerName}:`, error);
     return null;
@@ -76,16 +70,26 @@ export async function searchPlayersAndTeams(query: string): Promise<{
   try {
     console.log(`🔍 Searching for: "${query}"`);
     
-    // Check if searching for mock players or if in development
-    if (mockDataService.shouldUseMockData() || mockDataService.isMockPlayer(query)) {
-      console.log('🎭 Using mock search data...');
-      return await mockDataService.search(query);
+    // Try to fetch from real database search API
+    try {
+      const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ Retrieved search results from database');
+        return {
+          players: data.players || [],
+          teams: data.teams || []
+        };
+      }
+    } catch (dbError) {
+      console.warn('⚠️ Database search API failed, falling back to mock data:', dbError);
     }
     
-    // For now, return empty results for real API search
-    // This could be expanded to search through real data
-    console.log('⚠️ Real search not implemented yet, using mock data');
-    return await mockDataService.search(query);
+    // Fallback to mock data
+    console.log('🎭 Using mock search data as fallback...');
+    const results = await mockDataService.search(query);
+    console.log('🎭 Mock search results:', results);
+    return results;
   } catch (error) {
     console.error('❌ Error searching:', error);
     return { players: [], teams: [] };

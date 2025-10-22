@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
-import { sportsdataApi } from '@/lib/sportsdataio';
+// Removed SportsDataIO import
 import { Calendar, Tv } from 'lucide-react';
 import { format, parseISO, startOfWeek, addWeeks, subWeeks } from 'date-fns';
 
@@ -44,52 +44,48 @@ export default function SchedulePage() {
   useEffect(() => {
     async function loadSchedule() {
       setLoading(true);
-      const [schedule, currentWeek] = await Promise.all([
-        sportsdataApi.getSchedule('2025'),
-        sportsdataApi.getCurrentWeek(),
-      ]);
       
-      // Convert schedule to Game format
-      const convertedGames = schedule
-        .filter(game => game.Week === currentWeek)
-        .map(game => ({
-          id: game.GameKey || game.ScoreID?.toString() || '',
-          date: game.DateTime || game.Date || '',
+      // Mock schedule data
+      const mockGames: Game[] = [
+        {
+          id: '1',
+          date: '2025-01-19T20:00:00Z',
           competitions: [{
-            id: game.ScoreID?.toString() || '',
+            id: '1',
             competitors: [
               {
-                id: game.AwayTeam,
+                id: 'KC',
                 homeAway: 'away' as const,
                 team: {
-                  id: game.AwayTeam,
-                  displayName: game.AwayTeam,
-                  logos: [{ href: `https://a.espncdn.com/i/teamlogos/nfl/500/${game.AwayTeam.toLowerCase()}.png` }]
+                  id: 'KC',
+                  displayName: 'Kansas City Chiefs',
+                  logos: [{ href: `https://a.espncdn.com/i/teamlogos/nfl/500/kc.png` }]
                 },
-                score: game.AwayScore?.toString()
+                score: '24'
               },
               {
-                id: game.HomeTeam,
+                id: 'BUF',
                 homeAway: 'home' as const,
                 team: {
-                  id: game.HomeTeam,
-                  displayName: game.HomeTeam,
-                  logos: [{ href: `https://a.espncdn.com/i/teamlogos/nfl/500/${game.HomeTeam.toLowerCase()}.png` }]
+                  id: 'BUF',
+                  displayName: 'Buffalo Bills',
+                  logos: [{ href: `https://a.espncdn.com/i/teamlogos/nfl/500/buf.png` }]
                 },
-                score: game.HomeScore?.toString()
+                score: '17'
               }
             ],
             status: {
               type: {
-                state: game.IsClosed ? 'post' : 'pre',
-                completed: game.IsClosed || false
+                state: 'post',
+                completed: true
               }
             },
-            broadcasts: game.Channel ? [{ names: [game.Channel] }] : []
+            broadcasts: [{ names: ['CBS'] }]
           }]
-        }));
+        }
+      ];
       
-      setGames(convertedGames);
+      setGames(mockGames);
       setLoading(false);
     }
     loadSchedule();

@@ -1,14 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { Calendar, Users, TrendingUp, Search, Sparkles, ChevronRight, ChevronLeft, AlertCircle } from 'lucide-react';
+import { Calendar, Users, TrendingUp, Search, Sparkles, ChevronRight, ChevronLeft, AlertCircle, Trophy } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
-import { sportsdataApi, type SDTeam } from '@/lib/sportsdataio';
 import { getAllTeams, type TeamWithRecord } from '@/lib/teamService';
-import { getRealTopPlayersFromSportsData } from '@/lib/realPlayerService';
+import { mockDataService } from '@/lib/mockData';
 import type { TopPlayer } from '@/lib/statsAnalyzer';
 import { getTeamColors, getLikelihoodGradient } from '@/lib/teamColors';
 import Image from 'next/image';
+import GamesToday from '@/components/GamesToday';
 
 // Game interface for schedule
 interface Game {
@@ -73,50 +73,29 @@ export default function Home() {
   useEffect(() => {
     async function loadData() {
       setLoading(true);
-      const [teams, schedule] = await Promise.all([
-        getAllTeams(), // Use SportsDataIO teams
-        sportsdataApi.getSchedule('2025'),
-      ]);
+      const teams = await getAllTeams();
       
       // Sort teams to show user's local team first
       const sortedTeams = sortTeamsByLocation(teams, userLocation);
       
-      // Convert schedule to Game format (take upcoming games)
-      const currentWeek = await sportsdataApi.getCurrentWeek();
-      const upcomingSchedule = schedule
-        .filter(game => game.Week === currentWeek && !game.IsClosed)
-        .slice(0, 6)
-        .map(game => ({
-          id: game.GameKey || game.ScoreID?.toString() || '',
-          date: game.DateTime || game.Date || '',
-          competitions: [{
-            id: game.ScoreID?.toString() || '',
-            competitors: [
-              {
-                id: game.AwayTeam,
-                team: {
-                  id: game.AwayTeam,
-                  displayName: game.AwayTeam,
-                  logos: [{ href: `https://a.espncdn.com/i/teamlogos/nfl/500/${game.AwayTeam.toLowerCase()}.png` }]
-                },
-                score: game.AwayScore?.toString()
-              },
-              {
-                id: game.HomeTeam,
-                team: {
-                  id: game.HomeTeam,
-                  displayName: game.HomeTeam,
-                  logos: [{ href: `https://a.espncdn.com/i/teamlogos/nfl/500/${game.HomeTeam.toLowerCase()}.png` }]
-                },
-                score: game.HomeScore?.toString()
-              }
-            ],
-            broadcasts: game.Channel ? [{ names: [game.Channel] }] : []
-          }]
-        }));
+      // Fetch real 2025 schedule data
+      try {
+        console.log('📅 Loading current week schedule...');
+        const scheduleResponse = await fetch('/api/schedule/current?week=7'); // Current week
+        if (scheduleResponse.ok) {
+          const scheduleData = await scheduleResponse.json();
+          console.log(`✅ Loaded ${scheduleData.games.length} games for week ${scheduleData.week}`);
+          setUpcomingGames(scheduleData.games);
+        } else {
+          console.log('⚠️ Could not load schedule, using fallback');
+          setUpcomingGames([]);
+        }
+      } catch (error) {
+        console.error('❌ Error loading schedule:', error);
+        setUpcomingGames([]);
+      }
       
       setFeaturedTeams(sortedTeams.slice(0, 8));
-      setUpcomingGames(upcomingSchedule);
       setLoading(false);
     }
     loadData();
@@ -126,20 +105,30 @@ export default function Home() {
     async function loadTopPlayers() {
       setPlayersLoading(true);
       try {
-        // Fetch REAL players from SportsDataIO (professional data!)
-        console.log('🏈 Loading REAL NFL players from SportsDataIO...');
-        const players = await getRealTopPlayersFromSportsData();
+        // Fetch real weekly top performers
+        console.log('🏈 Loading weekly top performers...');
+        const response = await fetch('/api/players/weekly-top?week=6'); // Previous week
         
-        if (players.length > 0) {
-          console.log(`✅ Loaded ${players.length} REAL players with actual stats!`);
-          setTopPlayers(players);
+        if (response.ok) {
+          const data = await response.json();
+          console.log(`✅ Loaded ${data.topPlayers.length} top performers from Week ${data.week}!`);
+          setTopPlayers(data.topPlayers);
         } else {
-          console.log('⚠️ No players returned, check API key');
-          setTopPlayers([]);
+          console.log('⚠️ Could not load weekly top players, using fallback');
+          // Fallback to mock data if API fails
+          const players = await mockDataService.getTopPlayers();
+          setTopPlayers(players);
         }
       } catch (error) {
-        console.error('❌ Error loading players:', error);
-        setTopPlayers([]);
+        console.error('❌ Error loading weekly top players:', error);
+        // Fallback to mock data
+        try {
+          const players = await mockDataService.getTopPlayers();
+          setTopPlayers(players);
+        } catch (fallbackError) {
+          console.error('❌ Fallback also failed:', fallbackError);
+          setTopPlayers([]);
+        }
       }
       setPlayersLoading(false);
     }
@@ -148,7 +137,7 @@ export default function Home() {
 
   // Helper function to intelligently sort teams
   // Shows local teams + popular teams without revealing location tracking
-  const sortTeamsByLocation = (teams: SDTeam[], location: {city: string; state: string} | null): SDTeam[] => {
+  const sortTeamsByLocation = (teams: TeamWithRecord[], location: {city: string; state: string} | null): TeamWithRecord[] => {
     // Define popular/successful teams that should always be featured
     const popularTeams = ['KC', 'SF', 'BUF', 'DAL', 'PHI', 'BAL', 'MIA', 'DET'];
     
@@ -308,16 +297,18 @@ export default function Home() {
               const injuryBadgeClass = isHealthy
                 ? 'bg-green-500/20 text-green-100 border border-green-300/40'
                 : 'bg-red-500/20 text-red-100 border border-red-300/40';
+              const volatility = player.volatility || 30; // Default for new API
               const volatilityLevel =
-                player.volatility <= 25
+                volatility <= 25
                   ? 'Low'
-                  : player.volatility <= 45
+                  : volatility <= 45
                   ? 'Moderate'
                   : 'High';
+              const trend = player.trend || 'stable'; // Default for new API
               const trendColor =
-                player.trend === 'increasing'
+                trend === 'increasing'
                   ? 'text-green-600'
-                  : player.trend === 'decreasing'
+                  : trend === 'decreasing'
                   ? 'text-red-600'
                   : 'text-gray-600';
               const consistencyLabel =
@@ -326,20 +317,22 @@ export default function Home() {
                   : player.overallConsistency >= 60
                   ? 'Moderate Stability'
                   : 'Needs Monitoring';
+              const consistencyScore = player.consistencyScore || player.overallConsistency;
               const consistencyColor =
-                player.overallConsistency >= 75
+                consistencyScore >= 75
                   ? 'text-green-600'
-                  : player.overallConsistency >= 60
+                  : consistencyScore >= 60
                   ? 'text-yellow-600'
                   : 'text-orange-600';
               
               // Get team-specific colors
-              const teamColors = getTeamColors(player.teamAbbr);
+              const teamColors = getTeamColors(player.team || player.teamAbbr);
 
               return (
-                <div
-                  key={player.id}
-                  className="flex-shrink-0 w-72 sm:w-80 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all border border-gray-200 snap-start"
+                <Link
+                  key={player.player_id || player.id}
+                  href={`/players/${player.player_id || player.id}?team=${player.team}&name=${encodeURIComponent(player.player_name || player.name)}`}
+                  className="flex-shrink-0 w-72 sm:w-80 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all border border-gray-200 snap-start cursor-pointer"
                 >
                   {/* Player Header with Team Colors */}
                   <div 
@@ -351,22 +344,28 @@ export default function Home() {
                     <div className="flex items-center space-x-3">
                       <div className="relative w-16 h-16 sm:w-18 sm:h-18 bg-white rounded-full p-1 shadow-lg">
                         <Image
-                          src={player.image}
-                          alt={player.name}
+                          src={player.image || `https://a.espncdn.com/i/headshots/nfl/players/full/${player.player_id || player.id}.png`}
+                          alt={player.player_name || player.name}
                           fill
                           className="object-contain rounded-full"
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg sm:text-xl font-bold mb-1 truncate">{player.name}</h3>
+                        <h3 className="text-lg sm:text-xl font-bold mb-1 truncate">{player.player_name || player.name}</h3>
                         <p className="text-white/90 text-xs sm:text-sm truncate">{player.team}</p>
                         <p className="text-white/80 text-xs font-semibold">
-                          {player.position} • {player.teamAbbr}
+                          {player.position} • {player.team}
                         </p>
                         <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                          <span className="text-[10px] uppercase tracking-wide text-white/80">
-                            {player.gamesPlayed} games
-                          </span>
+                          {player.achievements && player.achievements.length > 0 ? (
+                            <span className="text-[10px] uppercase tracking-wide text-white/80">
+                              {player.achievements.length} Week {player.week || 6} Achievement{player.achievements.length > 1 ? 's' : ''}
+                            </span>
+                          ) : (
+                            <span className="text-[10px] uppercase tracking-wide text-white/80">
+                              {player.gamesPlayed || 0} games
+                            </span>
+                          )}
                           <span
                             className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${injuryBadgeClass}`}
                           >
@@ -382,19 +381,19 @@ export default function Home() {
                   <div className="p-3 sm:p-4 space-y-2.5">
                     <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
                       <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-gray-900">
-                        <span className="truncate">{player.primaryMetricLabel}</span>
-                        <span>{player.averagePerGame}</span>
+                        <span className="truncate">{player.primaryMetricLabel || 'Weekly Performance'}</span>
+                        <span>{player.averagePerGame || 'Top Performer'}</span>
                       </div>
                       <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-gray-700">
                         <div>
                           <p className="font-semibold text-gray-900 text-[10px] sm:text-xs">Volatility</p>
                           <p className="text-[10px] sm:text-xs">
-                            {volatilityLevel} ({player.volatility}%)
+                            {volatilityLevel} ({volatility}%)
                           </p>
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900 text-[10px] sm:text-xs">Trend</p>
-                          <p className={`capitalize text-[10px] sm:text-xs ${trendColor}`}>{player.trend}</p>
+                          <p className={`capitalize text-[10px] sm:text-xs ${trendColor}`}>{trend}</p>
                         </div>
                       </div>
                     </div>
@@ -406,19 +405,19 @@ export default function Home() {
                       <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500" />
                     </div>
 
-                    {player.stats.map((stat, idx) => {
-                      const isHighConfidence = stat.likelihood >= 70;
+                    {(player.parlayPredictions || player.stats || []).map((stat, idx) => {
+                      const isHighConfidence = (stat.confidence || stat.likelihood) >= 70;
                       const isMediumConfidence =
-                        stat.likelihood >= 60 && stat.likelihood < 70;
+                        (stat.confidence || stat.likelihood) >= 60 && (stat.confidence || stat.likelihood) < 70;
                       
-                      // Get gradient based on likelihood
-                      const likelihoodGradient = getLikelihoodGradient(stat.likelihood);
+                      // Get gradient based on likelihood/confidence
+                      const likelihoodGradient = getLikelihoodGradient(stat.confidence || stat.likelihood);
 
                       return (
                         <div key={idx} className="space-y-1.5">
                           <div className="flex items-center justify-between">
                             <span className="text-xs sm:text-sm font-medium text-gray-700 truncate pr-2">
-                              {stat.label}
+                              {stat.description || stat.label}
                             </span>
                             <span
                               className={`text-xs sm:text-sm font-bold ${
@@ -429,14 +428,14 @@ export default function Home() {
                                   : 'text-orange-600'
                               }`}
                             >
-                              {stat.likelihood}%
+                              {stat.confidence || stat.likelihood}%
                             </span>
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                             <div
                               className="h-2 rounded-full transition-all"
                               style={{ 
-                                width: `${stat.likelihood}%`,
+                                width: `${stat.confidence || stat.likelihood}%`,
                                 background: likelihoodGradient
                               }}
                             />
@@ -449,12 +448,36 @@ export default function Home() {
                       <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500">
                         <span>Consistency</span>
                         <span className={`font-semibold ${consistencyColor}`}>
-                          {player.overallConsistency}
+                          {player.consistencyScore || player.overallConsistency}
                         </span>
                       </div>
                     </div>
                   </div>
-                </div>
+
+                  {/* Weekly Achievements */}
+                  {player.achievements && player.achievements.length > 0 && (
+                    <div className="p-3 sm:p-4 bg-blue-50 border-t border-blue-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-semibold text-blue-800 uppercase tracking-wide">
+                          Week {player.week || 6} Achievements
+                        </span>
+                        <Trophy className="h-3 w-3 text-blue-600" />
+                      </div>
+                      <div className="space-y-1">
+                        {player.achievements.slice(0, 2).map((achievement, idx) => (
+                          <div key={idx} className="text-xs text-blue-700">
+                            <span className="font-medium">#{achievement.rank}</span> {achievement.description}
+                          </div>
+                        ))}
+                        {player.achievements.length > 2 && (
+                          <div className="text-xs text-blue-600 font-medium">
+                            +{player.achievements.length - 2} more achievement{player.achievements.length - 2 > 1 ? 's' : ''}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </Link>
               );
             })}
           </div>
@@ -478,6 +501,11 @@ export default function Home() {
             </div>
           </div>
         )}
+      </section>
+
+      {/* Games Today Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <GamesToday />
       </section>
 
       {/* SEO Content Sections */}

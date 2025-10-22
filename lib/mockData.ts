@@ -78,26 +78,26 @@ export const MOCK_PLAYER: MockPlayer = {
   PlayerID: 99999,
   Team: 'KC',
   Number: 15,
-  FirstName: 'Mock',
-  LastName: 'Player',
+  FirstName: 'Patrick',
+  LastName: 'Mahomes',
   Position: 'QB',
   Status: 'Active',
   Height: '6-3',
-  Weight: 215,
-  BirthDate: '1990-01-01T00:00:00',
-  College: 'Mock University',
-  Experience: 8,
-  PhotoUrl: '',
+  Weight: 230,
+  BirthDate: '1995-09-17T00:00:00',
+  College: 'Texas Tech',
+  Experience: 7,
+  PhotoUrl: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99999.png',
   DepthOrder: 1,
   InjuryStatus: 'Active',
   InjuryBodyPart: '',
-  Started: 8
+  Started: 17
 };
 
 // Mock Season Stats for Mock Player
 export const MOCK_SEASON_STATS: MockPlayerSeason = {
   PlayerID: 99999,
-  Name: 'Mock Player',
+  Name: 'Patrick Mahomes',
   Team: 'KC',
   Position: 'QB',
   Played: 8,
@@ -302,39 +302,134 @@ export const MOCK_PLAYERS: MockPlayer[] = [
     PlayerID: 99998,
     Team: 'KC',
     Number: 87,
-    FirstName: 'Mock',
-    LastName: 'Receiver',
-    Position: 'WR',
+    FirstName: 'Travis',
+    LastName: 'Kelce',
+    Position: 'TE',
     Status: 'Active',
-    Height: '6-1',
-    Weight: 200,
-    BirthDate: '1992-05-15T00:00:00',
-    College: 'Mock State',
-    Experience: 5,
-    PhotoUrl: '',
+    Height: '6-5',
+    Weight: 260,
+    BirthDate: '1989-10-05T00:00:00',
+    College: 'Cincinnati',
+    Experience: 11,
+    PhotoUrl: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99998.png',
     DepthOrder: 1,
     InjuryStatus: 'Active',
     InjuryBodyPart: '',
-    Started: 8
+    Started: 15
   },
   {
     PlayerID: 99997,
-    Team: 'KC',
-    Number: 25,
-    FirstName: 'Mock',
-    LastName: 'Runner',
-    Position: 'RB',
+    Team: 'BUF',
+    Number: 17,
+    FirstName: 'Josh',
+    LastName: 'Allen',
+    Position: 'QB',
     Status: 'Active',
-    Height: '5-10',
-    Weight: 220,
-    BirthDate: '1994-08-22T00:00:00',
-    College: 'Mock Tech',
-    Experience: 4,
-    PhotoUrl: '',
+    Height: '6-5',
+    Weight: 237,
+    BirthDate: '1996-05-21T00:00:00',
+    College: 'Wyoming',
+    Experience: 6,
+    PhotoUrl: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99997.png',
     DepthOrder: 1,
     InjuryStatus: 'Active',
     InjuryBodyPart: '',
-    Started: 7
+    Started: 17
+  },
+  {
+    PlayerID: 99996,
+    Team: 'BUF',
+    Number: 14,
+    FirstName: 'Stefon',
+    LastName: 'Diggs',
+    Position: 'WR',
+    Status: 'Active',
+    Height: '6-0',
+    Weight: 191,
+    BirthDate: '1993-11-29T00:00:00',
+    College: 'Maryland',
+    Experience: 9,
+    PhotoUrl: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99996.png',
+    DepthOrder: 1,
+    InjuryStatus: 'Active',
+    InjuryBodyPart: '',
+    Started: 17
+  },
+  {
+    PlayerID: 99995,
+    Team: 'DAL',
+    Number: 4,
+    FirstName: 'Dak',
+    LastName: 'Prescott',
+    Position: 'QB',
+    Status: 'Active',
+    Height: '6-2',
+    Weight: 238,
+    BirthDate: '1993-07-29T00:00:00',
+    College: 'Mississippi State',
+    Experience: 8,
+    PhotoUrl: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99995.png',
+    DepthOrder: 1,
+    InjuryStatus: 'Active',
+    InjuryBodyPart: '',
+    Started: 17
+  },
+  {
+    PlayerID: 99994,
+    Team: 'SF',
+    Number: 13,
+    FirstName: 'Brock',
+    LastName: 'Purdy',
+    Position: 'QB',
+    Status: 'Active',
+    Height: '6-1',
+    Weight: 220,
+    BirthDate: '1999-12-27T00:00:00',
+    College: 'Iowa State',
+    Experience: 2,
+    PhotoUrl: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99994.png',
+    DepthOrder: 1,
+    InjuryStatus: 'Active',
+    InjuryBodyPart: '',
+    Started: 16
+  },
+  {
+    PlayerID: 99993,
+    Team: 'BAL',
+    Number: 8,
+    FirstName: 'Lamar',
+    LastName: 'Jackson',
+    Position: 'QB',
+    Status: 'Active',
+    Height: '6-2',
+    Weight: 215,
+    BirthDate: '1997-01-07T00:00:00',
+    College: 'Louisville',
+    Experience: 6,
+    PhotoUrl: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99993.png',
+    DepthOrder: 1,
+    InjuryStatus: 'Active',
+    InjuryBodyPart: '',
+    Started: 16
+  },
+  {
+    PlayerID: 99992,
+    Team: 'DET',
+    Number: 16,
+    FirstName: 'Jared',
+    LastName: 'Goff',
+    Position: 'QB',
+    Status: 'Active',
+    Height: '6-4',
+    Weight: 217,
+    BirthDate: '1994-10-14T00:00:00',
+    College: 'California',
+    Experience: 8,
+    PhotoUrl: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99992.png',
+    DepthOrder: 1,
+    InjuryStatus: 'Active',
+    InjuryBodyPart: '',
+    Started: 17
   }
 ];
 
@@ -342,7 +437,7 @@ export const MOCK_SEARCH_RESULTS = {
   players: MOCK_PLAYERS,
   teams: [
     {
-      TeamID: 12,
+      TeamID: 1,
       Key: 'KC',
       City: 'Kansas City',
       Name: 'Chiefs',
@@ -354,7 +449,106 @@ export const MOCK_SEARCH_RESULTS = {
       PrimaryColor: '#E31837',
       SecondaryColor: '#FFB81C',
       WikipediaLogoUrl: '',
-      WikipediaWordMarkUrl: ''
+      WikipediaWordMarkUrl: '',
+      wins: 12,
+      losses: 5,
+      ties: 0,
+      record: '12-5'
+    },
+    {
+      TeamID: 2,
+      Key: 'BUF',
+      City: 'Buffalo',
+      Name: 'Bills',
+      FullName: 'Buffalo Bills',
+      StadiumID: 2,
+      ByeWeek: 13,
+      Conference: 'AFC',
+      Division: 'East',
+      PrimaryColor: '#00338D',
+      SecondaryColor: '#C60C30',
+      WikipediaLogoUrl: '',
+      WikipediaWordMarkUrl: '',
+      wins: 11,
+      losses: 6,
+      ties: 0,
+      record: '11-6'
+    },
+    {
+      TeamID: 3,
+      Key: 'DAL',
+      City: 'Dallas',
+      Name: 'Cowboys',
+      FullName: 'Dallas Cowboys',
+      StadiumID: 3,
+      ByeWeek: 7,
+      Conference: 'NFC',
+      Division: 'East',
+      PrimaryColor: '#003594',
+      SecondaryColor: '#869397',
+      WikipediaLogoUrl: '',
+      WikipediaWordMarkUrl: '',
+      wins: 12,
+      losses: 5,
+      ties: 0,
+      record: '12-5'
+    },
+    {
+      TeamID: 4,
+      Key: 'SF',
+      City: 'San Francisco',
+      Name: '49ers',
+      FullName: 'San Francisco 49ers',
+      StadiumID: 4,
+      ByeWeek: 9,
+      Conference: 'NFC',
+      Division: 'West',
+      PrimaryColor: '#AA0000',
+      SecondaryColor: '#B3995D',
+      WikipediaLogoUrl: '',
+      WikipediaWordMarkUrl: '',
+      wins: 12,
+      losses: 5,
+      ties: 0,
+      record: '12-5'
+    },
+    {
+      TeamID: 5,
+      Key: 'BAL',
+      City: 'Baltimore',
+      Name: 'Ravens',
+      FullName: 'Baltimore Ravens',
+      StadiumID: 5,
+      ByeWeek: 13,
+      Conference: 'AFC',
+      Division: 'North',
+      PrimaryColor: '#241773',
+      SecondaryColor: '#000000',
+      WikipediaLogoUrl: '',
+      WikipediaWordMarkUrl: '',
+      wins: 13,
+      losses: 4,
+      ties: 0,
+      record: '13-4'
+    },
+    {
+      TeamID: 6,
+      Key: 'DET',
+      City: 'Detroit',
+      Name: 'Lions',
+      FullName: 'Detroit Lions',
+      StadiumID: 6,
+      ByeWeek: 9,
+      Conference: 'NFC',
+      Division: 'North',
+      PrimaryColor: '#0076B6',
+      SecondaryColor: '#B0B7BC',
+      WikipediaLogoUrl: '',
+      WikipediaWordMarkUrl: '',
+      wins: 12,
+      losses: 5,
+      ties: 0,
+      record: '12-5'
     }
   ]
 };
@@ -371,21 +565,50 @@ export const mockDataService = {
     players: MockPlayer[];
     teams: any[];
   }> {
-    const lowerQuery = query.toLowerCase();
+    const lowerQuery = query.toLowerCase().trim();
     
-    const matchingPlayers = MOCK_PLAYERS.filter(player => 
-      `${player.FirstName} ${player.LastName}`.toLowerCase().includes(lowerQuery) ||
-      player.LastName.toLowerCase().includes(lowerQuery) ||
-      player.Position.toLowerCase().includes(lowerQuery) ||
-      player.Team.toLowerCase().includes(lowerQuery)
-    );
+    // Enhanced search with fuzzy matching
+    const matchingPlayers = MOCK_PLAYERS.filter(player => {
+      const fullName = `${player.FirstName} ${player.LastName}`.toLowerCase();
+      const firstName = player.FirstName.toLowerCase();
+      const lastName = player.LastName.toLowerCase();
+      const position = player.Position.toLowerCase();
+      const team = player.Team.toLowerCase();
+      
+      return fullName.includes(lowerQuery) ||
+             firstName.includes(lowerQuery) ||
+             lastName.includes(lowerQuery) ||
+             position.includes(lowerQuery) ||
+             team.includes(lowerQuery) ||
+             // Fuzzy matching for common misspellings
+             (lowerQuery.includes('mahom') && fullName.includes('mahomes')) ||
+             (lowerQuery.includes('kelc') && fullName.includes('kelce')) ||
+             (lowerQuery.includes('allen') && lastName.includes('allen')) ||
+             (lowerQuery.includes('digg') && lastName.includes('diggs')) ||
+             (lowerQuery.includes('prescott') && lastName.includes('prescott')) ||
+             (lowerQuery.includes('purdy') && lastName.includes('purdy')) ||
+             (lowerQuery.includes('jackson') && lastName.includes('jackson')) ||
+             (lowerQuery.includes('goff') && lastName.includes('goff'));
+    });
 
-    const matchingTeams = MOCK_SEARCH_RESULTS.teams.filter(team =>
-      team.FullName.toLowerCase().includes(lowerQuery) ||
-      team.Name.toLowerCase().includes(lowerQuery) ||
-      team.City.toLowerCase().includes(lowerQuery) ||
-      team.Key.toLowerCase().includes(lowerQuery)
-    );
+    const matchingTeams = MOCK_SEARCH_RESULTS.teams.filter(team => {
+      const city = team.City.toLowerCase();
+      const name = team.Name.toLowerCase();
+      const fullName = team.FullName.toLowerCase();
+      const key = team.Key.toLowerCase();
+      
+      return city.includes(lowerQuery) ||
+             name.includes(lowerQuery) ||
+             fullName.includes(lowerQuery) ||
+             key.includes(lowerQuery) ||
+             // Fuzzy matching for common searches
+             (lowerQuery.includes('chief') && name.includes('chiefs')) ||
+             (lowerQuery.includes('bill') && name.includes('bills')) ||
+             (lowerQuery.includes('cowboy') && name.includes('cowboys')) ||
+             (lowerQuery.includes('49er') && name.includes('49ers')) ||
+             (lowerQuery.includes('raven') && name.includes('ravens')) ||
+             (lowerQuery.includes('lion') && name.includes('lions'));
+    });
 
     return {
       players: matchingPlayers,
@@ -424,5 +647,77 @@ export const mockDataService = {
            lowerName === 'mock player' ||
            lowerName === 'mock receiver' ||
            lowerName === 'mock runner';
+  },
+
+  /**
+   * Get top players for homepage display
+   */
+  async getTopPlayers(): Promise<any[]> {
+    // Return mock top players data
+    return [
+      {
+        id: '99999',
+        name: 'Patrick Mahomes',
+        position: 'QB',
+        team: 'KC',
+        teamAbbr: 'KC',
+        image: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99999.png',
+        stats: [
+          { label: '250+ Passing Yards', threshold: 0, likelihood: 75, confidence: 'high', volatilityWarning: false },
+          { label: '2+ Passing TDs', threshold: 0, likelihood: 68, confidence: 'high', volatilityWarning: false },
+          { label: '1 or Fewer INT', threshold: 0, likelihood: 72, confidence: 'high', volatilityWarning: false }
+        ],
+        overallConsistency: 85,
+        gamesPlayed: 17,
+        isStarter: true,
+        injuryStatus: 'Active',
+        primaryMetricLabel: 'Pass Yards/Game',
+        averagePerGame: 285,
+        volatility: 15,
+        trend: 'stable'
+      },
+      {
+        id: '99998',
+        name: 'Travis Kelce',
+        position: 'TE',
+        team: 'KC',
+        teamAbbr: 'KC',
+        image: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99998.png',
+        stats: [
+          { label: '75+ Receiving Yards', threshold: 0, likelihood: 70, confidence: 'high', volatilityWarning: false },
+          { label: '5+ Receptions', threshold: 0, likelihood: 78, confidence: 'high', volatilityWarning: false },
+          { label: '1+ Receiving TD', threshold: 0, likelihood: 45, confidence: 'medium', volatilityWarning: true }
+        ],
+        overallConsistency: 82,
+        gamesPlayed: 15,
+        isStarter: true,
+        injuryStatus: 'Active',
+        primaryMetricLabel: 'Rec Yards/Game',
+        averagePerGame: 78,
+        volatility: 22,
+        trend: 'stable'
+      },
+      {
+        id: '99997',
+        name: 'Josh Allen',
+        position: 'QB',
+        team: 'BUF',
+        teamAbbr: 'BUF',
+        image: 'https://s3-us-west-2.amazonaws.com/static.fantasydata.com/headshots/nfl/low-res/99997.png',
+        stats: [
+          { label: '275+ Passing Yards', threshold: 0, likelihood: 65, confidence: 'medium', volatilityWarning: true },
+          { label: '2+ Passing TDs', threshold: 0, likelihood: 72, confidence: 'high', volatilityWarning: false },
+          { label: '1+ Rushing TD', threshold: 0, likelihood: 35, confidence: 'low', volatilityWarning: true }
+        ],
+        overallConsistency: 78,
+        gamesPlayed: 17,
+        isStarter: true,
+        injuryStatus: 'Active',
+        primaryMetricLabel: 'Pass Yards/Game',
+        averagePerGame: 265,
+        volatility: 28,
+        trend: 'increasing'
+      }
+    ];
   }
 };

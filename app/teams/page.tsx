@@ -16,7 +16,7 @@ export default function TeamsPage() {
   useEffect(() => {
     async function loadTeams() {
       setLoading(true);
-      console.log('📡 Loading NFL teams from SportsDataIO...');
+      console.log('📡 Loading mock NFL teams...');
       const data = await getAllTeams();
       console.log(`✅ Loaded ${data.length} teams`);
       setTeams(data);

@@ -36,3 +36,132 @@ This will also have 10 sub pages.
 - Using a Parlay Calculator with Alternate Lines
 - Using a Parlay Calculator with Futures Bets
 
+
+
+
+
+
+
+
+
+
+
+
+
+Okay I want to work on redesigning the player page to make it less AI looking. to start, I want to make the page color a gradient of their team colors.
+
+
+
+
+Good evening, I would like to work on the UI of the player page in local hose. I designed a mobile version of how I would like the UI to look in figma and took an image of it so you can see. of course it will also have to be compatable with other sizes like desktop as we have already been doing. Can you please replecate this image for our players page?
+
+
+
+Alright you did a good job. A few edits to make.
+
+- The blue box that says buildparlays at the top was suppost to be the header so you could identify it. dont need to add another so can remove that.
+
+- green circle is suppost to be aligned next to the player name. This is the identifier if a player is active, questionable, or out.
+
+- that small imiage icon is going ot be the logo of the team they play for. then the user can click on it and it will direct them to the teams page.
+
+- big circle image is going ot be the players picture so users can see what they look like.
+
+- you did an awesome job with the sliders and stuff but we need to make sure the padding matches the padding of the season stats box so that they all look alligned clean and perfectly the same sizing.
+
+- we need to make sure the drag bars are actually draggable and slideable. 
+
+
+
+
+
+
+
+
+
+
+
+Awesone thank you for removing all that, I have decided for my current site there is no point in using an api when games only happoen a few times a week. I am making calls to data that is not getting updated continuosly. makes no sense. Instead I would like to have my own databse so i can have info for my users faster and less costly. 
+
+i found out about something called NFLverse, a comprehensive nfl data repository on github. supposedly it inlcudes player stats (summary by game/season, e.g., yards, TD's. efficency metrics), team stats (standings, summaries), game schedules and results, weekly rosters (player positions, teams), injuries, trades, and more. Not only is the current season actively included but also some historical data all the way back to 1999. They have formats CSV (for things like trades and teams), Parquet (efficient for large datasets), RDS (R format, but convertible), and others. 
+
+I would like to use this as the db for my site, we will be able to have everything on hand and then after each game I can just manually re download or update the db with the new latest data.  Can you help me set this up?
+
+
+
+
+
+
+
+
+
+
+
+Alright now that we have our own data and real data, lets go back to working on the player page and the calculator. We only want to focus on current year data. So it's currently 2025. we want all of the players 2025 data 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Okay before we start wowking on the calculator now we still have a few more bigs that need to be ironed out
+
+- The search icon is not in the search bar, its like in the complete wrong position. 
+
+- on mobile when I click the hamhurger menu the search icon in the search bar is out of alignment as well.
+
+- when I currently write inside the search bar i cant see the text I am writing, its just white or empty so not sure whats happening but cant see.
+
+- That nflverse data we are using they have a requirement that they are credited if useing their product for yours. So maybe we can give them credit in our footer?
+
+
+
+
+
+
+
+
+
+
+alright, I want to update github with what we have as of now. However I think we first need to make sure it works with vercel right? I am looking at vercel project dashboard right now and create a database has the following options.
+
+- edge config
+- blob
+
+Marketplace database providers
+- neon
+- upstash
+- supabase
+- redis 
+- nile
+- motherduck
+-prisma postgres
+- turso
+- gel
+- mongodb atlas
+
+Will any of these work for us or do we need to set something up or what?\. I have no idea so what is the best thing for us to make sure it works online?
+
+
+
+Here is read and write token and url.
+
+token: eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NjEwODQzMDYsImlkIjoiN2Y4MjE4N2QtZDAyZC00MGMxLWJiNmItYWEzMjcxNjVhMTA4IiwicmlkIjoiYWIyMjBkNmItMzVmYi00MWFmLWIyZTAtNDU0YzRiNTkzNmE4In0.oXkUV5lsIoHNd1lHEbauCuSCqRVF9RMXcYHP8Bcatw38UI7nT014Whoe1cXI3uY_cvD1PSW2UNBEFkmvBUj4CQ
+
+url: llibsql://nfs-data-klondikenft.aws-us-east-1.turso.io
+
+
+
+
+
+Read Only token: eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE3NjExNTE1MjQsImlkIjoiN2Y4MjE4N2QtZDAyZC00MGMxLWJiNmItYWEzMjcxNjVhMTA4IiwicmlkIjoiYWIyMjBkNmItMzVmYi00MWFmLWIyZTAtNDU0YzRiNTkzNmE4In0.CjUF0GbcKgaIQkzwmnXznQRmzrDECejVQM9Vq1uN7mAw6-f4-lPjNqBiS8vw0NzxqoTWof7Th_WnfXtVAGE1AQ
+
+Read Only URL: libsql://nfs-data-klondikenft.aws-us-east-1.turso.io

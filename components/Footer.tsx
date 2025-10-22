@@ -54,6 +54,17 @@ export default function Footer() {
           <p className="text-gray-400">
             © 2024 BuildParlays. All rights reserved.
           </p>
+          <p className="text-gray-500 text-sm mt-2">
+            NFL data provided by{' '}
+            <a 
+              href="https://nflverse.nflverse.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              NFLverse
+            </a>
+          </p>
         </div>
       </div>
     </footer>

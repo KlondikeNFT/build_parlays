@@ -60,7 +60,7 @@ function SearchContent() {
           <div className="bg-white rounded-lg shadow p-12 text-center">
             <SearchIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
             <p className="text-gray-500 text-lg mb-4">Enter a search term to find players and teams</p>
-            <p className="text-gray-400">Try searching for &quot;Mock&quot; to see the test player</p>
+            <p className="text-gray-400">Try searching for &quot;Mahomes&quot;, &quot;Chiefs&quot;, or &quot;Kelce&quot;</p>
           </div>
         ) : (
           <div className="space-y-6">
@@ -161,7 +161,7 @@ function SearchContent() {
               <div className="bg-white rounded-lg shadow p-12 text-center">
                 <SearchIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-500 text-lg mb-2">No results found</p>
-                <p className="text-gray-400">Try searching for &quot;Mock&quot; to see the test player</p>
+                <p className="text-gray-400">Try searching for &quot;Mahomes&quot;, &quot;Chiefs&quot;, or &quot;Kelce&quot;</p>
               </div>
             )}
           </div>

@@ -17,9 +17,7 @@ const nextConfig = {
       },
     ],
   },
-  env: {
-    SPORTSDATA_API_KEY: '69641481ea3e47728270d996b5132104',
-  },
+  // Removed SportsDataIO API key
 }
 
 module.exports = nextConfig
