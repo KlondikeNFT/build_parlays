@@ -162,6 +162,46 @@ url: llibsql://nfs-data-klondikenft.aws-us-east-1.turso.io
 
 
 
-Read Only token: eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE3NjExNTE1MjQsImlkIjoiN2Y4MjE4N2QtZDAyZC00MGMxLWJiNmItYWEzMjcxNjVhMTA4IiwicmlkIjoiYWIyMjBkNmItMzVmYi00MWFmLWIyZTAtNDU0YzRiNTkzNmE4In0.CjUF0GbcKgaIQkzwmnXznQRmzrDECejVQM9Vq1uN7mAw6-f4-lPjNqBiS8vw0NzxqoTWof7Th_WnfXtVAGE1AQ
+Read Only token: 
 
-Read Only URL: libsql://nfs-data-klondikenft.aws-us-east-1.turso.io
+eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE3NjExNTE1MjQsImlkIjoiN2Y4MjE4N2QtZDAyZC00MGMxLWJiNmItYWEzMjcxNjVhMTA4IiwicmlkIjoiYWIyMjBkNmItMzVmYi00MWFmLWIyZTAtNDU0YzRiNTkzNmE4In0.CjUF0GbcKgaIQkzwmnXznQRmzrDECejVQM9Vq1uN7mAw6-f4-lPjNqBiS8vw0NzxqoTWof7Th_WnfXtVAGE1AQ
+
+TURSO_AUTH_TOKEN
+
+Read Only URL: 
+
+libsql://nfs-data-klondikenft.aws-us-east-1.turso.io
+
+TURSO_URL
+
+
+
+
+
+
+
+
+Okay so in vercel i removed the turso itegration to make sure it wasnt affecting the environment variables or contradicting them. Then I realized the variables never saved so I re added them and re deployed. now the deploy was succesful but there was this error that appeared in the build log. 
+
+Error getting players: B [Error]: Dynamic server usage: Route /api/database/players couldn't be rendered statically because it used `request.url`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/vercel/path0/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/vercel/path0/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29465)
+    at l (/vercel/path0/.next/server/app/api/database/players/route.js:1:1295)
+    at /vercel/path0/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /vercel/path0/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/vercel/path0/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/vercel/path0/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/vercel/path0/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/vercel/path0/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /vercel/path0/node_modules/next/dist/server/lib/trace/tracer.js:122:103 {
+  description: "Route /api/database/players couldn't be rendered statically because it used `request.url`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+
+
+
+
+
+
+
+we are still having errors. Are you able to install or access vercel in terminal so you can see all the errors and issues yourself?

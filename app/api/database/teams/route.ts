@@ -8,7 +8,7 @@ import { getAllTeams } from '@/lib/database/queries';
 
 export async function GET() {
   try {
-    const teams = getAllTeams();
+    const teams = await getAllTeams();
     return NextResponse.json(teams);
   } catch (error) {
     console.error('Error getting teams:', error);
@@ -18,5 +18,6 @@ export async function GET() {
     );
   }
 }
+
 
 

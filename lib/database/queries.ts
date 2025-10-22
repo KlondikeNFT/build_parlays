@@ -3,7 +3,7 @@
  * Pre-built queries for common NFL data operations
  */
 
-import { getDatabase } from './connection';
+import { getRows, getRow } from './hybrid-connection';
 
 // Types for database results
 export interface Team {
@@ -110,9 +110,8 @@ export interface PlayerSeasonStats {
 /**
  * Get all teams with current season records
  */
-export function getAllTeams(): Team[] {
-  const db = getDatabase();
-  return db.prepare(`
+export async function getAllTeams(): Promise<Team[]> {
+  return await getRows(`
     SELECT 
       t.*,
       tr.wins,
@@ -123,7 +122,7 @@ export function getAllTeams(): Team[] {
     FROM teams t
     LEFT JOIN team_records tr ON t.team_id = tr.team_id AND tr.season = 2025
     ORDER BY t.team_name
-  `).all() as Team[];
+  `) as Team[];
 }
 
 /**
