@@ -9,6 +9,7 @@ import type { TopPlayer } from '@/lib/statsAnalyzer';
 import { getTeamColors, getLikelihoodGradient } from '@/lib/teamColors';
 import Image from 'next/image';
 import GamesToday from '@/components/GamesToday';
+import UpcomingGames from '@/components/UpcomingGames';
 
 // Game interface for schedule
 interface Game {
@@ -506,6 +507,11 @@ export default function Home() {
       {/* Games Today Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <GamesToday />
+      </section>
+
+      {/* Upcoming Games Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <UpcomingGames />
       </section>
 
       {/* SEO Content Sections */}

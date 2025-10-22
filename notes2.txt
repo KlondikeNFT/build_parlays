@@ -221,3 +221,22 @@ okay yes you got the local host to be the same as the live site. now I am curren
 - the back button on pages all direct back to mock data chiefs team page. not back to prior page.
 
 - when click on a top nfl team it doesnt bring me to their teams page it brings to chiefs team mock data page as well. so a lot of pages are being brought to or back to mock data pages and not the actual pages.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Awesome, thank you! Okay now we can finally start working on stuff. First.
+
+Remember how we have the thing that pops up if there is a game today? I love that, but it only appears if there is a game that day. Would it be possible to also have one that does the exact same thing but for "Upcoming Games"? So for example today is wednesday. Can we make it so it also Identifies that tomorrow there is a Thursday night game and it show the upcoming next games? but only for one day. So if its wednesday I want it to only show the thursday game, I dont want it to also show the sunday games. if working correctly when page loads and theres no games that day It should show the vikings vs chargers game for tomorrow night. Oh also, when sunday games are the games that appear for upcoming games, I would like if we can have them in order by time. that way it's always showing the next closest games first and like doesnt have the night game displayed as the first one. So on top of all that we should make sure that its a side scrolling menu cause then in the event there are multiple games its like all in one spot you slide or drag and not taking up large portions of the page.
