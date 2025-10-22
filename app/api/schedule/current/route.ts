@@ -42,7 +42,7 @@ export async function GET(request: Request) {
     db.close();
     
     // Format games for the frontend
-    const formattedGames = games.map((game, index) => {
+    const formattedGames = games.map((game: any, index) => {
       // Create proper dates for each week (NFL season starts around September 7, 2025)
       const seasonStart = new Date(2025, 8, 7); // September 7, 2025
       const gameDate = new Date(seasonStart);

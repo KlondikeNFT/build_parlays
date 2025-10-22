@@ -58,7 +58,7 @@ export async function GET(request: Request) {
     db.close();
     
     // Format games for the frontend
-    const formattedGames = games.map((game) => {
+    const formattedGames = games.map((game: any) => {
       // Use the actual game date from the database
       const gameDate = new Date(game.game_date);
       

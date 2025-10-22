@@ -317,7 +317,7 @@ export default function Home() {
                   : player.overallConsistency >= 60
                   ? 'Moderate Stability'
                   : 'Needs Monitoring';
-              const consistencyScore = player.consistencyScore || player.overallConsistency;
+              const consistencyScore = (player as any).consistencyScore || (player as any).overallConsistency;
               const consistencyColor =
                 consistencyScore >= 75
                   ? 'text-green-600'
@@ -330,8 +330,8 @@ export default function Home() {
 
               return (
                 <Link
-                  key={player.player_id || player.id}
-                  href={`/players/${player.player_id || player.id}?team=${player.team}&name=${encodeURIComponent(player.player_name || player.name)}`}
+                  key={(player as any).player_id || (player as any).id}
+                  href={`/players/${(player as any).player_id || (player as any).id}?team=${(player as any).team}&name=${encodeURIComponent((player as any).player_name || (player as any).name)}`}
                   className="flex-shrink-0 w-72 sm:w-80 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all border border-gray-200 snap-start cursor-pointer"
                 >
                   {/* Player Header with Team Colors */}
@@ -344,26 +344,26 @@ export default function Home() {
                     <div className="flex items-center space-x-3">
                       <div className="relative w-16 h-16 sm:w-18 sm:h-18 bg-white rounded-full p-1 shadow-lg">
                         <Image
-                          src={player.image || `https://a.espncdn.com/i/headshots/nfl/players/full/${player.player_id || player.id}.png`}
-                          alt={player.player_name || player.name}
+                          src={(player as any).image || `https://a.espncdn.com/i/headshots/nfl/players/full/${(player as any).player_id || (player as any).id}.png`}
+                          alt={(player as any).player_name || (player as any).name}
                           fill
                           className="object-contain rounded-full"
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg sm:text-xl font-bold mb-1 truncate">{player.player_name || player.name}</h3>
-                        <p className="text-white/90 text-xs sm:text-sm truncate">{player.team}</p>
+                        <h3 className="text-lg sm:text-xl font-bold mb-1 truncate">{(player as any).player_name || (player as any).name}</h3>
+                        <p className="text-white/90 text-xs sm:text-sm truncate">{(player as any).team}</p>
                         <p className="text-white/80 text-xs font-semibold">
-                          {player.position} • {player.team}
+                          {(player as any).position} • {(player as any).team}
                         </p>
                         <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                          {player.achievements && player.achievements.length > 0 ? (
+                          {(player as any).achievements && (player as any).achievements.length > 0 ? (
                             <span className="text-[10px] uppercase tracking-wide text-white/80">
-                              {player.achievements.length} Week {player.week || 6} Achievement{player.achievements.length > 1 ? 's' : ''}
+                              {(player as any).achievements.length} Week {(player as any).week || 6} Achievement{(player as any).achievements.length > 1 ? 's' : ''}
                             </span>
                           ) : (
                             <span className="text-[10px] uppercase tracking-wide text-white/80">
-                              {player.gamesPlayed || 0} games
+                              {(player as any).gamesPlayed || 0} games
                             </span>
                           )}
                           <span
@@ -405,7 +405,7 @@ export default function Home() {
                       <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500" />
                     </div>
 
-                    {(player.parlayPredictions || player.stats || []).map((stat, idx) => {
+                    {((player as any).parlayPredictions || (player as any).stats || []).map((stat: any, idx: number) => {
                       const isHighConfidence = (stat.confidence || stat.likelihood) >= 70;
                       const isMediumConfidence =
                         (stat.confidence || stat.likelihood) >= 60 && (stat.confidence || stat.likelihood) < 70;
@@ -448,30 +448,30 @@ export default function Home() {
                       <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500">
                         <span>Consistency</span>
                         <span className={`font-semibold ${consistencyColor}`}>
-                          {player.consistencyScore || player.overallConsistency}
+                          {(player as any).consistencyScore || (player as any).overallConsistency}
                         </span>
                       </div>
                     </div>
                   </div>
 
                   {/* Weekly Achievements */}
-                  {player.achievements && player.achievements.length > 0 && (
+                  {(player as any).achievements && (player as any).achievements.length > 0 && (
                     <div className="p-3 sm:p-4 bg-blue-50 border-t border-blue-100">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-xs font-semibold text-blue-800 uppercase tracking-wide">
-                          Week {player.week || 6} Achievements
+                          Week {(player as any).week || 6} Achievements
                         </span>
                         <Trophy className="h-3 w-3 text-blue-600" />
                       </div>
                       <div className="space-y-1">
-                        {player.achievements.slice(0, 2).map((achievement, idx) => (
+                        {(player as any).achievements.slice(0, 2).map((achievement: any, idx: number) => (
                           <div key={idx} className="text-xs text-blue-700">
                             <span className="font-medium">#{achievement.rank}</span> {achievement.description}
                           </div>
                         ))}
-                        {player.achievements.length > 2 && (
+                        {(player as any).achievements.length > 2 && (
                           <div className="text-xs text-blue-600 font-medium">
-                            +{player.achievements.length - 2} more achievement{player.achievements.length - 2 > 1 ? 's' : ''}
+                            +{(player as any).achievements.length - 2} more achievement{(player as any).achievements.length - 2 > 1 ? 's' : ''}
                           </div>
                         )}
                       </div>

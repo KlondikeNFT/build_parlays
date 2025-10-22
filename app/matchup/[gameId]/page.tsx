@@ -93,7 +93,7 @@ interface MatchupData {
 
 export default function MatchupPage() {
   const params = useParams();
-  const gameId = params.gameId as string;
+  const gameId = params?.gameId as string;
   
   const [matchupData, setMatchupData] = useState<MatchupData | null>(null);
   const [loading, setLoading] = useState(true);

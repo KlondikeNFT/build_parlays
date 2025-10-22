@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     const db = new Database(DB_PATH);
     
     const searchQuery = `%${query.trim().toLowerCase()}%`;
-    const results = { players: [], teams: [] };
+    const results: { players: any[], teams: any[] } = { players: [], teams: [] };
 
     // Search players if not teams-only
     if (type !== 'teams') {
@@ -71,7 +71,7 @@ export async function GET(request: Request) {
       
       // Group by player_id to avoid duplicates
       const playerMap = new Map();
-      players.forEach(player => {
+      players.forEach((player: any) => {
         if (!playerMap.has(player.player_id)) {
           playerMap.set(player.player_id, {
             PlayerID: player.player_id,
@@ -119,7 +119,7 @@ export async function GET(request: Request) {
       
       const teams = teamStmt.all(searchQuery, searchQuery, searchQuery, searchQuery);
       
-      results.teams = teams.map(team => ({
+      results.teams = teams.map((team: any) => ({
         TeamID: team.team_id,
         Key: team.team_abbr,
         City: team.team_name.split(' ')[0] || team.team_name,

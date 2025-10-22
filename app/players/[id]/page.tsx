@@ -21,11 +21,6 @@ function SmartDraggableSlider({ statAnalysis, gameStats, index, player }: {
   const [value, setValue] = useState(statAnalysis ? Math.round(statAnalysis.suggestedThreshold) : 0);
   const [isDragging, setIsDragging] = useState(false);
   
-  // Safety checks for statAnalysis
-  if (!statAnalysis) {
-    return <div>Loading stat analysis...</div>;
-  }
-  
   const min = Math.max(0, Math.round(statAnalysis.min * 0.5));
   const max = Math.round(statAnalysis.max * 1.5);
   
@@ -178,11 +173,16 @@ function SmartDraggableSlider({ statAnalysis, gameStats, index, player }: {
         document.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isDragging]);
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   // Determine volatility level based on consistency
   const volatilityLevel = statAnalysis.consistency > 70 ? 'Low' : statAnalysis.consistency > 50 ? 'Medium' : 'High';
   const volatilityColor = statAnalysis.consistency > 70 ? 'green' : statAnalysis.consistency > 50 ? 'yellow' : 'red';
+
+  // Safety checks for statAnalysis
+  if (!statAnalysis) {
+    return <div>Loading stat analysis...</div>;
+  }
 
   return (
     <div>
@@ -382,7 +382,7 @@ function DraggableSlider({ statThreshold, gameStats, index }: {
         document.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isDragging]);
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
     <div>
@@ -666,7 +666,7 @@ function PlayerContent() {
             </button>
           </div>
           <p className="text-sm text-gray-500 leading-relaxed lg:text-base">
-            Interactive analysis tools to explore {player.FirstName}'s performance patterns and statistical trends based on their actual game data.
+            Interactive analysis tools to explore {player.FirstName}&apos;s performance patterns and statistical trends based on their actual game data.
           </p>
         </div>
 

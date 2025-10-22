@@ -57,7 +57,7 @@ export async function GET(
       WHERE g.game_id = ?
     `);
     
-    const game = gameStmt.get(gameId);
+    const game = gameStmt.get(gameId) as any;
     
     if (!game) {
       db.close();
@@ -150,7 +150,7 @@ export async function GET(
         ties: game.home_ties || 0,
         winPercentage: game.home_win_percentage || 0,
         recentGames: homeRecentGames,
-        topPlayers: homeTopPlayers.map(player => ({
+        topPlayers: homeTopPlayers.map((player: any) => ({
           ...player,
           player_name: `${player.first_name} ${player.last_name}`
         }))
@@ -169,7 +169,7 @@ export async function GET(
         ties: game.away_ties || 0,
         winPercentage: game.away_win_percentage || 0,
         recentGames: awayRecentGames,
-        topPlayers: awayTopPlayers.map(player => ({
+        topPlayers: awayTopPlayers.map((player: any) => ({
           ...player,
           player_name: `${player.first_name} ${player.last_name}`
         }))

@@ -31,7 +31,7 @@ export async function GET(request: Request) {
     const allPerformers = new Map();
     
     // Add passing leaders
-    topPerformers.passing.forEach((player, index) => {
+    topPerformers.passing.forEach((player: any, index) => {
       const key = player.player_id;
       if (!allPerformers.has(key)) {
         allPerformers.set(key, {
@@ -52,7 +52,7 @@ export async function GET(request: Request) {
     });
     
     // Add rushing leaders
-    topPerformers.rushing.forEach((player, index) => {
+    topPerformers.rushing.forEach((player: any, index) => {
       const key = player.player_id;
       if (!allPerformers.has(key)) {
         allPerformers.set(key, {
@@ -73,7 +73,7 @@ export async function GET(request: Request) {
     });
     
     // Add receiving leaders
-    topPerformers.receiving.forEach((player, index) => {
+    topPerformers.receiving.forEach((player: any, index) => {
       const key = player.player_id;
       if (!allPerformers.has(key)) {
         allPerformers.set(key, {
@@ -94,7 +94,7 @@ export async function GET(request: Request) {
     });
     
     // Add touchdown leaders
-    topPerformers.touchdowns.forEach((player, index) => {
+    topPerformers.touchdowns.forEach((player: any, index) => {
       const key = player.player_id;
       if (!allPerformers.has(key)) {
         allPerformers.set(key, {
@@ -115,7 +115,7 @@ export async function GET(request: Request) {
     });
     
     // Add reception leaders
-    topPerformers.receptions.forEach((player, index) => {
+    topPerformers.receptions.forEach((player: any, index) => {
       const key = player.player_id;
       if (!allPerformers.has(key)) {
         allPerformers.set(key, {
