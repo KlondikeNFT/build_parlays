@@ -4,7 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { getDatabase, getRows } from '@/lib/database/hybrid-connection';
+import { getRows } from '@/lib/database/hybrid-connection';
 
 export async function GET(request: Request) {
   try {
@@ -22,9 +22,6 @@ export async function GET(request: Request) {
 
     console.log(`🔍 Searching for: "${query}" (type: ${type || 'all'})`);
 
-    // Connect to database
-    const db = getDatabase();
-    
     const searchQuery = `%${query.trim().toLowerCase()}%`;
     const results: { players: any[], teams: any[] } = { players: [], teams: [] };
 
@@ -122,8 +119,6 @@ export async function GET(request: Request) {
         SecondaryColor: team.team_color_secondary
       }));
     }
-
-    db.close();
 
     // Add search metadata
     const searchResults = {

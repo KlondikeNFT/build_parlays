@@ -4,13 +4,11 @@
  */
 
 import { NextResponse } from 'next/server';
-import { getDatabase, getRows } from '@/lib/database/hybrid-connection';
+import { getRows } from '@/lib/database/hybrid-connection';
 
 export async function GET(request: Request) {
   try {
     console.log('📅 Fetching today\'s games...');
-    
-    const db = getDatabase();
     
     // Get today's date
     const today = new Date();

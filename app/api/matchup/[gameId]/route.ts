@@ -4,7 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { getDatabase, getRows, getRow } from '@/lib/database/hybrid-connection';
+import { getRows, getRow } from '@/lib/database/hybrid-connection';
 
 export async function GET(
   request: Request,
@@ -14,10 +14,8 @@ export async function GET(
     const gameId = params.gameId;
     console.log(`🏈 Fetching matchup data for game: ${gameId}`);
     
-    const db = getDatabase();
-    
     // Get detailed game information
-    const gameStmt = db.prepare(`
+    const game = await getRow(`
       SELECT 
         g.game_id,
         g.week,
@@ -52,9 +50,7 @@ export async function GET(
       LEFT JOIN team_records htr ON g.home_team = htr.team_id AND htr.season = 2025
       LEFT JOIN team_records atr ON g.away_team = atr.team_id AND atr.season = 2025
       WHERE g.game_id = ?
-    `);
-    
-    const game = gameStmt.get(gameId) as any;
+    `, [gameId]) as any;
     
     if (!game) {return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }

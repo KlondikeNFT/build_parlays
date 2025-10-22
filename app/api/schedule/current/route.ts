@@ -4,7 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { getDatabase, getRows } from '@/lib/database/hybrid-connection';
+import { getRows } from '@/lib/database/hybrid-connection';
 
 export async function GET(request: Request) {
   try {
@@ -12,8 +12,6 @@ export async function GET(request: Request) {
     const week = searchParams.get('week') || '7'; // Default to week 7 (current week)
     
     console.log(`📅 Fetching schedule for week ${week}...`);
-    
-    const db = getDatabase();
     
     // Get games for the specified week
     const games = await getRows(`
