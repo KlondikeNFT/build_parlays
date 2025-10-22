@@ -4,7 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { getDatabaseStats } from '@/lib/database/connection';
+import { getDatabaseStats } from '@/lib/database/hybrid-connection';
 
 export async function GET() {
   try {
