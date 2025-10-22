@@ -205,3 +205,7 @@ Error getting players: B [Error]: Dynamic server usage: Route /api/database/play
 
 
 we are still having errors. Are you able to install or access vercel in terminal so you can see all the errors and issues yourself?
+
+
+
+Awesome now i would like to work in local host. But I want it to work with our server so That I know the changes we are making will function it's just not deployed. is that possible or do we need to keep using a local db setup?

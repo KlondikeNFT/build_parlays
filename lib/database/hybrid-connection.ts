@@ -7,8 +7,10 @@ import { getTursoDatabase, getDatabaseStats as getTursoStats, executeQuery as tu
 
 // Check if we're in production (Vercel) or local development
 const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
-// Always use Turso in production, regardless of env vars (they're hardcoded in turso-connection.ts)
-const shouldUseTurso = isProduction;
+// Allow forcing Turso in local development via environment variable
+const forceTurso = process.env.USE_TURSO_LOCALLY === 'true';
+// Use Turso in production OR when forced locally
+const shouldUseTurso = isProduction || forceTurso;
 
 // Lazy load SQLite connection only when needed (local development)
 let getSQLiteDatabase: any = null;
