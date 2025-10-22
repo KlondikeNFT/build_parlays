@@ -17,13 +17,8 @@ const shouldUseTurso = isProduction;
 export function getDatabase(): any {
   // Use Turso in production
   if (shouldUseTurso) {
-    try {
-      console.log('📊 Using Turso database in production');
-      return getTursoDatabase();
-    } catch (error) {
-      console.error('❌ Turso connection failed:', error);
-      throw error; // Don't fall back to SQLite in production
-    }
+    console.log('📊 Using Turso database in production');
+    return getTursoDatabase();
   }
 
   // Use SQLite for local development
@@ -36,12 +31,7 @@ export function getDatabase(): any {
  */
 export async function executeQuery(sql: string, params: any[] = []): Promise<any> {
   if (shouldUseTurso) {
-    try {
-      return await tursoExecuteQuery(sql, params);
-    } catch (error) {
-      console.error('❌ Turso query failed:', error);
-      throw error; // Don't fall back to SQLite in production
-    }
+    return await tursoExecuteQuery(sql, params);
   }
 
   // SQLite for local development
@@ -58,12 +48,7 @@ export async function executeQuery(sql: string, params: any[] = []): Promise<any
  */
 export async function getRow(sql: string, params: any[] = []): Promise<any> {
   if (shouldUseTurso) {
-    try {
-      return await tursoGetRow(sql, params);
-    } catch (error) {
-      console.error('❌ Turso query failed:', error);
-      throw error; // Don't fall back to SQLite in production
-    }
+    return await tursoGetRow(sql, params);
   }
 
   // SQLite for local development
@@ -80,12 +65,7 @@ export async function getRow(sql: string, params: any[] = []): Promise<any> {
  */
 export async function getRows(sql: string, params: any[] = []): Promise<any[]> {
   if (shouldUseTurso) {
-    try {
-      return await tursoGetRows(sql, params);
-    } catch (error) {
-      console.error('❌ Turso query failed:', error);
-      throw error; // Don't fall back to SQLite in production
-    }
+    return await tursoGetRows(sql, params);
   }
 
   // SQLite for local development
@@ -109,12 +89,7 @@ export async function getDatabaseStats(): Promise<{
   injuries: number;
 }> {
   if (shouldUseTurso) {
-    try {
-      return await getTursoStats();
-    } catch (error) {
-      console.error('❌ Turso stats failed:', error);
-      throw error; // Don't fall back to SQLite in production
-    }
+    return await getTursoStats();
   }
 
   // SQLite for local development
