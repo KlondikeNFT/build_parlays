@@ -239,7 +239,7 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
               <Link
                 key={game.id}
                 href={`/matchup/${game.id}`}
-                className="flex-shrink-0 w-96 bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all hover:border-purple-300 snap-start cursor-pointer"
+                className="flex-shrink-0 w-80 sm:w-96 bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all hover:border-purple-300 snap-start cursor-pointer"
               >
                 {/* Gradient Banner */}
                 <div 
@@ -247,24 +247,24 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                   style={getGradientStyle(game.awayTeam.primaryColor, game.homeTeam.primaryColor)}
                 />
                 
-                <div className="p-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-3">
+                <div className="p-2 sm:p-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 space-y-1 sm:space-y-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-3">
                       <div className="flex items-center space-x-2">
                         <Clock className="w-4 h-4 text-gray-500" />
-                        <span className="text-sm font-medium text-gray-700">
+                        <span className="text-xs sm:text-sm font-medium text-gray-700">
                           {formatGameTime(game.gameTime)}
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Tv className="w-4 h-4 text-gray-500" />
-                        <span className="text-sm font-medium text-gray-700">
+                        <span className="text-xs sm:text-sm font-medium text-gray-700">
                           {game.broadcast}
                         </span>
                       </div>
                     </div>
                     
-                    <div className="text-right">
+                    <div className="text-left sm:text-right">
                       <span className="text-xs text-gray-500">Week {game.week}</span>
                     </div>
                   </div>
@@ -277,23 +277,23 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                   </div>
 
                   {/* Teams */}
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center justify-between gap-1 sm:gap-2">
                     {/* Away Team */}
-                    <div className="flex items-center space-x-2 flex-1 min-w-0">
+                    <div className="flex items-center space-x-1 sm:space-x-2 flex-1 min-w-0">
                       <div className="flex-shrink-0">
                         <Image
                           src={`https://a.espncdn.com/i/teamlogos/nfl/500/${game.awayTeam.id.toLowerCase()}.png`}
                           alt={game.awayTeam.name}
-                          width={32}
-                          height={32}
-                          className="rounded-full"
+                          width={24}
+                          height={24}
+                          className="rounded-full sm:w-8 sm:h-8"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
                             target.style.display = 'none';
                             target.nextElementSibling?.classList.remove('hidden');
                           }}
                         />
-                        <div className={`w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 hidden`}>
+                        <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 hidden`}>
                           {game.awayTeam.abbr}
                         </div>
                       </div>
@@ -306,12 +306,12 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                     </div>
 
                     {/* VS */}
-                    <div className="flex flex-col items-center mx-2 flex-shrink-0">
+                    <div className="flex flex-col items-center mx-1 sm:mx-2 flex-shrink-0">
                       <div className="text-xs font-bold text-gray-500">VS</div>
                     </div>
 
                     {/* Home Team */}
-                    <div className="flex items-center space-x-2 flex-1 min-w-0 justify-end">
+                    <div className="flex items-center space-x-1 sm:space-x-2 flex-1 min-w-0 justify-end">
                       <div className="flex-1 text-right min-w-0">
                         <h3 className="font-semibold text-gray-900 text-xs truncate">{game.homeTeam.name}</h3>
                         <p className="text-xs text-gray-600">
@@ -322,16 +322,16 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                         <Image
                           src={`https://a.espncdn.com/i/teamlogos/nfl/500/${game.homeTeam.id.toLowerCase()}.png`}
                           alt={game.homeTeam.name}
-                          width={32}
-                          height={32}
-                          className="rounded-full"
+                          width={24}
+                          height={24}
+                          className="rounded-full sm:w-8 sm:h-8"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
                             target.style.display = 'none';
                             target.nextElementSibling?.classList.remove('hidden');
                           }}
                         />
-                        <div className={`w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 hidden`}>
+                        <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 hidden`}>
                           {game.homeTeam.abbr}
                         </div>
                       </div>
