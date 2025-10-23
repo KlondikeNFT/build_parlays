@@ -192,17 +192,17 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
   return (
     <div className={`bg-white rounded-xl shadow-lg border border-gray-200 ${className}`}>
       <div className="p-2">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center space-x-2">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 space-y-2 sm:space-y-0">
+          <div className="flex items-center space-x-2 flex-wrap">
             <Calendar className="w-6 h-6 text-purple-600" />
             <h2 className="text-2xl font-bold text-gray-900">Upcoming Games</h2>
-            <span className="bg-purple-100 text-purple-800 text-sm font-medium px-2.5 py-0.5 rounded-full">
+            <span className="bg-purple-100 text-purple-800 text-sm font-medium px-2.5 py-0.5 rounded-full whitespace-nowrap">
               {games.length} {games.length === 1 ? 'Game' : 'Games'}
             </span>
           </div>
           <Link 
             href="/schedule" 
-            className="flex items-center space-x-2 text-purple-600 hover:text-purple-700 font-medium transition-colors"
+            className="flex items-center space-x-2 text-purple-600 hover:text-purple-700 font-medium transition-colors whitespace-nowrap"
           >
             <span>View Full Schedule</span>
             <ExternalLink className="w-4 h-4" />

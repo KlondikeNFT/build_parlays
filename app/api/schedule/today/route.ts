@@ -16,22 +16,30 @@ export async function GET(request: Request) {
     
     console.log(`📅 Looking for games on: ${todayString}`);
     
-    // Get games scheduled for today's actual date from real schedule
+    // Get games scheduled for today's actual date from real schedule with team records
     const games = await getRows(`
       SELECT
-        game_id,
-        week,
-        game_date,
-        game_time,
-        home_team_name,
-        home_team_abbr,
-        away_team_name,
-        away_team_abbr,
-        broadcast_primary,
-        status
-      FROM real_schedule_2025
-      WHERE game_date = ?
-      ORDER BY game_time ASC
+        rs.game_id,
+        rs.week,
+        rs.game_date,
+        rs.game_time,
+        rs.home_team_name,
+        rs.home_team_abbr,
+        rs.away_team_name,
+        rs.away_team_abbr,
+        rs.broadcast_primary,
+        rs.status,
+        htr.wins as home_wins,
+        htr.losses as home_losses,
+        htr.ties as home_ties,
+        atr.wins as away_wins,
+        atr.losses as away_losses,
+        atr.ties as away_ties
+      FROM real_schedule_2025 rs
+      LEFT JOIN team_records htr ON rs.home_team_abbr = htr.team_id AND htr.season = 2025
+      LEFT JOIN team_records atr ON rs.away_team_abbr = atr.team_id AND atr.season = 2025
+      WHERE rs.game_date = ?
+      ORDER BY rs.game_time ASC
     `, [todayString]);    // Format games for the frontend
     const formattedGames = games.map((game: any) => {
       // Parse game time and create proper datetime
@@ -64,10 +72,10 @@ export async function GET(request: Request) {
           abbr: game.home_team_abbr,
           primaryColor: '#000000',
           secondaryColor: '#FFFFFF',
-          record: '0-0',
-          wins: 0,
-          losses: 0,
-          ties: 0
+          record: `${game.home_wins || 0}-${game.home_losses || 0}${game.home_ties ? `-${game.home_ties}` : ''}`,
+          wins: game.home_wins || 0,
+          losses: game.home_losses || 0,
+          ties: game.home_ties || 0
         },
         awayTeam: {
           id: game.away_team_abbr,
@@ -75,10 +83,10 @@ export async function GET(request: Request) {
           abbr: game.away_team_abbr,
           primaryColor: '#000000',
           secondaryColor: '#FFFFFF',
-          record: '0-0',
-          wins: 0,
-          losses: 0,
-          ties: 0
+          record: `${game.away_wins || 0}-${game.away_losses || 0}${game.away_ties ? `-${game.away_ties}` : ''}`,
+          wins: game.away_wins || 0,
+          losses: game.away_losses || 0,
+          ties: game.away_ties || 0
         },
         gameTime: gameDateTime.toISOString(),
         broadcast: game.broadcast_primary || 'TBD',
