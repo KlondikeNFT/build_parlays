@@ -14,7 +14,10 @@
     "db:update": "node scripts/update-nfl-data.js all",
     "db:stats": "node scripts/db-manager.js stats",
     "db:backup": "node scripts/db-manager.js backup",
-    "db:clear": "node scripts/db-manager.js clear"
+    "db:clear": "node scripts/db-manager.js clear",
+    "setup-schedule": "node scripts/setup-nfl-schedule.js",
+    "setup-real-schedule": "node scripts/setup-real-espn-schedule.js",
+    "setup-official-schedule": "node scripts/setup-nfl-official-schedule.js"
   },
   "dependencies": {
     "@libsql/client": "^0.15.15",
@@ -24,6 +27,7 @@
     "date-fns": "^2.30.0",
     "lucide-react": "^0.294.0",
     "next": "^14.0.0",
+    "puppeteer": "^24.26.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recharts": "^3.2.1"

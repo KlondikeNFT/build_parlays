@@ -17,77 +17,92 @@ export async function GET(request: Request) {
 
     console.log(`📅 Fetching games for date: ${date}`);
     
-    // Get games for the specified date
-    const games = await getRows(`
-      SELECT 
-        g.game_id,
-        g.week,
-        g.game_date,
-        g.home_team,
-        g.away_team,
-        g.home_score,
-        g.away_score,
-        ht.team_name as home_team_name,
-        at.team_name as away_team_name,
-        ht.team_abbr as home_team_abbr,
-        at.team_abbr as away_team_abbr,
-        ht.team_conference as home_conference,
-        ht.team_division as home_division,
-        at.team_conference as away_conference,
-        at.team_division as away_division,
-        ht.team_color_primary as home_primary_color,
-        ht.team_color_secondary as home_secondary_color,
-        at.team_color_primary as away_primary_color,
-        at.team_color_secondary as away_secondary_color,
-        htr.wins as home_wins,
-        htr.losses as home_losses,
-        htr.ties as home_ties,
-        htr.win_percentage as home_win_percentage,
-        atr.wins as away_wins,
-        atr.losses as away_losses,
-        atr.ties as away_ties,
-        atr.win_percentage as away_win_percentage
-      FROM games g
-      LEFT JOIN teams ht ON g.home_team = ht.team_id
-      LEFT JOIN teams at ON g.away_team = at.team_id
-      LEFT JOIN team_records htr ON g.home_team = htr.team_id AND htr.season = 2025
-      LEFT JOIN team_records atr ON g.away_team = atr.team_id AND atr.season = 2025
-      WHERE DATE(g.game_date) = ?
-      ORDER BY g.game_date ASC
-    `, [date]);
+                        // Get games for the specified date from real NFL schedule table
+                        const games = await getRows(`
+                          SELECT
+                            game_id,
+                            week,
+                            game_date,
+                            game_time,
+                            home_team_name,
+                            home_team_abbr,
+                            away_team_name,
+                            away_team_abbr,
+                            venue_name,
+                            venue_city,
+                            venue_state,
+                            broadcast_primary,
+                            status,
+                            game_type
+                          FROM real_schedule_2025
+                          WHERE game_date = ?
+                          ORDER BY game_time ASC
+                        `, [date]);
 
-    // Transform the data to match the expected format
-    const transformedGames = games.map((game: any) => ({
-      id: game.game_id,
-      week: game.week,
-      homeTeam: {
-        id: game.home_team,
-        name: game.home_team_name,
-        abbr: game.home_team_abbr,
-        primaryColor: game.home_primary_color || '#000000',
-        secondaryColor: game.home_secondary_color || '#FFFFFF',
-        record: `${game.home_wins || 0}-${game.home_losses || 0}`,
-        wins: game.home_wins || 0,
-        losses: game.home_losses || 0,
-        ties: game.home_ties || 0,
-      },
-      awayTeam: {
-        id: game.away_team,
-        name: game.away_team_name,
-        abbr: game.away_team_abbr,
-        primaryColor: game.away_primary_color || '#000000',
-        secondaryColor: game.away_secondary_color || '#FFFFFF',
-        record: `${game.away_wins || 0}-${game.away_losses || 0}`,
-        wins: game.away_wins || 0,
-        losses: game.away_losses || 0,
-        ties: game.away_ties || 0,
-      },
-      gameTime: game.game_date,
-      broadcast: 'TBD', // You can add broadcast info to your database if needed
-      homeScore: game.home_score,
-      awayScore: game.away_score,
-      status: game.home_score !== null ? 'final' : 'scheduled',
-    }));
+           // Transform the real schedule data to match the expected format
+           const transformedGames = games.map((game: any) => ({
+             id: game.game_id,
+             week: game.week,
+             homeTeam: {
+               id: game.home_team_abbr,
+               name: game.home_team_name,
+               abbr: game.home_team_abbr,
+               primaryColor: '#000000', // Default colors - you can enhance this later
+               secondaryColor: '#FFFFFF',
+               record: '0-0', // Default record - you can enhance this later
+               wins: 0,
+               losses: 0,
+               ties: 0,
+             },
+             awayTeam: {
+               id: game.away_team_abbr,
+               name: game.away_team_name,
+               abbr: game.away_team_abbr,
+               primaryColor: '#000000', // Default colors - you can enhance this later
+               secondaryColor: '#FFFFFF',
+               record: '0-0', // Default record - you can enhance this later
+               wins: 0,
+               losses: 0,
+               ties: 0,
+             },
+                    gameTime: (() => {
+                      // Parse game_time like "8:20p (ET)" or "5:15p (PT)" 
+                      const timeMatch = game.game_time.match(/(\d{1,2}):(\d{2})([ap])\s*\(([A-Z]{2})\)/i);
+                      if (timeMatch) {
+                        let hours = parseInt(timeMatch[1]);
+                        const minutes = timeMatch[2];
+                        const ampm = timeMatch[3].toLowerCase();
+                        const timezone = timeMatch[4];
+                        
+                        if (ampm === 'p' && hours !== 12) hours += 12;
+                        if (ampm === 'a' && hours === 12) hours = 0;
+                        
+                        // Convert to Eastern Time if it's Pacific Time
+                        if (timezone === 'PT') {
+                          hours += 3; // PT is 3 hours behind ET
+                        }
+                        
+                        return `${game.game_date}T${hours.toString().padStart(2, '0')}:${minutes}:00`;
+                      }
+                      return `${game.game_date}T12:00:00`; // fallback to noon
+                    })(),
+             gameTimeFormatted: game.game_time,
+             broadcast: game.broadcast_primary || 'TBD',
+             broadcastNetworks: null,
+             homeScore: null,
+             awayScore: null,
+             status: game.status,
+             gameType: game.game_type,
+             venue: {
+               name: game.venue_name,
+               city: game.venue_city,
+               state: game.venue_state,
+               capacity: null,
+               indoor: null,
+               location: game.venue_city && game.venue_state ? `${game.venue_city}, ${game.venue_state}` : null
+             },
+             weather: null
+           }));
 
     console.log(`✅ Found ${transformedGames.length} games for ${date}`);
     

@@ -46,13 +46,14 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
   const [loading, setLoading] = useState(true);
   const [hasTodaysGames, setHasTodaysGames] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const componentId = useRef(Math.random().toString(36).substr(2, 9));
 
   useEffect(() => {
     async function fetchUpcomingGames() {
       try {
-        console.log('📅 Loading upcoming games...');
+        console.log('📅 Loading upcoming games... [UPDATED LOGIC v3 - ' + new Date().toISOString() + ']');
         
-        // First check if there are games today
+        // Check if there are games today first
         const todayResponse = await fetch('/api/schedule/today');
         if (todayResponse.ok) {
           const todayData = await todayResponse.json();
@@ -67,35 +68,58 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
           }
         }
 
-        // Get tomorrow's date
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
+        // ULTRA SIMPLE: Just check tomorrow (October 23rd) and STOP
+        const now = new Date();
+        const todayET = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+        const todayStr = todayET.toISOString().split('T')[0];
+        console.log(`📅 Today is: ${todayStr}`);
+        
+        // Check tomorrow first (October 23rd) - THIS IS THE ONLY CHECK
+        const tomorrow = new Date(todayET);
+        tomorrow.setDate(todayET.getDate() + 1);
         const tomorrowStr = tomorrow.toISOString().split('T')[0];
         
-        console.log(`📅 Looking for games on: ${tomorrowStr}`);
-        
-        // Fetch games for tomorrow
-        const response = await fetch(`/api/schedule/date?date=${tomorrowStr}`);
-        if (response.ok) {
-          const data = await response.json();
-          console.log(`✅ Found ${data.games.length} games for tomorrow`);
-          
-          // Sort games by time (closest first)
-          const sortedGames = data.games.sort((a: Game, b: Game) => {
-            const timeA = new Date(a.gameTime).getTime();
-            const timeB = new Date(b.gameTime).getTime();
-            return timeA - timeB;
-          });
-          
-          setGames(sortedGames);
-        } else {
-          console.log('⚠️ No upcoming games found');
-          setGames([]);
+        console.log(`📅 Checking ONLY tomorrow: ${tomorrowStr}`);
+        const tomorrowResponse = await fetch(`/api/schedule/date?date=${tomorrowStr}`);
+        if (tomorrowResponse.ok) {
+          const tomorrowData = await tomorrowResponse.json();
+          console.log(`📊 Tomorrow has ${tomorrowData.games.length} games`);
+          if (tomorrowData.games.length > 0) {
+            console.log(`✅ Found ${tomorrowData.games.length} games for tomorrow - STOPPING HERE`);
+            setGames(tomorrowData.games);
+            setLoading(false);
+            return;
+          }
         }
+        
+        // If no games tomorrow, check the next few days (but limit to 3 days to avoid Sunday games)
+        for (let i = 2; i <= 4; i++) {
+          const checkDate = new Date(todayET);
+          checkDate.setDate(todayET.getDate() + i);
+          const checkDateStr = checkDate.toISOString().split('T')[0];
+          
+          console.log(`📅 Checking ${checkDateStr}`);
+          const response = await fetch(`/api/schedule/date?date=${checkDateStr}`);
+          if (response.ok) {
+            const data = await response.json();
+            console.log(`📊 ${checkDateStr} has ${data.games.length} games`);
+            if (data.games.length > 0) {
+              console.log(`✅ Found ${data.games.length} games for ${checkDateStr} - STOPPING HERE`);
+              setGames(data.games);
+              setLoading(false);
+              return;
+            }
+          }
+        }
+        
+        // No games found
+        console.log('⚠️ No upcoming games found');
+        setGames([]);
+        setLoading(false);
+        
       } catch (error) {
         console.error('❌ Error loading upcoming games:', error);
         setGames([]);
-      } finally {
         setLoading(false);
       }
     }
@@ -130,16 +154,29 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
   };
 
   const formatGameDate = (gameTime: string) => {
-    const date = new Date(gameTime);
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    // Parse the game date from the API response (format: 2025-10-23T20:15:00)
+    const gameDate = new Date(gameTime);
     
-    if (date.toDateString() === tomorrow.toDateString()) {
+    // Get today's date in Eastern Time
+    const today = new Date();
+    const todayET = new Date(today.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+    const tomorrow = new Date(todayET);
+    tomorrow.setDate(todayET.getDate() + 1);
+    const dayAfterTomorrow = new Date(todayET);
+    dayAfterTomorrow.setDate(todayET.getDate() + 2);
+    
+    // Compare dates (ignoring time)
+    const gameDateStr = gameDate.toDateString();
+    const tomorrowStr = tomorrow.toDateString();
+    const dayAfterTomorrowStr = dayAfterTomorrow.toDateString();
+    
+    if (gameDateStr === tomorrowStr) {
       return 'Tomorrow';
+    } else if (gameDateStr === dayAfterTomorrowStr) {
+      return 'Day After Tomorrow';
     }
     
-    return date.toLocaleDateString('en-US', {
+    return gameDate.toLocaleDateString('en-US', {
       weekday: 'long',
       month: 'short',
       day: 'numeric'
@@ -154,8 +191,8 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
 
   return (
     <div className={`bg-white rounded-xl shadow-lg border border-gray-200 ${className}`}>
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
+      <div className="p-2">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center space-x-2">
             <Calendar className="w-6 h-6 text-purple-600" />
             <h2 className="text-2xl font-bold text-gray-900">Upcoming Games</h2>
@@ -192,17 +229,17 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
             </>
           )}
 
-          {/* Games List */}
-          <div 
-            ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
+        {/* Games List */}
+        <div 
+          ref={scrollContainerRef}
+          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
             {games.map((game) => (
               <Link
                 key={game.id}
                 href={`/matchup/${game.id}`}
-                className="flex-shrink-0 w-80 bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all hover:border-purple-300 snap-start cursor-pointer"
+                className="flex-shrink-0 w-96 bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all hover:border-purple-300 snap-start cursor-pointer"
               >
                 {/* Gradient Banner */}
                 <div 
@@ -210,8 +247,8 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                   style={getGradientStyle(game.awayTeam.primaryColor, game.homeTeam.primaryColor)}
                 />
                 
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-4">
+                <div className="p-3">
+                  <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center space-x-3">
                       <div className="flex items-center space-x-2">
                         <Clock className="w-4 h-4 text-gray-500" />
@@ -233,22 +270,22 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                   </div>
 
                   {/* Date */}
-                  <div className="text-center mb-4">
+                  <div className="text-center mb-2">
                     <span className="text-sm font-medium text-purple-600">
                       {formatGameDate(game.gameTime)}
                     </span>
                   </div>
 
                   {/* Teams */}
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-2">
                     {/* Away Team */}
-                    <div className="flex items-center space-x-3 flex-1">
+                    <div className="flex items-center space-x-2 flex-1 min-w-0">
                       <div className="flex-shrink-0">
                         <Image
                           src={`https://a.espncdn.com/i/teamlogos/nfl/500/${game.awayTeam.id.toLowerCase()}.png`}
                           alt={game.awayTeam.name}
-                          width={40}
-                          height={40}
+                          width={32}
+                          height={32}
                           className="rounded-full"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
@@ -256,12 +293,12 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                             target.nextElementSibling?.classList.remove('hidden');
                           }}
                         />
-                        <div className={`w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 hidden`}>
+                        <div className={`w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 hidden`}>
                           {game.awayTeam.abbr}
                         </div>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-sm truncate">{game.awayTeam.name}</h3>
+                        <h3 className="font-semibold text-gray-900 text-xs truncate">{game.awayTeam.name}</h3>
                         <p className="text-xs text-gray-600">
                           {game.awayTeam.record}
                         </p>
@@ -269,14 +306,14 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                     </div>
 
                     {/* VS */}
-                    <div className="flex flex-col items-center mx-4">
-                      <div className="text-sm font-bold text-gray-500">VS</div>
+                    <div className="flex flex-col items-center mx-2 flex-shrink-0">
+                      <div className="text-xs font-bold text-gray-500">VS</div>
                     </div>
 
                     {/* Home Team */}
-                    <div className="flex items-center space-x-3 flex-1 justify-end">
+                    <div className="flex items-center space-x-2 flex-1 min-w-0 justify-end">
                       <div className="flex-1 text-right min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-sm truncate">{game.homeTeam.name}</h3>
+                        <h3 className="font-semibold text-gray-900 text-xs truncate">{game.homeTeam.name}</h3>
                         <p className="text-xs text-gray-600">
                           {game.homeTeam.record}
                         </p>
@@ -285,8 +322,8 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                         <Image
                           src={`https://a.espncdn.com/i/teamlogos/nfl/500/${game.homeTeam.id.toLowerCase()}.png`}
                           alt={game.homeTeam.name}
-                          width={40}
-                          height={40}
+                          width={32}
+                          height={32}
                           className="rounded-full"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
@@ -294,7 +331,7 @@ export default function UpcomingGames({ className = '' }: UpcomingGamesProps) {
                             target.nextElementSibling?.classList.remove('hidden');
                           }}
                         />
-                        <div className={`w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 hidden`}>
+                        <div className={`w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 hidden`}>
                           {game.homeTeam.abbr}
                         </div>
                       </div>

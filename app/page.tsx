@@ -34,7 +34,6 @@ interface Game {
 
 export default function Home() {
   const [featuredTeams, setFeaturedTeams] = useState<TeamWithRecord[]>([]);
-  const [upcomingGames, setUpcomingGames] = useState<Game[]>([]);
   const [topPlayers, setTopPlayers] = useState<TopPlayer[]>([]);
   const [loading, setLoading] = useState(true);
   const [playersLoading, setPlayersLoading] = useState(true);
@@ -79,22 +78,7 @@ export default function Home() {
       // Sort teams to show user's local team first
       const sortedTeams = sortTeamsByLocation(teams, userLocation);
       
-      // Fetch real 2025 schedule data
-      try {
-        console.log('📅 Loading current week schedule...');
-        const scheduleResponse = await fetch('/api/schedule/current?week=7'); // Current week
-        if (scheduleResponse.ok) {
-          const scheduleData = await scheduleResponse.json();
-          console.log(`✅ Loaded ${scheduleData.games.length} games for week ${scheduleData.week}`);
-          setUpcomingGames(scheduleData.games);
-        } else {
-          console.log('⚠️ Could not load schedule, using fallback');
-          setUpcomingGames([]);
-        }
-      } catch (error) {
-        console.error('❌ Error loading schedule:', error);
-        setUpcomingGames([]);
-      }
+      // Schedule data is now handled by the UpcomingGames component
       
       setFeaturedTeams(sortedTeams.slice(0, 8));
       setLoading(false);
@@ -505,12 +489,12 @@ export default function Home() {
       </section>
 
       {/* Games Today Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <GamesToday />
       </section>
 
       {/* Upcoming Games Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <UpcomingGames />
       </section>
 
@@ -614,74 +598,6 @@ export default function Home() {
         )}
       </section>
 
-      {/* Upcoming Games Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">This Week&apos;s Games</h2>
-          <Link href="/schedule" className="text-blue-600 hover:text-blue-700 font-semibold">
-            Full Schedule →
-          </Link>
-        </div>
-
-        {loading ? (
-          <div className="space-y-4">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-white p-6 rounded-lg shadow animate-pulse">
-                <div className="h-6 bg-gray-200 rounded w-1/4 mb-4"></div>
-                <div className="h-8 bg-gray-200 rounded w-3/4"></div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {upcomingGames.map((game) => (
-              <div key={game.id} className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
-                <div className="text-sm text-gray-500 mb-3">
-                  {new Date(game.date).toLocaleDateString('en-US', { 
-                    weekday: 'short', 
-                    month: 'short', 
-                    day: 'numeric',
-                    hour: 'numeric',
-                    minute: '2-digit'
-                  })}
-                </div>
-                <div className="space-y-2">
-                  {game.competitions[0]?.competitors.map((competitor) => (
-                    <div key={competitor.id} className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        {competitor.team.logos?.[0]?.href && (
-                          <div className="relative w-8 h-8">
-                            <Image
-                              src={competitor.team.logos[0].href}
-                              alt={competitor.team.displayName}
-                              fill
-                              className="object-contain"
-                            />
-                          </div>
-                        )}
-                        <Link 
-                          href={`/teams/${competitor.team.id}`}
-                          className="font-semibold hover:text-blue-600"
-                        >
-                          {competitor.team.displayName}
-                        </Link>
-                      </div>
-                      {competitor.score && (
-                        <span className="text-xl font-bold">{competitor.score}</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                {game.competitions[0]?.broadcasts?.[0] && (
-                  <div className="mt-3 text-sm text-gray-500">
-                    📺 {game.competitions[0].broadcasts[0].names.join(', ')}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
 
       {/* CTA Section */}
       <section className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white py-16">
