@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/database/hybrid-connection';
+import { getRow, getRows } from '@/lib/database/hybrid-connection';
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,8 +10,6 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Player ID is required' }, { status: 400 });
     }
 
-    const db = getDatabase();
-    
     // First, get the player's team from season stats
     const playerQuery = `
       SELECT p.team, s.team as season_team
@@ -19,7 +17,7 @@ export async function GET(request: NextRequest) {
       LEFT JOIN player_season_stats s ON p.player_id = s.player_id AND s.season = 2025
       WHERE p.player_id = ?
     `;
-    const player = db.prepare(playerQuery).get(playerId);
+    const player = await getRow(playerQuery, [playerId]);
     
     if (!player) {
       return NextResponse.json({ error: 'Player not found' }, { status: 404 });
@@ -55,7 +53,7 @@ export async function GET(request: NextRequest) {
       LIMIT 30
     `;
     
-    const allTeammates = db.prepare(teammatesQuery).all(team, playerId);
+    const allTeammates = await getRows(teammatesQuery, [team, playerId]);
     
     // Separate offense and defense players
     const offensePositions = ['QB', 'RB', 'WR', 'TE', 'FB', 'OL', 'C', 'G', 'T'];

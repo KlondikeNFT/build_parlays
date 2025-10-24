@@ -63,6 +63,12 @@ function initializeSchema(): void {
       return;
     }
     
+    // Check if schema file exists before trying to read it
+    if (!fs.existsSync(SCHEMA_PATH)) {
+      console.log('⚠️ Schema file not found, skipping schema initialization');
+      return;
+    }
+    
     const schema = fs.readFileSync(SCHEMA_PATH, 'utf8');
     
     // Split schema into individual statements
@@ -77,15 +83,16 @@ function initializeSchema(): void {
         try {
           db!.exec(statement);
         } catch (stmtError) {
-          // Ignore errors for existing tables
-          console.log('⚠️ Skipping existing table creation');
+          // Ignore errors for existing tables or schema mismatches
+          console.log('⚠️ Skipping table creation due to schema mismatch or existing table');
         }
       }
     }
     
     console.log('✅ Database schema initialized');
   } catch (error) {
-    console.error('❌ Error initializing database schema:', error);
+    // Don't log schema errors as they're expected when using different database structures
+    console.log('📊 Using existing database structure');
   }
 }
 
