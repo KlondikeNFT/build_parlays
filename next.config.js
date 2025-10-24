@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['a.espncdn.com', 'static.www.nfl.com', 's3-us-west-2.amazonaws.com'],
+    domains: ['a.espncdn.com', 'static.www.nfl.com', 's3-us-west-2.amazonaws.com', 'upload.wikimedia.org'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -14,6 +14,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 's3-us-west-2.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
       },
     ],
   },
