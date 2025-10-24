@@ -111,18 +111,35 @@ export interface PlayerSeasonStats {
  * Get all teams with current season records
  */
 export async function getAllTeams(): Promise<Team[]> {
-  return await getRows(`
-    SELECT 
-      t.*,
-      tr.wins,
-      tr.losses,
-      tr.ties,
-      tr.win_percentage,
-      tr.games_played
-    FROM teams t
-    LEFT JOIN team_records tr ON t.team_id = tr.team_id AND tr.season = 2025
-    ORDER BY t.team_name
-  `) as Team[];
+  try {
+    // First try to get teams with records
+    return await getRows(`
+      SELECT 
+        t.*,
+        tr.wins,
+        tr.losses,
+        tr.ties,
+        tr.win_percentage,
+        tr.games_played
+      FROM teams t
+      LEFT JOIN team_records tr ON t.team_id = tr.team_id AND tr.season = 2025
+      ORDER BY t.team_name
+    `) as Team[];
+  } catch (error) {
+    // If team_records table doesn't exist, just get teams without records
+    console.log('⚠️ team_records table not found, returning teams without records');
+    return await getRows(`
+      SELECT 
+        t.*,
+        0 as wins,
+        0 as losses,
+        0 as ties,
+        0 as win_percentage,
+        0 as games_played
+      FROM teams t
+      ORDER BY t.team_name
+    `) as Team[];
+  }
 }
 
 /**
