@@ -56,6 +56,13 @@ export function getDatabase(): any {
  */
 function initializeSchema(): void {
   try {
+    // Skip schema initialization if database already has data
+    const tableCheck = db!.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='players'").get();
+    if (tableCheck) {
+      console.log('📊 Database already exists, skipping schema initialization');
+      return;
+    }
+    
     const schema = fs.readFileSync(SCHEMA_PATH, 'utf8');
     
     // Split schema into individual statements
@@ -67,7 +74,12 @@ function initializeSchema(): void {
     // Execute each statement
     for (const statement of statements) {
       if (statement.toUpperCase().startsWith('CREATE')) {
-        db!.exec(statement);
+        try {
+          db!.exec(statement);
+        } catch (stmtError) {
+          // Ignore errors for existing tables
+          console.log('⚠️ Skipping existing table creation');
+        }
       }
     }
     
