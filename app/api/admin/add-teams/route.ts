@@ -4,10 +4,10 @@ import { getRow, getRows, executeQuery } from '@/lib/database/hybrid-connection'
 // Complete list of all 32 NFL teams with their data
 const allNFLTeams = [
   // AFC East
-  { team_id: 'BUF', team_name: 'Buffalo Bills', team_abbr: 'BUF', team_conference: 'AFC', team_division: 'East', team_color_primary: '#00338D', team_color_secondary: '#C60C30', team_logo_url: 'https://upload.wikimedia.org/wikipedia/en/7/77/Buffalo_Bills_logo.svg' },
-  { team_id: 'MIA', team_name: 'Miami Dolphins', team_abbr: 'MIA', team_conference: 'AFC', team_division: 'East', team_color_primary: '#008E97', team_color_secondary: '#FC4C02', team_logo_url: 'https://upload.wikimedia.org/wikipedia/en/3/37/Miami_Dolphins_logo.svg' },
-  { team_id: 'NE', team_name: 'New England Patriots', team_abbr: 'NE', team_conference: 'AFC', team_division: 'East', team_color_primary: '#002244', team_color_secondary: '#C60C30', team_logo_url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/New_England_Patriots_logo.svg' },
-  { team_id: 'NYJ', team_name: 'New York Jets', team_abbr: 'NYJ', team_conference: 'AFC', team_division: 'East', team_color_primary: '#125740', team_color_secondary: '#000000', team_logo_url: 'https://upload.wikimedia.org/wikipedia/en/6/6b/New_York_Jets_logo.svg' },
+  { team_id: 'BUF', team_name: 'Buffalo Bills', team_abbr: 'BUF', team_conference: 'AFC', team_division: 'East', team_color_primary: '#00338D', team_color_secondary: '#C60C30', team_logo_url: 'https://upload.wikimedia.org/wikipedia/en/7/77/Buffalo_Bills_logo.svg', wins: 4, losses: 3, ties: 0 },
+  { team_id: 'MIA', team_name: 'Miami Dolphins', team_abbr: 'MIA', team_conference: 'AFC', team_division: 'East', team_color_primary: '#008E97', team_color_secondary: '#FC4C02', team_logo_url: 'https://upload.wikimedia.org/wikipedia/en/3/37/Miami_Dolphins_logo.svg', wins: 4, losses: 3, ties: 0 },
+  { team_id: 'NE', team_name: 'New England Patriots', team_abbr: 'NE', team_conference: 'AFC', team_division: 'East', team_color_primary: '#002244', team_color_secondary: '#C60C30', team_logo_url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/New_England_Patriots_logo.svg', wins: 2, losses: 5, ties: 0 },
+  { team_id: 'NYJ', team_name: 'New York Jets', team_abbr: 'NYJ', team_conference: 'AFC', team_division: 'East', team_color_primary: '#125740', team_color_secondary: '#000000', team_logo_url: 'https://upload.wikimedia.org/wikipedia/en/6/6b/New_York_Jets_logo.svg', wins: 3, losses: 4, ties: 0 },
   
   // AFC North
   { team_id: 'BAL', team_name: 'Baltimore Ravens', team_abbr: 'BAL', team_conference: 'AFC', team_division: 'North', team_color_primary: '#241773', team_color_secondary: '#000000', team_logo_url: 'https://upload.wikimedia.org/wikipedia/en/1/16/Baltimore_Ravens_logo.svg' },

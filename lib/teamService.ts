@@ -102,7 +102,7 @@ export async function getAllTeams(): Promise<TeamWithRecord[]> {
         wins: team.wins || 0,
         losses: team.losses || 0,
         ties: team.ties || 0,
-        record: `${team.wins || 0}-${team.losses || 0}`,
+        record: team.wins !== null && team.losses !== null ? `${team.wins}-${team.losses}` : 'TBD',
       }));
       
       console.log(`✅ Loaded ${teamsWithRecords.length} teams from database`);
