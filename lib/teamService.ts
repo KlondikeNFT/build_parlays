@@ -74,8 +74,8 @@ export async function getAllTeams(): Promise<TeamWithRecord[]> {
   try {
     console.log('📡 Loading NFL teams from database...');
     
-    // Try to fetch from API route
-    const response = await fetch('/api/database/teams');
+    // Try to fetch from API route with cache busting
+    const response = await fetch(`/api/database/teams?t=${Date.now()}`);
     if (response.ok) {
       const teams = await response.json();
       
@@ -170,8 +170,8 @@ export async function getTeamWithRoster(teamAbbr: string): Promise<TeamWithRoste
   try {
     console.log(`📡 Loading roster for ${teamAbbr}...`);
     
-    // Try to fetch team data from API
-    const teamResponse = await fetch(`/api/database/teams`);
+    // Try to fetch team data from API with cache busting
+    const teamResponse = await fetch(`/api/database/teams?t=${Date.now()}`);
     if (teamResponse.ok) {
       const teams = await teamResponse.json();
       const team = teams.find((t: any) => t.team_abbr === teamAbbr);
@@ -194,8 +194,8 @@ export async function getTeamWithRoster(teamAbbr: string): Promise<TeamWithRoste
           WikipediaWordMarkUrl: '',
         };
         
-        // Try to fetch roster data
-        const rosterResponse = await fetch(`/api/database/players?team=${teamAbbr}`);
+        // Try to fetch roster data with cache busting
+        const rosterResponse = await fetch(`/api/database/players?team=${teamAbbr}&t=${Date.now()}`);
         let roster: SDPlayer[] = [];
         
         if (rosterResponse.ok) {
