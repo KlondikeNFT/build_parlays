@@ -20,7 +20,7 @@ export async function GET(request: Request) {
       // Get specific player by ID
       console.log(`API: Fetching player by ID: ${id}`);
       
-      // Get player info
+      // Get player info with team logo URL
       const player = await getRow(`
         SELECT 
           p.player_id,
@@ -35,8 +35,10 @@ export async function GET(request: Request) {
           p.weight,
           p.birth_date,
           p.college,
-          p.experience
+          p.experience,
+          t.team_logo_url
         FROM players p
+        LEFT JOIN teams t ON p.team = t.team_abbr
         WHERE p.player_id = ?
       `, [id]);
       
