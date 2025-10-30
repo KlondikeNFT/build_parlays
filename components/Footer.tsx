@@ -30,6 +30,11 @@ export default function Footer() {
                   Search Players
                 </Link>
               </li>
+              <li>
+                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
           
@@ -63,6 +68,12 @@ export default function Footer() {
               className="text-blue-400 hover:text-blue-300 transition-colors"
             >
               NFLverse
+            </a>
+          </p>
+          <p className="text-gray-400 text-sm mt-3">
+            Contact us: {' '}
+            <a href="mailto:contact@buildparlays.com" className="text-blue-400 hover:text-blue-300">
+              contact@buildparlays.com
             </a>
           </p>
         </div>
