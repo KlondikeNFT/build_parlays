@@ -1,3 +1,5 @@
+2025-10-30
+- Fix contact API regex and force Node.js runtime for Nodemailer.
 # Recent Changes - AI Branding Update
 
 ## Summary
