@@ -7,14 +7,19 @@ export const dynamic = 'force-dynamic'
 
 export async function POST(request: Request) {
   try {
-    const { name, email, subject, message } = await request.json()
+    const payload = await request.json() as any
+    const name = String(payload?.name || '').trim()
+    const email = String(payload?.email || '').trim()
+    const subject = String(payload?.subject || '').trim()
+    const message = String(payload?.message || '').trim()
 
     if (!name || !email || !subject || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
-    const emailRegex = new RegExp('^[^\\\\s@]+@[^\\\\s@]+\\\\.[^\\\\s@]+$')
+    const emailRegex = new RegExp('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
     if (!emailRegex.test(email)) {
+      console.error('Invalid email received for contact form')
       return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
     }
 
