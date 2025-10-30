@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
+// Ensure this API runs on the Node.js runtime (not Edge) for Nodemailer
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: Request) {
   try {
     const { name, email, subject, message } = await request.json()
